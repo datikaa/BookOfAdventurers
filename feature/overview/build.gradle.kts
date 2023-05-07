@@ -10,6 +10,8 @@ android {
 
 dependencies {
 
+    implementation(project(":core:design"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.appcompat)
     testImplementation(libs.junit)

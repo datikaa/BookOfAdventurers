@@ -1,0 +1,1 @@
+Should move db related stuff to :core I guess ... :thinking:

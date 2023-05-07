@@ -8,6 +8,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/vcs.xml
+/.idea/gradle.xml
 .DS_Store
 /build
 /captures
@@ -16,7 +17,4 @@
 local.properties
 
 # Project exclude paths
-/build-logic/convention/build/
-/build-logic/convention/build/classes/kotlin/main/
-/core/design/build/
-/feature/overview/build/
+/**/build/

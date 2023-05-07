@@ -38,6 +38,7 @@ android {
 dependencies {
 
     implementation(project(":core:design"))
+    implementation(project(":feature:char-core"))
     implementation(project(":feature:overview"))
 
     implementation(libs.activity.compose)
