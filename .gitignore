@@ -7,6 +7,7 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/vcs.xml
 .DS_Store
 /build
 /captures
@@ -18,3 +19,4 @@ local.properties
 /build-logic/convention/build/
 /build-logic/convention/build/classes/kotlin/main/
 /core/design/build/
+/feature/overview/build/
