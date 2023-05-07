@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.datikaa.charlatan.core.design.m3.CharlatanM3Theme
-import com.datikaa.charlatan.feature.overview.OverviewScreen
+import com.datikaa.charlatan.feature.overview.ui.OverviewScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
