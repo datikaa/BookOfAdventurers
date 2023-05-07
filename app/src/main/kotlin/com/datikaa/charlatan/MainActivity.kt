@@ -3,28 +3,16 @@ package com.datikaa.charlatan
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
 import com.datikaa.charlatan.core.design.m3.CharlatanM3Theme
-import com.datikaa.charlatan.feature.charcore.CmmDatabase
 import com.datikaa.charlatan.feature.overview.ui.OverviewScreen
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // random stuff to init the db
-        val db by inject<CmmDatabase>()
-        lifecycleScope.launch(context = Dispatchers.IO) {
-            db.characterDao().getCharactersWithAttributes()
-        }
 
         setContent {
             CharlatanM3Theme {
@@ -33,9 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Box {
-                        OverviewScreen()
-                    }
+                    OverviewScreen(modifier = Modifier.fillMaxSize())
                 }
             }
         }

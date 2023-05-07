@@ -11,8 +11,10 @@ android {
 dependencies {
 
     implementation(project(":core:design"))
+    implementation(project(":feature:char-core"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.lifecycle.runtime.compose)
     implementation(libs.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

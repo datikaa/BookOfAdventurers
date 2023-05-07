@@ -2,14 +2,15 @@ package com.datikaa.charlatan.feature.charcore
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(character: Character)
 
     @Update
@@ -18,7 +19,15 @@ interface CharacterDao {
     @Update
     fun updateAttribute(characterAttribute: CharAttribute)
 
-    @Transaction
-    @Query("SELECT * FROM Character")
-    fun getCharactersWithAttributes(): List<CharacterWithAttributes>
+    @Query("SELECT * FROM CharAttribute")
+    fun getAttributes(): Flow<List<CharAttribute>>
+
+    @Insert
+    fun insertAttribute(characterAttribute: CharAttribute)
+
+    @Query("DELETE FROM CharAttribute")
+    fun deleteAttributes()
+
+    @Query("DELETE FROM Character")
+    fun deleteCharacter()
 }
