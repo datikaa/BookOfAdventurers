@@ -84,9 +84,9 @@ private fun ModifierView(
                             valueText = it
                         }
                     },
+                    isError = valueError,
                     label = { Text("Value") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    isError = valueError,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Button(onClick = onAddClick, Modifier.fillMaxWidth()) {
