@@ -53,28 +53,40 @@ private fun ModifierView(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var attrNameText by remember { mutableStateOf("") }
-                var attrValueText by remember { mutableStateOf("10") }
+                var nameText by remember { mutableStateOf("") }
+                var valueText by remember { mutableStateOf("10") }
+                var nameError by remember { mutableStateOf(false) }
+                var valueError by remember { mutableStateOf(false) }
                 val onAddClick = {
-                    addAttributeClick(attrNameText, attrValueText.toInt())
-                    attrNameText = ""
-                    attrValueText = "10"
+                    nameError = nameText.isBlank()
+                    valueError = valueText.isBlank() || !valueText.isDigitsOnly()
+                    if (!nameError && !valueError) {
+                        addAttributeClick(nameText, valueText.toInt())
+                        nameText = ""
+                        valueText = "10"
+                    }
                 }
                 OutlinedTextField(
-                    value = attrNameText,
-                    onValueChange = { attrNameText = it },
+                    value = nameText,
+                    onValueChange = {
+                        nameError = false
+                        nameText = it
+                    },
+                    isError = nameError,
                     label = { Text("Name") },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 OutlinedTextField(
-                    value = attrValueText,
+                    value = valueText,
                     onValueChange = {
+                        valueError = false
                         if (it.isDigitsOnly()) {
-                            attrValueText = it
+                            valueText = it
                         }
                     },
                     label = { Text("Value") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    isError = valueError,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Button(onClick = onAddClick, Modifier.fillMaxWidth()) {
