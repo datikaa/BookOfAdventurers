@@ -17,6 +17,6 @@ class FlowListOfAttributesUseCase(
         }.flowOn(Dispatchers.IO)
 
     private fun CharAttribute.toDomain() = Attribute(
-        name = name, value = value,
+        id = charAttributeId, name = name, value = value,
     )
 }
