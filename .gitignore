@@ -3,13 +3,13 @@
 /local.properties
 /.idea/caches
 /.idea/deploymentTargetDropDown.xml
+/.idea/gradle.xml
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/vcs.xml
-/.idea/gradle.xml
 .DS_Store
 /build
 /captures

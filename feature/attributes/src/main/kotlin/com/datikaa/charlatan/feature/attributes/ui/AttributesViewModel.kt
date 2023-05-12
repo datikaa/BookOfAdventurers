@@ -2,10 +2,8 @@ package com.datikaa.charlatan.feature.attributes.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datikaa.charlatan.core.database.CharAttribute
-import com.datikaa.charlatan.core.database.CmmDatabase
-import com.datikaa.charlatan.feature.attributes.domain.Attribute
-import kotlinx.coroutines.Dispatchers
+import com.datikaa.charlatan.feature.attributes.domain.AddAttributeUseCase
+import com.datikaa.charlatan.feature.attributes.domain.FlowListOfAttributesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -13,7 +11,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AttributesViewModel(
-    private val db: CmmDatabase,
+    private val addAttributeUseCase: AddAttributeUseCase,
+    private val flowListOfAttributesUseCase: FlowListOfAttributesUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AttributesUiState(emptyList()))
@@ -21,25 +20,17 @@ class AttributesViewModel(
 
     init {
         viewModelScope.launch {
-            db.characterDao().getAttributes().collectLatest { attributes ->
+            flowListOfAttributesUseCase().collectLatest { newList ->
                 _uiState.update { prev ->
-                    prev.copy(
-                        attributeList = attributes.map { it.toDomain() }
-                    )
+                    prev.copy(attributeList = newList)
                 }
             }
         }
     }
 
     fun addAttribute(text: String, value: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            db.characterDao().insertAttribute(
-                CharAttribute(0, text, value)
-            )
+        viewModelScope.launch {
+            addAttributeUseCase(text, value)
         }
     }
 }
-
-private fun CharAttribute.toDomain() = Attribute(
-    name = name, value = value,
-)

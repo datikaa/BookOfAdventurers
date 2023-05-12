@@ -2,52 +2,46 @@ package com.datikaa.charlatan.feature.overview.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datikaa.charlatan.core.database.CharAttribute
-import com.datikaa.charlatan.core.database.Character
-import com.datikaa.charlatan.core.database.CmmDatabase
-import com.datikaa.charlatan.feature.overview.domain.Attribute
-import kotlinx.coroutines.Dispatchers
+import com.datikaa.charlatan.feature.overview.domain.AddOrEditCharacterUseCase
+import com.datikaa.charlatan.feature.overview.domain.ClearEverythingUseCase
+import com.datikaa.charlatan.feature.overview.domain.FlowListOfAttributesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class OverviewViewModel(
-    private val db: CmmDatabase,
+    private val addOrEditCharacterUseCase: AddOrEditCharacterUseCase,
+    private val clearEverythingUseCase: ClearEverythingUseCase,
+    private val flowListOfAttributesUseCase: FlowListOfAttributesUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(initUiState)
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            db.characterDao().getAttributes().collect { attrs ->
+        viewModelScope.launch {
+            flowListOfAttributesUseCase().collectLatest { attrs ->
                 _uiState.update { uiState ->
-                    uiState.copy(attributes = attrs.map { it.toDomain() })
+                    uiState.copy(attributes = attrs)
                 }
             }
         }
     }
 
     fun addChar(text: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            db.characterDao().insert(
-                Character(1, text)
-            )
+        viewModelScope.launch {
+            addOrEditCharacterUseCase(text)
         }
     }
 
     fun clearDb() {
-        viewModelScope.launch(Dispatchers.IO) {
-            db.characterDao().deleteAttributes()
-            db.characterDao().deleteCharacter()
+        viewModelScope.launch {
+            clearEverythingUseCase()
         }
     }
 }
-
-private fun CharAttribute.toDomain() = Attribute(
-    name = name, value = value,
-)
 
 private val initUiState = OverviewUiState(
     attributes = emptyList()
