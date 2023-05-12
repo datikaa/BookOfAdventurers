@@ -11,7 +11,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.datikaa.charlatan.core.design.m3.CharlatanM3Theme
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.attributes.ui.ModifiersScreen
 import com.datikaa.charlatan.feature.overview.ui.OverviewNavigation
