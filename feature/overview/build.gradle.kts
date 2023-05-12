@@ -10,8 +10,8 @@ android {
 
 dependencies {
 
+    implementation(project(":core:database"))
     implementation(project(":core:design"))
-    implementation(project(":feature:char-core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.appcompat)

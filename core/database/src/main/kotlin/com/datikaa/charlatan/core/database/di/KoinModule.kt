@@ -1,7 +1,7 @@
-package com.datikaa.charlatan.feature.charcore.di
+package com.datikaa.charlatan.core.database.di
 
 import androidx.room.Room
-import com.datikaa.charlatan.feature.charcore.CmmDatabase
+import com.datikaa.charlatan.core.database.CmmDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

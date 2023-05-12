@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.feature.charcore
+package com.datikaa.charlatan.core.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

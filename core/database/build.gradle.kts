@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datikaa.charlatan.feature.charcore"
+    namespace = "com.datikaa.charlatan.core.database"
 
     defaultConfig {
         ksp {

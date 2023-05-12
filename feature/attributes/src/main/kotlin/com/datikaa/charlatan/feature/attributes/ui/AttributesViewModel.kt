@@ -2,8 +2,8 @@ package com.datikaa.charlatan.feature.attributes.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datikaa.charlatan.feature.charcore.CharAttribute
-import com.datikaa.charlatan.feature.charcore.CmmDatabase
+import com.datikaa.charlatan.core.database.CharAttribute
+import com.datikaa.charlatan.core.database.CmmDatabase
 import com.datikaa.charlatan.feature.attributes.domain.Attribute
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
