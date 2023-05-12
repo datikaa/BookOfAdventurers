@@ -11,7 +11,7 @@ class IncreaseValueOfAttributeUseCase(
 
     suspend operator fun invoke(attribute: Attribute) {
         withContext(Dispatchers.IO) {
-            database.characterDao().updateAttribute(
+            database.attributesDao().updateAttribute(
                 CharAttribute(attribute.id, attribute.name, attribute.value + 1)
             )
         }

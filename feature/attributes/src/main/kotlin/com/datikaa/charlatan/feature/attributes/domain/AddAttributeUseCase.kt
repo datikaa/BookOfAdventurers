@@ -11,7 +11,7 @@ class AddAttributeUseCase(
 
     suspend operator fun invoke(text: String, value: Int) {
         withContext(Dispatchers.IO) {
-            database.characterDao().insertAttribute(
+            database.attributesDao().insertAttribute(
                 CharAttribute(0, text, value)
             )
         }

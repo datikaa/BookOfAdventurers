@@ -12,7 +12,7 @@ class FlowListOfAttributesUseCase(
 ) {
 
     operator fun invoke(): Flow<List<Attribute>> =
-        database.characterDao().getAttributes().map { list ->
+        database.attributesDao().getAttributes().map { list ->
             list.map { it.toDomain() }
         }.flowOn(Dispatchers.IO)
 

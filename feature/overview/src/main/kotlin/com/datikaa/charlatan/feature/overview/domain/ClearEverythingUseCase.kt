@@ -10,7 +10,7 @@ class ClearEverythingUseCase(
 
     suspend operator fun invoke() {
         withContext(Dispatchers.IO) {
-            database.characterDao().deleteAttributes()
+            database.attributesDao().deleteAttributes()
             database.characterDao().deleteCharacter()
         }
     }

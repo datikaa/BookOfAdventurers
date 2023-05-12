@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
@@ -15,18 +14,6 @@ interface CharacterDao {
 
     @Update
     fun update(character: Character)
-
-    @Update
-    fun updateAttribute(characterAttribute: CharAttribute)
-
-    @Query("SELECT * FROM CharAttribute")
-    fun getAttributes(): Flow<List<CharAttribute>>
-
-    @Insert
-    fun insertAttribute(characterAttribute: CharAttribute)
-
-    @Query("DELETE FROM CharAttribute")
-    fun deleteAttributes()
 
     @Query("DELETE FROM Character")
     fun deleteCharacter()
