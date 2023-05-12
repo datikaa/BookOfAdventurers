@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":core:design"))
     implementation(project(":feature:char-core"))
     implementation(project(":feature:overview"))
+    implementation(project(":feature:attributes"))
 
     implementation(libs.activity.compose)
 
@@ -51,6 +52,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
+
+    implementation(libs.androidx.navigation.navigationCompose)
 
     implementation(libs.koin.android)
 }

@@ -29,14 +29,6 @@ class OverviewViewModel(
         }
     }
 
-    fun addAttribute(text: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            db.characterDao().insertAttribute(
-                CharAttribute(0, text, 10)
-            )
-        }
-    }
-
     fun addChar(text: String) {
         viewModelScope.launch(Dispatchers.IO) {
             db.characterDao().insert(

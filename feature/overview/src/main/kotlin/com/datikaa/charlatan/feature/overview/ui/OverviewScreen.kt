@@ -23,21 +23,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
+import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.overview.domain.Attribute
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OverviewScreen(
-    modifier: Modifier = Modifier, overviewViewModel: OverviewViewModel = koinViewModel()
+    navigationEvent: (OverviewNavigation) -> Unit,
+    modifier: Modifier = Modifier,
+    overviewViewModel: OverviewViewModel = koinViewModel()
 ) {
     val uiState by overviewViewModel.uiState.collectAsStateWithLifecycle()
 
     OverviewView(
         overviewUiState = uiState,
-        addAttrName = overviewViewModel::addAttribute,
         addCharName = overviewViewModel::addChar,
         clear = overviewViewModel::clearDb,
-        modifier = modifier,
+        navigateToModifiers = { navigationEvent(OverviewNavigation.Modifiers) },
+        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 
@@ -45,16 +48,16 @@ fun OverviewScreen(
 fun OverviewView(
     overviewUiState: OverviewUiState,
     addCharName: (String) -> Unit,
-    addAttrName: (String) -> Unit,
     clear: () -> Unit,
+    navigateToModifiers: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.then(Modifier.padding(4.dp)),
+        modifier = modifier,
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-            CmmTitledCard(title = "Attributes") {
+            CmmTitledCard(title = "Attrs") {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.align(Alignment.Center),
@@ -77,14 +80,9 @@ fun OverviewView(
             CmmTitledCard(title = "Add stuff here") {
                 Column {
                     var charNameText by remember { mutableStateOf("") }
-                    var attrNameText by remember { mutableStateOf("") }
                     val addName = {
                         addCharName(charNameText)
                         charNameText = ""
-                    }
-                    val addAttr = {
-                        addAttrName(attrNameText)
-                        attrNameText = ""
                     }
                     OutlinedTextField(
                         value = charNameText,
@@ -94,19 +92,16 @@ fun OverviewView(
                     Button(onClick = addName) {
                         Text("Add")
                     }
-                    OutlinedTextField(
-                        value = attrNameText,
-                        onValueChange = { attrNameText = it },
-                        label = { Text("attrName") }
-                    )
-                    Button(onClick = addAttr) {
-                        Text("Add")
-                    }
                 }
             }
         }
-        Button(onClick = { clear() }) {
-            Text("Clear DB")
+        Row {
+            Button(onClick = { navigateToModifiers() }) {
+                Text("Attributes screen")
+            }
+            Button(onClick = { clear() }) {
+                Text("Clear DB")
+            }
         }
     }
 }
@@ -123,7 +118,7 @@ private fun Preview() {
             )
         ),
         addCharName = {},
-        addAttrName = {},
         clear = {},
+        navigateToModifiers = {},
     )
 }
