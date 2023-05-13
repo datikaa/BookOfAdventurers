@@ -1,6 +1,6 @@
 package com.datikaa.charlatan.feature.attributes.domain
 
-import com.datikaa.charlatan.core.database.CharAttribute
+import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.CmmDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,7 +12,7 @@ class AddAttributeUseCase(
     suspend operator fun invoke(text: String, value: Int) {
         withContext(Dispatchers.IO) {
             database.attributesDao().insertAttribute(
-                CharAttribute(0, text, value)
+                AttributeEntity(0, text, value)
             )
         }
     }

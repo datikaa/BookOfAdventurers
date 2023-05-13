@@ -1,6 +1,6 @@
 package com.datikaa.charlatan.feature.overview.domain
 
-import com.datikaa.charlatan.core.database.CharAttribute
+import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.CmmDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,7 @@ class FlowListOfAttributesUseCase(
             list.map { it.toDomain() }
         }.flowOn(Dispatchers.IO)
 
-    private fun CharAttribute.toDomain() = Attribute(
+    private fun AttributeEntity.toDomain() = Attribute(
         name = name, value = value,
     )
 }

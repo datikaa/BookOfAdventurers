@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e3a960dec206ce52673b1a46d7d97962",
+    "identityHash": "af1bfe2678af9d875dba6639462dab76",
     "entities": [
       {
-        "tableName": "Character",
+        "tableName": "CharacterEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`characterId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
@@ -31,7 +31,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "CharAttribute",
+        "tableName": "AttributeEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`charAttributeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `value` INTEGER NOT NULL)",
         "fields": [
           {
@@ -66,7 +66,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e3a960dec206ce52673b1a46d7d97962')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'af1bfe2678af9d875dba6639462dab76')"
     ]
   }
 }
