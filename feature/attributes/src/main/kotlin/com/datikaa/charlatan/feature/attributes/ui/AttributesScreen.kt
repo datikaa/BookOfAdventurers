@@ -70,7 +70,7 @@ private fun ModifierView(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
     ) {
 
         CharacterSelectionCard(
@@ -205,7 +205,7 @@ private fun AttributeEditorLine(
             .fillMaxWidth()
             .height(IntrinsicSize.Min),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)
     ) {
         OutlinedCard(modifier = modifier) {
             Row {

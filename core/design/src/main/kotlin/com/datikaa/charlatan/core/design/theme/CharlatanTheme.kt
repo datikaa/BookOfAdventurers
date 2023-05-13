@@ -32,6 +32,7 @@ object CharlatanTheme {
 
 object CharlatanDimensions {
     val screenPadding = 4.dp
+    val cardSpacing = 4.dp
 }
 
 val LocalCharlatanDimensions = staticCompositionLocalOf { CharlatanDimensions }

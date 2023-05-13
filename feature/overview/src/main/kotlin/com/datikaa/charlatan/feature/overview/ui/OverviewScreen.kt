@@ -52,7 +52,7 @@ fun OverviewView(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
             CmmTitledCard(title = "Attrs") {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
