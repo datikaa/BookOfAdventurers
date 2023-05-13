@@ -12,7 +12,7 @@ class FlowListAllCharactersUseCase(
         dataBase.characterDao().getCharacters().map { characters ->
             characters.map {
                 CmmCharacter(
-                    id = it.characterId,
+                    id = it.id,
                     name = it.name,
                 )
             }

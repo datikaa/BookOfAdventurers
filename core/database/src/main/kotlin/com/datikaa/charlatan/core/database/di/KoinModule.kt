@@ -7,9 +7,12 @@ import org.koin.dsl.module
 
 val databaseKoinModule = module {
     single<CmmDatabase> {
-        Room.databaseBuilder(
-            androidApplication(),
-            CmmDatabase::class.java, "charlatan-character-management-database"
-        ).build()
+        Room
+            .databaseBuilder(
+                androidApplication(),
+                CmmDatabase::class.java, "charlatan-character-management-database"
+            )
+            .fallbackToDestructiveMigrationFrom(1)
+            .build()
     }
 }

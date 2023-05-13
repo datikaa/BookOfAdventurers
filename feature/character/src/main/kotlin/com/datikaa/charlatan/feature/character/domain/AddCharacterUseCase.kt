@@ -12,7 +12,11 @@ class AddCharacterUseCase(
     suspend operator fun invoke(name: String) {
         withContext(Dispatchers.IO) {
             database.characterDao().insert(
-                CharacterEntity(0, name)
+                CharacterEntity(
+                    id = 0,
+                    name = name,
+                    level = 1,
+                )
             )
         }
     }

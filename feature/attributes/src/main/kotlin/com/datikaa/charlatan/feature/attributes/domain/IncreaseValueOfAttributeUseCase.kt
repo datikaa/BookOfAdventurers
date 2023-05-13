@@ -9,10 +9,15 @@ class IncreaseValueOfAttributeUseCase(
     private val database: CmmDatabase,
 ) {
 
-    suspend operator fun invoke(attribute: Attribute) {
+    suspend operator fun invoke(attribute: Attribute, character: Character) {
         withContext(Dispatchers.IO) {
             database.attributesDao().updateAttribute(
-                AttributeEntity(attribute.id, attribute.name, attribute.value + 1)
+                AttributeEntity(
+                    id = attribute.id,
+                    characterId = character.id,
+                    name = attribute.name,
+                    value = attribute.value + 1,
+                )
             )
         }
     }
