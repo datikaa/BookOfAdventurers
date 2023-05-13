@@ -3,10 +3,7 @@ package com.datikaa.charlatan.core.design.component
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +21,7 @@ fun CmmTitledCard(
     content: @Composable BoxScope.() -> Unit,
 ) {
     Card(modifier = modifier) {
-        Column(modifier = Modifier.width(IntrinsicSize.Min)) {
+        Column {
             Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
             ) {
@@ -33,9 +30,7 @@ fun CmmTitledCard(
                     text = title,
                 )
             }
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 8.dp)) {
+            Box(modifier = Modifier.padding(all = 8.dp)) {
                 content()
             }
         }

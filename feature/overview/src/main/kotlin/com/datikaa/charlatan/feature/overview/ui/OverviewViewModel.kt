@@ -2,7 +2,6 @@ package com.datikaa.charlatan.feature.overview.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datikaa.charlatan.feature.overview.domain.AddOrEditCharacterUseCase
 import com.datikaa.charlatan.feature.overview.domain.ClearEverythingUseCase
 import com.datikaa.charlatan.feature.overview.domain.FlowListOfAttributesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +11,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class OverviewViewModel(
-    private val addOrEditCharacterUseCase: AddOrEditCharacterUseCase,
     private val clearEverythingUseCase: ClearEverythingUseCase,
     private val flowListOfAttributesUseCase: FlowListOfAttributesUseCase,
 ) : ViewModel() {
@@ -27,12 +25,6 @@ class OverviewViewModel(
                     uiState.copy(attributes = attrs)
                 }
             }
-        }
-    }
-
-    fun addChar(text: String) {
-        viewModelScope.launch {
-            addOrEditCharacterUseCase(text)
         }
     }
 

@@ -5,7 +5,7 @@ import com.datikaa.charlatan.core.database.CmmDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-val charCoreKoinModule = module {
+val databaseKoinModule = module {
     single<CmmDatabase> {
         Room.databaseBuilder(
             androidApplication(),

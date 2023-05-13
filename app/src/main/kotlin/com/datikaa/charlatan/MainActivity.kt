@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.attributes.ui.ModifiersScreen
+import com.datikaa.charlatan.feature.character.ui.CharactersScreen
 import com.datikaa.charlatan.feature.overview.ui.OverviewNavigation
 import com.datikaa.charlatan.feature.overview.ui.OverviewScreen
 
@@ -35,6 +36,9 @@ class MainActivity : ComponentActivity() {
                         composable("modifiers") {
                             ModifiersScreen(modifier = Modifier.fillMaxSize())
                         }
+                        composable("characters") {
+                            CharactersScreen(modifier = Modifier.fillMaxSize())
+                        }
                     }
                 }
             }
@@ -44,6 +48,7 @@ class MainActivity : ComponentActivity() {
 
 private fun NavHostController.handleCharlatanNavigation(event: OverviewNavigation) {
     when(event) {
-        OverviewNavigation.Modifiers -> navigate("modifiers")
+        OverviewNavigation.Attributes -> navigate("modifiers")
+        OverviewNavigation.Characters -> navigate("characters")
     }
 }

@@ -2,7 +2,8 @@ package com.datikaa.charlatan
 
 import android.app.Application
 import com.datikaa.charlatan.feature.attributes.di.attributesKoinModule
-import com.datikaa.charlatan.core.database.di.charCoreKoinModule
+import com.datikaa.charlatan.core.database.di.databaseKoinModule
+import com.datikaa.charlatan.feature.character.di.characterKoinModule
 import com.datikaa.charlatan.feature.overview.di.overviewKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,7 +22,8 @@ class CharlatanApplication : Application() {
             // Load modules
             modules(
                 attributesKoinModule,
-                charCoreKoinModule,
+                characterKoinModule,
+                databaseKoinModule,
                 overviewKoinModule,
             )
         }

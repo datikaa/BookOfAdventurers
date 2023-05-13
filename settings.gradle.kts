@@ -19,5 +19,6 @@ rootProject.name = "Charlatan"
 include(":app")
 include(":core:database")
 include(":core:design")
-include(":feature:overview")
 include(":feature:attributes")
+include(":feature:character")
+include(":feature:overview")

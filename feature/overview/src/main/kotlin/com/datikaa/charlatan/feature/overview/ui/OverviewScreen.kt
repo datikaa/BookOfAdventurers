@@ -9,13 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedCard
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,9 +33,9 @@ fun OverviewScreen(
 
     OverviewView(
         overviewUiState = uiState,
-        addCharName = overviewViewModel::addChar,
         clear = overviewViewModel::clearDb,
-        navigateToModifiers = { navigationEvent(OverviewNavigation.Modifiers) },
+        navigateToAttributes = { navigationEvent(OverviewNavigation.Attributes) },
+        navigateToCharacters = { navigationEvent(OverviewNavigation.Characters) },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -47,9 +43,9 @@ fun OverviewScreen(
 @Composable
 fun OverviewView(
     overviewUiState: OverviewUiState,
-    addCharName: (String) -> Unit,
     clear: () -> Unit,
-    navigateToModifiers: () -> Unit,
+    navigateToAttributes: () -> Unit,
+    navigateToCharacters: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -70,34 +66,23 @@ fun OverviewView(
                                     .padding(all = 4.dp)
                                     .aspectRatio(1f, true)
                             ) {
-                                Text(text = attr.name, fontSize = 10.sp)
+                                Text(text = attr.name, fontSize = 10.sp, maxLines = 1)
                                 Text(text = attr.value.toString(), fontSize = 16.sp)
                             }
                         }
                     }
                 }
             }
-            CmmTitledCard(title = "Add stuff here") {
-                Column {
-                    var charNameText by remember { mutableStateOf("") }
-                    val addName = {
-                        addCharName(charNameText)
-                        charNameText = ""
-                    }
-                    OutlinedTextField(
-                        value = charNameText,
-                        onValueChange = { charNameText = it },
-                        label = { Text("charName") }
-                    )
-                    Button(onClick = addName) {
-                        Text("Add")
-                    }
-                }
+            CmmTitledCard(title = "Placeholder") {
+                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
             }
         }
         Row {
-            Button(onClick = { navigateToModifiers() }) {
-                Text("Attributes screen")
+            Button(onClick = { navigateToAttributes() }) {
+                Text("Attributes")
+            }
+            Button(onClick = { navigateToCharacters() }) {
+                Text("Charcters")
             }
             Button(onClick = { clear() }) {
                 Text("Clear DB")
@@ -117,8 +102,8 @@ private fun Preview() {
                 Attribute("Dex", 4),
             )
         ),
-        addCharName = {},
         clear = {},
-        navigateToModifiers = {},
+        navigateToAttributes = {},
+        navigateToCharacters = {},
     )
 }

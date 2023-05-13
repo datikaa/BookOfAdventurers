@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:design"))
     implementation(project(":feature:attributes"))
+    implementation(project(":feature:character"))
     implementation(project(":feature:overview"))
 
     implementation(libs.activity.compose)
