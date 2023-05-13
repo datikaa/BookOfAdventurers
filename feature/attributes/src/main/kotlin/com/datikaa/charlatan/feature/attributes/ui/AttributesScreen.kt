@@ -25,7 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,10 +72,10 @@ private fun ModifierView(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                var nameText by remember { mutableStateOf("") }
-                var valueText by remember { mutableStateOf("10") }
-                var nameError by remember { mutableStateOf(false) }
-                var valueError by remember { mutableStateOf(false) }
+                var nameText by rememberSaveable { mutableStateOf("") }
+                var valueText by rememberSaveable { mutableStateOf("10") }
+                var nameError by rememberSaveable { mutableStateOf(false) }
+                var valueError by rememberSaveable { mutableStateOf(false) }
                 val onAddClick = {
                     nameError = nameText.isBlank()
                     valueError = valueText.isBlank() || !valueText.isDigitsOnly()
