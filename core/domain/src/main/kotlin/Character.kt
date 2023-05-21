@@ -4,20 +4,39 @@ data class Character(
     val modifiers: List<Modifier>,
 )
 
-fun Character.calculateAbilityScore(abilityType: AbilityType): Int {
-    val baseScore = abilities.first { it::class == abilityType }.value
-    return baseScore + modifiers
-        .flatten()
-        .flatMap { it.attributeModifiers }
-        .filterModifiableAttributeType(abilityType)
-        .sumOf { it.value }
-}
+val Character.strengthAbility: Int
+    get() = calculateAbilityScore(Ability.Strength::class)
 
-fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int {
-    val abilityScore = calculateAbilityScore(savingThrow.ability)
-    return abilityScore + modifiers
-        .flatten()
-        .flatMap { it.attributeModifiers }
-        .filterModifiableAttributeType(savingThrow::class)
-        .sumOf { it.value }
-}
+val Character.dexterityAbility: Int
+    get() = calculateAbilityScore(Ability.Dexterity::class)
+
+val Character.constitutionAbility: Int
+    get() = calculateAbilityScore(Ability.Constitution::class)
+
+val Character.intelligenceAbility: Int
+    get() = calculateAbilityScore(Ability.Intelligence::class)
+
+val Character.wisdomAbility: Int
+    get() = calculateAbilityScore(Ability.Wisdom::class)
+
+val Character.charismaAbility: Int
+    get() = calculateAbilityScore(Ability.Charisma::class)
+
+val Character.strengthSavingThrow: Int
+    get() = calculateSavingThrowScore(SavingThrow.Strength)
+
+val Character.dexteritySavingThrow: Int
+    get() = calculateSavingThrowScore(SavingThrow.Dexterity)
+
+val Character.constitutionSavingThrow: Int
+    get() = calculateSavingThrowScore(SavingThrow.Constitution)
+
+val Character.intelligenceSavingThrow: Int
+    get() = calculateSavingThrowScore(SavingThrow.Intelligence)
+
+val Character.wisdomSavingThrow: Int
+    get() = calculateSavingThrowScore(SavingThrow.Wisdom)
+
+val Character.charismaSavingThrow: Int
+    get() = calculateSavingThrowScore(SavingThrow.Charisma)
+

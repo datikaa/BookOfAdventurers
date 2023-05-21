@@ -1,3 +1,4 @@
+import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
 import org.junit.Test
 
@@ -7,66 +8,82 @@ class CharacterTest {
     fun testModifierFlattening() {
         val flattenModifiers = testCharacter.modifiers.flatten()
         flattenModifiers.size shouldBeExactly 4
+        plus1DexModifier shouldBeIn flattenModifiers
+        plus1ConModifier shouldBeIn flattenModifiers
+        plus1DexAndPlus1ConModifierCollection shouldBeIn flattenModifiers
+        plus1DexSavingThrowModifier shouldBeIn flattenModifiers
     }
 
     @Test
-    fun testAbilityScoreCalculation() {
-        val strength = testCharacter.calculateAbilityScore(Ability.Strength::class)
-        strength shouldBeExactly 11
-        val intelligence = testCharacter.calculateAbilityScore(Ability.Intelligence::class)
-        intelligence shouldBeExactly 10
+    fun testAbilityScoreCalculations() {
+        testCharacter.strengthAbility shouldBeExactly 10
+        testCharacter.dexterityAbility shouldBeExactly 12
+        testCharacter.constitutionAbility shouldBeExactly 13
+        testCharacter.intelligenceAbility shouldBeExactly 13
+        testCharacter.wisdomAbility shouldBeExactly 14
+        testCharacter.charismaAbility shouldBeExactly 15
     }
 
     @Test
     fun testSavingThrowCalculation() {
-        val strength = testCharacter.calculateSavingThrowScore(SavingThrow.Strength)
-        strength shouldBeExactly 11
-        val dexterity = testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity)
-        dexterity shouldBeExactly 12
+        testCharacter.strengthSavingThrow shouldBeExactly 10
+        testCharacter.dexteritySavingThrow shouldBeExactly 13
+        testCharacter.constitutionSavingThrow shouldBeExactly 13
+        testCharacter.intelligenceSavingThrow shouldBeExactly 13
+        testCharacter.wisdomSavingThrow shouldBeExactly 14
+        testCharacter.charismaSavingThrow shouldBeExactly 15
     }
 }
+
+private val plus1DexModifier = Modifier(
+    name = "Adds +1 Dex",
+    description = "",
+    scoreModifiers = listOf(
+        Modifier.ScoreModifier(Ability.Dexterity::class, 1),
+    ),
+    nestedModifiers = listOf()
+)
+
+private val plus1ConModifier = Modifier(
+    name = "Adds +1 Con",
+    description = "",
+    scoreModifiers = listOf(
+        Modifier.ScoreModifier(Ability.Constitution::class, 1),
+    ),
+    nestedModifiers = listOf()
+)
+
+private val plus1DexAndPlus1ConModifierCollection = Modifier(
+    name = "Collection of 2 modifiers without own attribute modifier",
+    description = "",
+    scoreModifiers = listOf(),
+    nestedModifiers = listOf(
+        plus1DexModifier,
+        plus1ConModifier,
+    )
+)
+
+private val plus1DexSavingThrowModifier = Modifier(
+    name = "Dex SaveThrow Attribute modifier",
+    description = "",
+    scoreModifiers = listOf(
+        Modifier.ScoreModifier(SavingThrow.Dexterity::class, 1)
+    ),
+    nestedModifiers = emptyList()
+)
 
 private val testCharacter = Character(
     name = "Rondell",
     abilities = listOf(
         Ability.Strength(value = 10),
-        Ability.Dexterity(value = 10),
-        Ability.Constitution(value = 10),
-        Ability.Intelligence(value = 10),
-        Ability.Wisdom(value = 10),
-        Ability.Charisma(value = 10),
+        Ability.Dexterity(value = 11),
+        Ability.Constitution(value = 12),
+        Ability.Intelligence(value = 13),
+        Ability.Wisdom(value = 14),
+        Ability.Charisma(value = 15),
     ),
     modifiers = listOf(
-        Modifier(
-            name = "Adds +1 to Dex and Str abilities with nested Modifiers",
-            description = "",
-            attributeModifiers = listOf(),
-            nestedModifiers = listOf(
-                Modifier(
-                    name = "",
-                    description = "",
-                    attributeModifiers = listOf(
-                        Modifier.AttributeModifier(Ability.Strength::class, 1),
-                    ),
-                    nestedModifiers = listOf()
-                ),
-                Modifier(
-                    name = "",
-                    description = "",
-                    attributeModifiers = listOf(
-                        Modifier.AttributeModifier(Ability.Dexterity::class, 1),
-                    ),
-                    nestedModifiers = listOf()
-                ),
-            )
-        ),
-        Modifier(
-            name = "Adds +1 to Dex Saving Throw",
-            description = "",
-            attributeModifiers = listOf(
-                Modifier.AttributeModifier(SavingThrow.Dexterity::class, 1)
-            ),
-            nestedModifiers = emptyList()
-        )
+        plus1DexAndPlus1ConModifierCollection,
+        plus1DexSavingThrowModifier,
     )
 )

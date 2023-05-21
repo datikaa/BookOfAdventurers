@@ -2,7 +2,7 @@ import kotlin.reflect.KClass
 
 typealias AbilityType = KClass<out Ability>
 
-sealed interface Ability : ModifiableAttribute {
+sealed interface Ability : ModifiableScore {
 
     val value: Int
 

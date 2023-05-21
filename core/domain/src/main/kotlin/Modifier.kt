@@ -3,15 +3,15 @@ import kotlin.reflect.KClass
 data class Modifier(
     val name: String,
     val description: String,
-    val attributeModifiers: List<AttributeModifier>,
+    val scoreModifiers: List<ScoreModifier>,
     val nestedModifiers: List<Modifier>,
 ) {
-    data class AttributeModifier(
-        val modifiableAttributeType: KClass<out ModifiableAttribute>,
+    data class ScoreModifier(
+        val modifiableScoreType: KClass<out ModifiableScore>,
         val value: Int,
     )
 }
 
-fun List<Modifier.AttributeModifier>.filterModifiableAttributeType(
-    modifiableAttributeType: KClass<out ModifiableAttribute>
-) = filter { it.modifiableAttributeType == modifiableAttributeType }
+fun List<Modifier.ScoreModifier>.filterModifiableAttributeType(
+    modifiableScoreType: KClass<out ModifiableScore>
+) = filter { it.modifiableScoreType == modifiableScoreType }

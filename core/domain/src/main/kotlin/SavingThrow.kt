@@ -1,8 +1,4 @@
-import kotlin.reflect.KClass
-
-typealias SavingThrowType = KClass<out SavingThrow>
-
-sealed class SavingThrow(val ability: AbilityType) : ModifiableAttribute {
+sealed class SavingThrow(val ability: AbilityType) : ModifiableScore {
     object Strength : SavingThrow(ability = Ability.Strength::class)
     object Dexterity : SavingThrow(ability = Ability.Dexterity::class)
     object Constitution : SavingThrow(ability = Ability.Constitution::class)
