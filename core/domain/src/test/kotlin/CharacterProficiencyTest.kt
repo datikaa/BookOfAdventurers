@@ -1,6 +1,8 @@
+import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 import com.datikaa.charlatan.core.domain.Modifier
 import com.datikaa.charlatan.core.domain.SavingThrow
+import com.datikaa.charlatan.core.domain.calculateSavingThrowScore
 import com.datikaa.charlatan.core.domain.proficiencyScore
 import com.datikaa.charlatan.core.domain.proficientIn
 import io.kotest.matchers.ints.shouldBeExactly
@@ -39,6 +41,12 @@ class CharacterProficiencyTest {
         modifierTestingCharacter.proficientIn(SavingThrow.Strength) shouldBe false
     }
 
+    @Test
+    fun testScoresAffectedByProficiencyModifiers() {
+        modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 14
+        modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 10
+    }
+
     private fun createScoreTestingCharacter(level: Int) = Character(
         id = 0,
         level = level,
@@ -63,7 +71,10 @@ class CharacterProficiencyTest {
         id = 0,
         level = 10,
         name = "Rondell",
-        abilityList = listOf(),
+        abilityList = listOf(
+            Ability.Strength(value = 10),
+            Ability.Dexterity(value = 10),
+        ),
         modifiers = listOf(
             dexSavingThrowProficiencyModifier,
         )

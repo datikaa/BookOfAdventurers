@@ -11,7 +11,7 @@ import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
 import org.junit.Test
 
-class CharacterModifiersTest {
+class ComplexCharacterModifiersTest {
 
     @Test
     fun testModifierFlattening() {
