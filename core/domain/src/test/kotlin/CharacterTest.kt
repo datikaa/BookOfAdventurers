@@ -16,7 +16,7 @@ class CharacterTest {
     @Test
     fun testModifierFlattening() {
         val flattenModifiers = testCharacter.modifiers.flatten()
-        flattenModifiers.size shouldBeExactly 4
+        flattenModifiers.size shouldBeExactly 5
         plus1DexModifier shouldBeIn flattenModifiers
         plus1ConModifier shouldBeIn flattenModifiers
         plus1DexAndPlus1ConModifierCollection shouldBeIn flattenModifiers
@@ -46,6 +46,7 @@ class CharacterTest {
     @Test
     fun testSkillCalculation() {
         testCharacter.calculateSkillScore(Skill.Arcana) shouldBeExactly 13
+        testCharacter.calculateSkillScore(Skill.Stealth) shouldBeExactly 13
     }
 }
 
@@ -90,6 +91,16 @@ private val plus1DexSavingThrowModifier = Modifier(
     nestedModifiers = emptyList()
 )
 
+private val plus1StealthSkillModifier = Modifier(
+    id = 0,
+    name = "Adds +1 to Stealth skill",
+    description = "",
+    scoreModifiers = listOf(
+        Modifier.ScoreModifier(Skill.Stealth::class, 1)
+    ),
+    nestedModifiers = emptyList()
+)
+
 private val testCharacter = Character(
     id = 0,
     name = "Rondell",
@@ -104,5 +115,6 @@ private val testCharacter = Character(
     modifiers = listOf(
         plus1DexAndPlus1ConModifierCollection,
         plus1DexSavingThrowModifier,
+        plus1StealthSkillModifier
     )
 )
