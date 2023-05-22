@@ -16,22 +16,22 @@ class CharacterTest {
 
     @Test
     fun testAbilityScoreCalculations() {
-        testCharacter.strengthAbility shouldBeExactly 10
-        testCharacter.dexterityAbility shouldBeExactly 12
-        testCharacter.constitutionAbility shouldBeExactly 13
-        testCharacter.intelligenceAbility shouldBeExactly 13
-        testCharacter.wisdomAbility shouldBeExactly 14
-        testCharacter.charismaAbility shouldBeExactly 15
+        testCharacter.calculateAbilityScore(Ability.Strength::class) shouldBeExactly 10
+        testCharacter.calculateAbilityScore(Ability.Dexterity::class) shouldBeExactly 10
+        testCharacter.calculateAbilityScore(Ability.Constitution::class) shouldBeExactly 10
+        testCharacter.calculateAbilityScore(Ability.Intelligence::class) shouldBeExactly 10
+        testCharacter.calculateAbilityScore(Ability.Wisdom::class) shouldBeExactly 10
+        testCharacter.calculateAbilityScore(Ability.Charisma::class) shouldBeExactly 10
     }
 
     @Test
     fun testSavingThrowCalculation() {
-        testCharacter.strengthSavingThrow shouldBeExactly 10
-        testCharacter.dexteritySavingThrow shouldBeExactly 13
-        testCharacter.constitutionSavingThrow shouldBeExactly 13
-        testCharacter.intelligenceSavingThrow shouldBeExactly 13
-        testCharacter.wisdomSavingThrow shouldBeExactly 14
-        testCharacter.charismaSavingThrow shouldBeExactly 15
+        testCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Constitution) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Intelligence) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Wisdom) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Charisma) shouldBeExactly 10
     }
 }
 
@@ -79,7 +79,7 @@ private val plus1DexSavingThrowModifier = Modifier(
 private val testCharacter = Character(
     id = 0,
     name = "Rondell",
-    abilities = listOf(
+    abilityList = listOf(
         Ability.Strength(value = 10),
         Ability.Dexterity(value = 11),
         Ability.Constitution(value = 12),
