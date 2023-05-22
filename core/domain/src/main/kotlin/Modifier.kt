@@ -1,6 +1,7 @@
 import kotlin.reflect.KClass
 
 data class Modifier(
+    val id: Int,
     val name: String,
     val description: String,
     val scoreModifiers: List<ScoreModifier>,

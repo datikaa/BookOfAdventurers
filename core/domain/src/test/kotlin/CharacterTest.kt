@@ -36,6 +36,7 @@ class CharacterTest {
 }
 
 private val plus1DexModifier = Modifier(
+    id = 0,
     name = "Adds +1 Dex",
     description = "",
     scoreModifiers = listOf(
@@ -45,6 +46,7 @@ private val plus1DexModifier = Modifier(
 )
 
 private val plus1ConModifier = Modifier(
+    id = 0,
     name = "Adds +1 Con",
     description = "",
     scoreModifiers = listOf(
@@ -54,6 +56,7 @@ private val plus1ConModifier = Modifier(
 )
 
 private val plus1DexAndPlus1ConModifierCollection = Modifier(
+    id = 0,
     name = "Collection of 2 modifiers without own attribute modifier",
     description = "",
     scoreModifiers = listOf(),
@@ -64,6 +67,7 @@ private val plus1DexAndPlus1ConModifierCollection = Modifier(
 )
 
 private val plus1DexSavingThrowModifier = Modifier(
+    id = 0,
     name = "Dex SaveThrow Attribute modifier",
     description = "",
     scoreModifiers = listOf(
@@ -73,6 +77,7 @@ private val plus1DexSavingThrowModifier = Modifier(
 )
 
 private val testCharacter = Character(
+    id = 0,
     name = "Rondell",
     abilities = listOf(
         Ability.Strength(value = 10),

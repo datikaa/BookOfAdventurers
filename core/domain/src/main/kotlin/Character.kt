@@ -1,4 +1,5 @@
 data class Character(
+    val id: Int,
     val name: String,
     val abilities: List<Ability>,
     val modifiers: List<Modifier>,
