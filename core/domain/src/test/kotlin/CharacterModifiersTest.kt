@@ -45,6 +45,7 @@ class CharacterModifiersTest {
 
     @Test
     fun testSkillCalculation() {
+        testCharacter.calculateSkillScore(Skill.Athletics) shouldBeExactly 13
         testCharacter.calculateSkillScore(Skill.Arcana) shouldBeExactly 13
         testCharacter.calculateSkillScore(Skill.Stealth) shouldBeExactly 13
     }
