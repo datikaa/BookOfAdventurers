@@ -26,3 +26,6 @@ fun Character.calculateSkillScore(skill: Skill): Int {
         .filterModifiableAttributeType(skill::class)
         .sumOf { it.value }
 }
+
+val Character.proficiencyScore: Int
+    get() = (level - 1).floorDiv(4) + 2

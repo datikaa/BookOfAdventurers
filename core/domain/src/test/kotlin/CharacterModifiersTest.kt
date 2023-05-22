@@ -11,7 +11,7 @@ import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
 import org.junit.Test
 
-class CharacterTest {
+class CharacterModifiersTest {
 
     @Test
     fun testModifierFlattening() {
@@ -103,6 +103,7 @@ private val plus1StealthSkillModifier = Modifier(
 
 private val testCharacter = Character(
     id = 0,
+    level = 1,
     name = "Rondell",
     abilityList = listOf(
         Ability.Strength(value = 10),
