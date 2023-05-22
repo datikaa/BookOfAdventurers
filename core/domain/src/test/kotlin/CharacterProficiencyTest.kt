@@ -25,7 +25,7 @@ class CharacterProficiencyTest {
         createTestCharacter(level = 16).proficiencyScore shouldBeExactly 5
         createTestCharacter(level = 17).proficiencyScore shouldBeExactly 6
         createTestCharacter(level = 18).proficiencyScore shouldBeExactly 6
-        createTestCharacter(level = 19).proficiencyScore shouldBeExactly 4
+        createTestCharacter(level = 19).proficiencyScore shouldBeExactly 6
         createTestCharacter(level = 20).proficiencyScore shouldBeExactly 6
     }
 
