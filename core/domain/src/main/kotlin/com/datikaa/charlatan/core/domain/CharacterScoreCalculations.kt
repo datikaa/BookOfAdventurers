@@ -1,5 +1,7 @@
+package com.datikaa.charlatan.core.domain
+
 fun Character.calculateAbilityScore(abilityType: AbilityType): Int {
-    val baseScore = abilities.first { it::class == abilityType }.value
+    val baseScore = abilityList.first { it::class == abilityType }.value
     return baseScore + modifiers
         .flatten()
         .flatMap { it.scoreModifiers }
@@ -13,5 +15,14 @@ fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int {
         .flatten()
         .flatMap { it.scoreModifiers }
         .filterModifiableAttributeType(savingThrow::class)
+        .sumOf { it.value }
+}
+
+fun Character.calculateSkillScore(skill: Skill): Int {
+    val abilityScore = calculateAbilityScore(skill.ability)
+    return abilityScore + modifiers
+        .flatten()
+        .flatMap { it.scoreModifiers }
+        .filterModifiableAttributeType(skill::class)
         .sumOf { it.value }
 }

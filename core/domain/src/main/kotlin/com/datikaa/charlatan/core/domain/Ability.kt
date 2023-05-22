@@ -1,3 +1,5 @@
+package com.datikaa.charlatan.core.domain
+
 import kotlin.reflect.KClass
 
 typealias AbilityType = KClass<out Ability>

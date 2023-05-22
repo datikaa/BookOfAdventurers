@@ -1,3 +1,5 @@
+package com.datikaa.charlatan.core.domain
+
 import kotlin.reflect.KClass
 
 data class Modifier(

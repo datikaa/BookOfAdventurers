@@ -1,3 +1,12 @@
+import com.datikaa.charlatan.core.domain.Ability
+import com.datikaa.charlatan.core.domain.Character
+import com.datikaa.charlatan.core.domain.Modifier
+import com.datikaa.charlatan.core.domain.SavingThrow
+import com.datikaa.charlatan.core.domain.Skill
+import com.datikaa.charlatan.core.domain.calculateAbilityScore
+import com.datikaa.charlatan.core.domain.calculateSavingThrowScore
+import com.datikaa.charlatan.core.domain.calculateSkillScore
+import com.datikaa.charlatan.core.domain.flatten
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
 import org.junit.Test
@@ -17,21 +26,26 @@ class CharacterTest {
     @Test
     fun testAbilityScoreCalculations() {
         testCharacter.calculateAbilityScore(Ability.Strength::class) shouldBeExactly 10
-        testCharacter.calculateAbilityScore(Ability.Dexterity::class) shouldBeExactly 10
-        testCharacter.calculateAbilityScore(Ability.Constitution::class) shouldBeExactly 10
-        testCharacter.calculateAbilityScore(Ability.Intelligence::class) shouldBeExactly 10
-        testCharacter.calculateAbilityScore(Ability.Wisdom::class) shouldBeExactly 10
-        testCharacter.calculateAbilityScore(Ability.Charisma::class) shouldBeExactly 10
+        testCharacter.calculateAbilityScore(Ability.Dexterity::class) shouldBeExactly 12
+        testCharacter.calculateAbilityScore(Ability.Constitution::class) shouldBeExactly 13
+        testCharacter.calculateAbilityScore(Ability.Intelligence::class) shouldBeExactly 13
+        testCharacter.calculateAbilityScore(Ability.Wisdom::class) shouldBeExactly 14
+        testCharacter.calculateAbilityScore(Ability.Charisma::class) shouldBeExactly 15
     }
 
     @Test
     fun testSavingThrowCalculation() {
         testCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 10
-        testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 10
-        testCharacter.calculateSavingThrowScore(SavingThrow.Constitution) shouldBeExactly 10
-        testCharacter.calculateSavingThrowScore(SavingThrow.Intelligence) shouldBeExactly 10
-        testCharacter.calculateSavingThrowScore(SavingThrow.Wisdom) shouldBeExactly 10
-        testCharacter.calculateSavingThrowScore(SavingThrow.Charisma) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 13
+        testCharacter.calculateSavingThrowScore(SavingThrow.Constitution) shouldBeExactly 13
+        testCharacter.calculateSavingThrowScore(SavingThrow.Intelligence) shouldBeExactly 13
+        testCharacter.calculateSavingThrowScore(SavingThrow.Wisdom) shouldBeExactly 14
+        testCharacter.calculateSavingThrowScore(SavingThrow.Charisma) shouldBeExactly 15
+    }
+
+    @Test
+    fun testSkillCalculation() {
+        testCharacter.calculateSkillScore(Skill.Arcana) shouldBeExactly 13
     }
 }
 

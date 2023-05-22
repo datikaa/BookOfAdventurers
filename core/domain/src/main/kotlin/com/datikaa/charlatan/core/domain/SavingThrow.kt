@@ -1,3 +1,5 @@
+package com.datikaa.charlatan.core.domain
+
 sealed class SavingThrow(val ability: AbilityType) : ModifiableScore {
     object Strength : SavingThrow(ability = Ability.Strength::class)
     object Dexterity : SavingThrow(ability = Ability.Dexterity::class)
