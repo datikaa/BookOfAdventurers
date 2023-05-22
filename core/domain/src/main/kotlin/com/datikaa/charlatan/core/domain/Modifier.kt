@@ -10,18 +10,26 @@ data class Modifier(
     val nestedModifiers: List<Modifier>,
 ) {
     sealed interface Type {
-        val modifiableScoreType: KClass<out ModifiableScore>
+
         data class Score(
-            override val modifiableScoreType: KClass<out ModifiableScore>,
+            val modifiableScoreType: KClass<out ModifiableScore>,
             val value: Int
-        ): Type
+        ) : Type
 
         data class Proficiency(
-            override val modifiableScoreType: KClass<out ModifiableScore>,
-        ): Type
+            val proficiencyType: KClass<out PossiblyProficient>,
+        ) : Type
     }
 }
 
 fun List<Modifier.Type>.filterScoreModifiers(
     modifiableScoreType: KClass<out ModifiableScore>
-) = filter { it.modifiableScoreType == modifiableScoreType }.filterIsInstance<Modifier.Type.Score>()
+) = this
+    .filterIsInstance<Modifier.Type.Score>()
+    .filter { it.modifiableScoreType == modifiableScoreType }
+
+fun List<Modifier.Type>.filterProficiencyModifiers(
+    proficiencyType: KClass<out PossiblyProficient>,
+) = this
+    .filterIsInstance<Modifier.Type.Proficiency>()
+    .filter { it.proficiencyType == proficiencyType }

@@ -1,5 +1,5 @@
 package com.datikaa.charlatan.core.domain
-sealed class Skill(val ability: AbilityType) : ModifiableScore {
+sealed class Skill(val ability: AbilityType) : ModifiableScore, PossiblyProficient {
     object Acrobatics : Skill(ability = Ability.Dexterity::class)
     object AnimalHandling : Skill(ability = Ability.Wisdom::class)
     object Arcana : Skill(ability = Ability.Intelligence::class)

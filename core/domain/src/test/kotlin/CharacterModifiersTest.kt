@@ -16,7 +16,7 @@ class CharacterModifiersTest {
     @Test
     fun testModifierFlattening() {
         val flattenModifiers = testCharacter.modifiers.flatten()
-        flattenModifiers.size shouldBeExactly 5
+        flattenModifiers.size shouldBeExactly 7
         plus1DexModifier shouldBeIn flattenModifiers
         plus1ConModifier shouldBeIn flattenModifiers
         plus1DexAndPlus1ConModifierCollection shouldBeIn flattenModifiers
@@ -35,7 +35,7 @@ class CharacterModifiersTest {
 
     @Test
     fun testSavingThrowCalculation() {
-        testCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 10
+        testCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 14
         testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 13
         testCharacter.calculateSavingThrowScore(SavingThrow.Constitution) shouldBeExactly 13
         testCharacter.calculateSavingThrowScore(SavingThrow.Intelligence) shouldBeExactly 13
@@ -48,6 +48,7 @@ class CharacterModifiersTest {
         testCharacter.calculateSkillScore(Skill.Athletics) shouldBeExactly 10
         testCharacter.calculateSkillScore(Skill.Arcana) shouldBeExactly 13
         testCharacter.calculateSkillScore(Skill.Stealth) shouldBeExactly 13
+        testCharacter.calculateSkillScore(Skill.Religion) shouldBeExactly 17
     }
 }
 
@@ -102,9 +103,29 @@ private val plus1StealthSkillModifier = Modifier(
     nestedModifiers = emptyList()
 )
 
+private val religionSkillCheckProficiencyModifier = Modifier(
+    id = 0,
+    name = "Adds proficiency to Religion skill",
+    description = "",
+    types = listOf(
+        Modifier.Type.Proficiency(Skill.Religion::class)
+    ),
+    nestedModifiers = emptyList()
+)
+
+private val strengthSavingThrowProficiencyModifier = Modifier(
+    id = 0,
+    name = "Adds proficiency to Strength saving throws",
+    description = "",
+    types = listOf(
+        Modifier.Type.Proficiency(SavingThrow.Strength::class)
+    ),
+    nestedModifiers = emptyList()
+)
+
 private val testCharacter = Character(
     id = 0,
-    level = 1,
+    level = 10,
     name = "Rondell",
     abilityList = listOf(
         Ability.Strength(value = 10),
@@ -117,6 +138,8 @@ private val testCharacter = Character(
     modifiers = listOf(
         plus1DexAndPlus1ConModifierCollection,
         plus1DexSavingThrowModifier,
-        plus1StealthSkillModifier
+        plus1StealthSkillModifier,
+        religionSkillCheckProficiencyModifier,
+        strengthSavingThrowProficiencyModifier,
     )
 )

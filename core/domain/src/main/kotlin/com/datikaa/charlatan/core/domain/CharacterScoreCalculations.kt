@@ -11,7 +11,8 @@ fun Character.calculateAbilityScore(abilityType: AbilityType): Int {
 
 fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int {
     val abilityScore = calculateAbilityScore(savingThrow.ability)
-    return abilityScore + modifiers
+    val proficiencyScoreBonus = if (proficientIn(savingThrow)) proficiencyScore else 0
+    return abilityScore + proficiencyScoreBonus + modifiers
         .flatten()
         .flatMap { it.types }
         .filterScoreModifiers(savingThrow::class)
@@ -20,12 +21,19 @@ fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int {
 
 fun Character.calculateSkillScore(skill: Skill): Int {
     val abilityScore = calculateAbilityScore(skill.ability)
-    return abilityScore + modifiers
+    val proficiencyScoreBonus = if (proficientIn(skill)) proficiencyScore else 0
+    return abilityScore + proficiencyScoreBonus + modifiers
         .flatten()
         .flatMap { it.types }
         .filterScoreModifiers(skill::class)
         .sumOf { it.value }
 }
+
+fun Character.proficientIn(possiblyProficient: PossiblyProficient): Boolean = modifiers
+    .flatten()
+    .flatMap { it.types }
+    .filterProficiencyModifiers(possiblyProficient::class)
+    .isNotEmpty()
 
 val Character.proficiencyScore: Int
     get() = (level - 1).floorDiv(4) + 2
