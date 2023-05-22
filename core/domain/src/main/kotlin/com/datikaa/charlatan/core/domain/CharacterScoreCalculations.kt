@@ -1,33 +1,31 @@
 package com.datikaa.charlatan.core.domain
 
+import kotlin.reflect.KClass
+
+fun Character.sumOfModifiersFor(modifiableScoreType: KClass<out ModifiableScore>): Int = modifiers
+    .flatten()
+    .flatMap { it.types }
+    .filterScoreModifiers(modifiableScoreType)
+    .sumOf { it.value }
+
 fun Character.calculateAbilityScore(abilityType: AbilityType): Int {
     val baseScore = abilityList.first { it::class == abilityType }.value
-    return baseScore + modifiers
-        .flatten()
-        .flatMap { it.types }
-        .filterScoreModifiers(abilityType)
-        .sumOf { it.value }
+    val modifierScore = sumOfModifiersFor(abilityType)
+    return baseScore + modifierScore
 }
 
-fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int {
-    val abilityScore = calculateAbilityScore(savingThrow.ability)
-    val proficiencyScoreBonus = if (proficientIn(savingThrow)) proficiencyScore else 0
-    return abilityScore + proficiencyScoreBonus + modifiers
-        .flatten()
-        .flatMap { it.types }
-        .filterScoreModifiers(savingThrow::class)
-        .sumOf { it.value }
+fun <T> Character.calculateCalculatedScore(calculatedScore: T): Int where T : CalculatedScore, T : PossiblyProficient {
+    val abilityScore = calculateAbilityScore(calculatedScore.baseAbility)
+    val modifierScore = sumOfModifiersFor(calculatedScore::class)
+    val proficiencyScoreBonus = if (proficientIn(calculatedScore)) proficiencyScore else 0
+    return abilityScore + proficiencyScoreBonus + modifierScore
 }
 
-fun Character.calculateSkillScore(skill: Skill): Int {
-    val abilityScore = calculateAbilityScore(skill.ability)
-    val proficiencyScoreBonus = if (proficientIn(skill)) proficiencyScore else 0
-    return abilityScore + proficiencyScoreBonus + modifiers
-        .flatten()
-        .flatMap { it.types }
-        .filterScoreModifiers(skill::class)
-        .sumOf { it.value }
-}
+fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int =
+    calculateCalculatedScore(savingThrow)
+
+fun Character.calculateSkillCheckScore(skill: Skill): Int =
+    calculateCalculatedScore(skill)
 
 fun Character.proficientIn(possiblyProficient: PossiblyProficient): Boolean = modifiers
     .flatten()

@@ -1,10 +1,10 @@
 package com.datikaa.charlatan.core.domain
 
-sealed class SavingThrow(val ability: AbilityType) : ModifiableScore, PossiblyProficient {
-    object Strength : SavingThrow(ability = Ability.Strength::class)
-    object Dexterity : SavingThrow(ability = Ability.Dexterity::class)
-    object Constitution : SavingThrow(ability = Ability.Constitution::class)
-    object Intelligence : SavingThrow(ability = Ability.Intelligence::class)
-    object Wisdom : SavingThrow(ability = Ability.Wisdom::class)
-    object Charisma : SavingThrow(ability = Ability.Charisma::class)
+sealed class SavingThrow(override val baseAbility: AbilityType) : ModifiableScore, CalculatedScore, PossiblyProficient {
+    object Strength : SavingThrow(baseAbility = Ability.Strength::class)
+    object Dexterity : SavingThrow(baseAbility = Ability.Dexterity::class)
+    object Constitution : SavingThrow(baseAbility = Ability.Constitution::class)
+    object Intelligence : SavingThrow(baseAbility = Ability.Intelligence::class)
+    object Wisdom : SavingThrow(baseAbility = Ability.Wisdom::class)
+    object Charisma : SavingThrow(baseAbility = Ability.Charisma::class)
 }

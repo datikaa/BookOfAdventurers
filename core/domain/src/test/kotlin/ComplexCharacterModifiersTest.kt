@@ -5,7 +5,7 @@ import com.datikaa.charlatan.core.domain.SavingThrow
 import com.datikaa.charlatan.core.domain.Skill
 import com.datikaa.charlatan.core.domain.calculateAbilityScore
 import com.datikaa.charlatan.core.domain.calculateSavingThrowScore
-import com.datikaa.charlatan.core.domain.calculateSkillScore
+import com.datikaa.charlatan.core.domain.calculateSkillCheckScore
 import com.datikaa.charlatan.core.domain.flatten
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
@@ -45,10 +45,10 @@ class ComplexCharacterModifiersTest {
 
     @Test
     fun testSkillCalculation() {
-        testCharacter.calculateSkillScore(Skill.Athletics) shouldBeExactly 10
-        testCharacter.calculateSkillScore(Skill.Arcana) shouldBeExactly 13
-        testCharacter.calculateSkillScore(Skill.Stealth) shouldBeExactly 13
-        testCharacter.calculateSkillScore(Skill.Religion) shouldBeExactly 17
+        testCharacter.calculateSkillCheckScore(Skill.Athletics) shouldBeExactly 10
+        testCharacter.calculateSkillCheckScore(Skill.Arcana) shouldBeExactly 13
+        testCharacter.calculateSkillCheckScore(Skill.Stealth) shouldBeExactly 13
+        testCharacter.calculateSkillCheckScore(Skill.Religion) shouldBeExactly 17
     }
 }
 
