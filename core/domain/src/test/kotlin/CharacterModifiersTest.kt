@@ -55,8 +55,8 @@ private val plus1DexModifier = Modifier(
     id = 0,
     name = "Adds +1 Dex",
     description = "",
-    scoreModifiers = listOf(
-        Modifier.ScoreModifier(Ability.Dexterity::class, 1),
+    types = listOf(
+        Modifier.Type.Score(Ability.Dexterity::class, 1),
     ),
     nestedModifiers = listOf()
 )
@@ -65,8 +65,8 @@ private val plus1ConModifier = Modifier(
     id = 0,
     name = "Adds +1 Con",
     description = "",
-    scoreModifiers = listOf(
-        Modifier.ScoreModifier(Ability.Constitution::class, 1),
+    types = listOf(
+        Modifier.Type.Score(Ability.Constitution::class, 1),
     ),
     nestedModifiers = listOf()
 )
@@ -75,7 +75,7 @@ private val plus1DexAndPlus1ConModifierCollection = Modifier(
     id = 0,
     name = "Collection of 2 modifiers without own attribute modifier",
     description = "",
-    scoreModifiers = listOf(),
+    types = listOf(),
     nestedModifiers = listOf(
         plus1DexModifier,
         plus1ConModifier,
@@ -86,8 +86,8 @@ private val plus1DexSavingThrowModifier = Modifier(
     id = 0,
     name = "Dex SaveThrow Attribute modifier",
     description = "",
-    scoreModifiers = listOf(
-        Modifier.ScoreModifier(SavingThrow.Dexterity::class, 1)
+    types = listOf(
+        Modifier.Type.Score(SavingThrow.Dexterity::class, 1)
     ),
     nestedModifiers = emptyList()
 )
@@ -96,8 +96,8 @@ private val plus1StealthSkillModifier = Modifier(
     id = 0,
     name = "Adds +1 to Stealth skill",
     description = "",
-    scoreModifiers = listOf(
-        Modifier.ScoreModifier(Skill.Stealth::class, 1)
+    types = listOf(
+        Modifier.Type.Score(Skill.Stealth::class, 1)
     ),
     nestedModifiers = emptyList()
 )

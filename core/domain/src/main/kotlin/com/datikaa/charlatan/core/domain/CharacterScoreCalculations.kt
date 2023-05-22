@@ -4,8 +4,8 @@ fun Character.calculateAbilityScore(abilityType: AbilityType): Int {
     val baseScore = abilityList.first { it::class == abilityType }.value
     return baseScore + modifiers
         .flatten()
-        .flatMap { it.scoreModifiers }
-        .filterModifiableAttributeType(abilityType)
+        .flatMap { it.types }
+        .filterScoreModifiers(abilityType)
         .sumOf { it.value }
 }
 
@@ -13,8 +13,8 @@ fun Character.calculateSavingThrowScore(savingThrow: SavingThrow): Int {
     val abilityScore = calculateAbilityScore(savingThrow.ability)
     return abilityScore + modifiers
         .flatten()
-        .flatMap { it.scoreModifiers }
-        .filterModifiableAttributeType(savingThrow::class)
+        .flatMap { it.types }
+        .filterScoreModifiers(savingThrow::class)
         .sumOf { it.value }
 }
 
@@ -22,8 +22,8 @@ fun Character.calculateSkillScore(skill: Skill): Int {
     val abilityScore = calculateAbilityScore(skill.ability)
     return abilityScore + modifiers
         .flatten()
-        .flatMap { it.scoreModifiers }
-        .filterModifiableAttributeType(skill::class)
+        .flatMap { it.types }
+        .filterScoreModifiers(skill::class)
         .sumOf { it.value }
 }
 
