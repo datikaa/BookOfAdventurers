@@ -2,8 +2,8 @@ package com.datikaa.core.data
 
 import com.datikaa.charlatan.core.database.dao.AttributeDao
 import com.datikaa.charlatan.core.database.dao.CharacterDao
-import com.datikaa.charlatan.core.database.entity.CharacterWithAttributes
 import com.datikaa.charlatan.core.domain.Character
+import com.datikaa.core.data.adapter.mapToDomain
 import com.datikaa.core.data.adapter.mapToEntity
 import com.datikaa.core.data.adapter.toDomain
 import com.datikaa.core.data.adapter.toEntity
@@ -18,24 +18,24 @@ class CharacterRepositoryImpl(
     private val characterDao: CharacterDao,
 ) : CharacterRepository {
 
+    override fun flowListOfCharacters(): Flow<List<Character>> = characterDao
+        .flowCharacters()
+        .map { it.mapToDomain() }
+        .flowOn(Dispatchers.IO)
+
     override fun flowCharacter(id: Int): Flow<Character> = characterDao
         .flowCharacterWithAttributes(id)
         .map { it.toDomain() }
         .flowOn(Dispatchers.IO)
 
-    override suspend fun createOrUpdateCharacter(character: Character) =
+    override suspend fun insertCharacter(character: Character) =
         withContext(Dispatchers.IO) {
-            val attributes = characterDao.getAttributesForCharacter(character.id)
-            characterDao.insertOrUpdateCharacterWithAttributes(
-                characterWithAttributes = CharacterWithAttributes(
-                    characterEntity = character.toEntity(),
-                    attributes = character.abilityList.mapToEntity(character.id, attributes)
-                )
-            )
+            val id = characterDao.insertCharacter(character.toEntity())
+            characterDao.insertOrUpdateAttributes(character.abilityList.mapToEntity(id.toInt()))
         }
 
     override suspend fun clearAll() = withContext(Dispatchers.IO) {
         attributesDao.deleteAttributes()
-        characterDao.deleteCharacter()
+        characterDao.deleteCharacters()
     }
 }

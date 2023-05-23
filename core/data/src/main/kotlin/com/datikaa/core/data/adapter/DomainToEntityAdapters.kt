@@ -21,12 +21,8 @@ internal fun Ability.toEntityEnum(): AttributeEntity.Type = when (this) {
     is Ability.Wisdom -> AttributeEntity.Type.Wisdom
 }
 
-internal fun List<Ability>.mapToEntity(
-    characterId: Int,
-    characterAttributes: List<AttributeEntity>
-): List<AttributeEntity> = map { ability ->
-    val id = characterAttributes.first { ability.toEntityEnum() == it.type }.id
-    ability.toEntity(id, characterId)
+internal fun List<Ability>.mapToEntity(characterId: Int): List<AttributeEntity> = map { ability ->
+    ability.toEntity(0, characterId)
 }
 
 internal fun Character.toEntity(): CharacterEntity = CharacterEntity(

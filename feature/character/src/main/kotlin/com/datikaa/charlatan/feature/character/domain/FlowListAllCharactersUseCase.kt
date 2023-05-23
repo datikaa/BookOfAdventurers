@@ -1,15 +1,15 @@
 package com.datikaa.charlatan.feature.character.domain
 
-import com.datikaa.charlatan.core.database.CmmDatabase
+import com.datikaa.core.data.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class FlowListAllCharactersUseCase(
-    private val dataBase: CmmDatabase,
+    private val characterRepository: CharacterRepository,
 ) {
 
     operator fun invoke(): Flow<List<CmmCharacter>> =
-        dataBase.characterDao().flowCharacters().map { characters ->
+        characterRepository.flowListOfCharacters().map { characters ->
             characters.map {
                 CmmCharacter(
                     id = it.id,
