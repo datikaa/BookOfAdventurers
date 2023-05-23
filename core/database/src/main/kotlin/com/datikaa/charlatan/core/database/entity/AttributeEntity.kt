@@ -15,6 +15,15 @@ import androidx.room.PrimaryKey
 data class AttributeEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(index = true) val characterId: Int,
-    val name: String,
+    val type: Type,
     val value: Int,
-)
+) {
+    enum class Type {
+        Strength,
+        Dexterity,
+        Constitution,
+        Intelligence,
+        Wisdom,
+        Charisma,
+    }
+}

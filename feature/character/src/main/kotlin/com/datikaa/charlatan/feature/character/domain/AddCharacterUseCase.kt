@@ -11,7 +11,7 @@ class AddCharacterUseCase(
 
     suspend operator fun invoke(name: String) {
         withContext(Dispatchers.IO) {
-            database.characterDao().insert(
+            database.characterDao().insertOrUpdate(
                 CharacterEntity(
                     id = 0,
                     name = name,

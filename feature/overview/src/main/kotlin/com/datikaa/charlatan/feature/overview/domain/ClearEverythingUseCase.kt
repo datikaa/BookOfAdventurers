@@ -1,17 +1,12 @@
 package com.datikaa.charlatan.feature.overview.domain
 
-import com.datikaa.charlatan.core.database.CmmDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.datikaa.core.data.CharacterRepository
 
 class ClearEverythingUseCase(
-    private val database: CmmDatabase,
+    private val repository: CharacterRepository,
 ) {
 
     suspend operator fun invoke() {
-        withContext(Dispatchers.IO) {
-            database.attributesDao().deleteAttributes()
-            database.characterDao().deleteCharacter()
-        }
+        repository.clearAll()
     }
 }

@@ -20,7 +20,8 @@ class OverviewViewModel(
 
     init {
         viewModelScope.launch {
-            flowListOfAttributesUseCase().collectLatest { attrs ->
+            // TODO: use proper ID
+            flowListOfAttributesUseCase(1).collectLatest { attrs ->
                 _uiState.update { uiState ->
                     uiState.copy(attributes = attrs)
                 }

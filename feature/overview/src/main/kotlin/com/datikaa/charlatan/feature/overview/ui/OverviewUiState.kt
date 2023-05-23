@@ -1,9 +1,9 @@
 package com.datikaa.charlatan.feature.overview.ui
 
 import androidx.compose.runtime.Immutable
-import com.datikaa.charlatan.feature.overview.domain.Attribute
+import com.datikaa.charlatan.core.domain.Ability
 
 @Immutable
 data class OverviewUiState(
-    val attributes: List<Attribute>
+    val attributes: List<Ability>
 )

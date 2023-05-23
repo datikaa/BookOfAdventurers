@@ -12,7 +12,11 @@ val databaseKoinModule = module {
                 androidApplication(),
                 CmmDatabase::class.java, "charlatan-character-management-database"
             )
-            .fallbackToDestructiveMigrationFrom(1)
+            .fallbackToDestructiveMigrationFrom(2)
             .build()
     }
+
+    factory { get<CmmDatabase>().attributesDao() }
+
+    factory { get<CmmDatabase>().characterDao() }
 }

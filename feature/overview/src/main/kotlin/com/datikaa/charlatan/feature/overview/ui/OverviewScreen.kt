@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.overview.domain.Attribute
+import com.datikaa.charlatan.core.domain.Ability
+import com.datikaa.charlatan.feature.overview.etc.shortName
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -34,7 +35,6 @@ fun OverviewScreen(
     OverviewView(
         overviewUiState = uiState,
         clear = overviewViewModel::clearDb,
-        navigateToAttributes = { navigationEvent(OverviewNavigation.Attributes) },
         navigateToCharacters = { navigationEvent(OverviewNavigation.Characters) },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
@@ -44,7 +44,6 @@ fun OverviewScreen(
 fun OverviewView(
     overviewUiState: OverviewUiState,
     clear: () -> Unit,
-    navigateToAttributes: () -> Unit,
     navigateToCharacters: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -66,7 +65,7 @@ fun OverviewView(
                                     .padding(all = 4.dp)
                                     .aspectRatio(1f, true)
                             ) {
-                                Text(text = attr.name, fontSize = 10.sp, maxLines = 1)
+                                Text(text = attr.shortName, fontSize = 10.sp, maxLines = 1)
                                 Text(text = attr.value.toString(), fontSize = 16.sp)
                             }
                         }
@@ -78,9 +77,6 @@ fun OverviewView(
             }
         }
         Row {
-            Button(onClick = { navigateToAttributes() }) {
-                Text("Attributes")
-            }
             Button(onClick = { navigateToCharacters() }) {
                 Text("Charcters")
             }
@@ -97,13 +93,12 @@ private fun Preview() {
     OverviewView(
         overviewUiState = OverviewUiState(
             attributes = listOf(
-                Attribute("Str", 6),
-                Attribute("Int", 5),
-                Attribute("Dex", 4),
+                Ability.Strength(6),
+                Ability.Intelligence(5),
+                Ability.Dexterity(4),
             )
         ),
         clear = {},
-        navigateToAttributes = {},
         navigateToCharacters = {},
     )
 }

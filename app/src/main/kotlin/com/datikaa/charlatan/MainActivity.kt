@@ -12,7 +12,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.attributes.ui.ModifiersScreen
 import com.datikaa.charlatan.feature.character.ui.CharactersScreen
 import com.datikaa.charlatan.feature.overview.ui.OverviewNavigation
 import com.datikaa.charlatan.feature.overview.ui.OverviewScreen
@@ -29,12 +28,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "overview") {
+                    NavHost(navController = navController, startDestination = "characters") {
                         composable("overview") {
                             OverviewScreen(modifier = Modifier.fillMaxSize(), navigationEvent = navController::handleCharlatanNavigation)
-                        }
-                        composable("modifiers") {
-                            ModifiersScreen(modifier = Modifier.fillMaxSize())
                         }
                         composable("characters") {
                             CharactersScreen(modifier = Modifier.fillMaxSize())
@@ -48,7 +44,6 @@ class MainActivity : ComponentActivity() {
 
 private fun NavHostController.handleCharlatanNavigation(event: OverviewNavigation) {
     when(event) {
-        OverviewNavigation.Attributes -> navigate("modifiers")
         OverviewNavigation.Characters -> navigate("characters")
     }
 }

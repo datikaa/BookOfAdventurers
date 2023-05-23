@@ -9,7 +9,7 @@ class FlowListAllCharactersUseCase(
 ) {
 
     operator fun invoke(): Flow<List<CmmCharacter>> =
-        dataBase.characterDao().getCharacters().map { characters ->
+        dataBase.characterDao().flowCharacters().map { characters ->
             characters.map {
                 CmmCharacter(
                     id = it.id,

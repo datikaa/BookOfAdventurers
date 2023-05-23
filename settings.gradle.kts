@@ -17,9 +17,9 @@ dependencyResolutionManagement {
 rootProject.name = "Charlatan"
 
 include(":app")
+include(":core:data")
 include(":core:database")
 include(":core:design")
 include(":core:domain")
-include(":feature:attributes")
 include(":feature:character")
 include(":feature:overview")

@@ -7,7 +7,7 @@ import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.dao.CharacterDao
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
 
-@Database(entities = [CharacterEntity::class, AttributeEntity::class], version = 2)
+@Database(entities = [CharacterEntity::class, AttributeEntity::class], version = 3)
 abstract class CmmDatabase : RoomDatabase() {
     abstract fun attributesDao(): AttributeDao
     abstract fun characterDao(): CharacterDao

@@ -14,7 +14,8 @@ data class CharacterEntity(
 
 @Entity
 data class CharacterWithAttributes(
-    @Embedded val characterEntity: CharacterEntity,
+    @Embedded
+    val characterEntity: CharacterEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "characterId"
