@@ -54,7 +54,12 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
 
+
     implementation(libs.androidx.navigation.navigationCompose)
 
     implementation(libs.koin.android)
+
+    testImplementation(libs.junit4)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.kotest.assertions.core)
 }
