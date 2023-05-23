@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CharactersScreen(
+    navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
     overviewViewModel: CharactersScreenViewModel = koinViewModel()
 ) {
@@ -30,6 +32,7 @@ fun CharactersScreen(
     CharactersListView(
         uiState = uiState,
         addCharacter = overviewViewModel::addCharacter,
+        openCharacter = { navigate("overview/$it") },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -38,6 +41,7 @@ fun CharactersScreen(
 private fun CharactersListView(
     uiState: CharactersUiState,
     addCharacter: (String) -> Unit,
+    openCharacter: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -72,7 +76,12 @@ private fun CharactersListView(
         ) {
             Column {
                 uiState.characters.forEach { character ->
-                    Text(text = character.name)
+                    OutlinedButton(
+                        onClick = { openCharacter(character.id) },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(text = character.name)
+                    }
                 }
             }
         }
@@ -89,6 +98,7 @@ private fun Preview() {
                 CmmCharacter(0, "Azmoday")
             )
         ),
-        addCharacter = { /* nothing */ }
+        addCharacter = { /* nothing */ },
+        openCharacter= { /* nothing */ },
     )
 }

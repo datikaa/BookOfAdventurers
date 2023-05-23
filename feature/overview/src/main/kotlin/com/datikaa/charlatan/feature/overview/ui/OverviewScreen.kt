@@ -23,19 +23,21 @@ import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.feature.overview.etc.shortName
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun OverviewScreen(
-    navigationEvent: (OverviewNavigation) -> Unit,
+    characterId: Int,
+    navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
-    overviewViewModel: OverviewViewModel = koinViewModel()
+    overviewViewModel: OverviewViewModel = koinViewModel() { parametersOf(characterId) }
 ) {
     val uiState by overviewViewModel.uiState.collectAsStateWithLifecycle()
 
     OverviewView(
         overviewUiState = uiState,
         clear = overviewViewModel::clearDb,
-        navigateToCharacters = { navigationEvent(OverviewNavigation.Characters) },
+        navigateToCharacter = { navigate("characters") },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -44,7 +46,7 @@ fun OverviewScreen(
 fun OverviewView(
     overviewUiState: OverviewUiState,
     clear: () -> Unit,
-    navigateToCharacters: () -> Unit,
+    navigateToCharacter: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -77,8 +79,8 @@ fun OverviewView(
             }
         }
         Row {
-            Button(onClick = { navigateToCharacters() }) {
-                Text("Charcters")
+            Button(onClick = { navigateToCharacter() }) {
+                Text("Characters")
             }
             Button(onClick = { clear() }) {
                 Text("Clear DB")
@@ -99,6 +101,6 @@ private fun Preview() {
             )
         ),
         clear = {},
-        navigateToCharacters = {},
+        navigateToCharacter = {},
     )
 }

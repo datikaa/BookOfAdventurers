@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class OverviewViewModel(
+    characterId: Int,
     private val clearEverythingUseCase: ClearEverythingUseCase,
     private val flowListOfAttributesUseCase: FlowListOfAttributesUseCase,
 ) : ViewModel() {
@@ -21,7 +22,7 @@ class OverviewViewModel(
     init {
         viewModelScope.launch {
             // TODO: use proper ID
-            flowListOfAttributesUseCase(1).collectLatest { attrs ->
+            flowListOfAttributesUseCase(characterId = characterId).collectLatest { attrs ->
                 _uiState.update { uiState ->
                     uiState.copy(attributes = attrs)
                 }

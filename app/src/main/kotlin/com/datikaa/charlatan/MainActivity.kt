@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.character.ui.CharactersScreen
-import com.datikaa.charlatan.feature.overview.ui.OverviewNavigation
 import com.datikaa.charlatan.feature.overview.ui.OverviewScreen
 
 class MainActivity : ComponentActivity() {
@@ -29,21 +29,25 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "characters") {
-                        composable("overview") {
-                            OverviewScreen(modifier = Modifier.fillMaxSize(), navigationEvent = navController::handleCharlatanNavigation)
+                        composable(
+                            route = "overview/{characterId}",
+                            arguments = listOf(
+                                navArgument("characterId") { type = NavType.IntType }
+                            ),
+                        ) { backStackEntry ->
+                            OverviewScreen(
+                                backStackEntry.arguments?.getInt("characterId")!!, // TODO
+                                modifier = Modifier.fillMaxSize(),
+                                navigate = { navController.navigate(it) })
                         }
                         composable("characters") {
-                            CharactersScreen(modifier = Modifier.fillMaxSize())
+                            CharactersScreen(
+                                modifier = Modifier.fillMaxSize(),
+                                navigate = { navController.navigate(it) })
                         }
                     }
                 }
             }
         }
-    }
-}
-
-private fun NavHostController.handleCharlatanNavigation(event: OverviewNavigation) {
-    when(event) {
-        OverviewNavigation.Characters -> navigate("characters")
     }
 }
