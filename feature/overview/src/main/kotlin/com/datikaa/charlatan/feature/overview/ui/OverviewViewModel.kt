@@ -3,7 +3,7 @@ package com.datikaa.charlatan.feature.overview.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.charlatan.feature.overview.domain.ClearEverythingUseCase
-import com.datikaa.charlatan.feature.overview.domain.FlowListOfAttributesUseCase
+import com.datikaa.charlatan.feature.overview.domain.FlowCharacterUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class OverviewViewModel(
     characterId: Int,
     private val clearEverythingUseCase: ClearEverythingUseCase,
-    private val flowListOfAttributesUseCase: FlowListOfAttributesUseCase,
+    private val flowCharacterUseCase: FlowCharacterUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(initUiState)
@@ -21,10 +21,12 @@ class OverviewViewModel(
 
     init {
         viewModelScope.launch {
-            // TODO: use proper ID
-            flowListOfAttributesUseCase(characterId = characterId).collectLatest { attrs ->
+            flowCharacterUseCase(characterId = characterId).collectLatest { char ->
                 _uiState.update { uiState ->
-                    uiState.copy(attributes = attrs)
+                    uiState.copy(
+                        name = char.name,
+                        attributes = char.abilityList,
+                    )
                 }
             }
         }
@@ -38,5 +40,6 @@ class OverviewViewModel(
 }
 
 private val initUiState = OverviewUiState(
+    name = "",
     attributes = emptyList()
 )

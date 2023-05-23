@@ -74,7 +74,7 @@ fun OverviewView(
                     }
                 }
             }
-            CmmTitledCard(title = "Placeholder") {
+            CmmTitledCard(title = overviewUiState.name) {
                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
             }
         }
@@ -94,6 +94,7 @@ fun OverviewView(
 private fun Preview() {
     OverviewView(
         overviewUiState = OverviewUiState(
+            name = "Azmoday",
             attributes = listOf(
                 Ability.Strength(6),
                 Ability.Intelligence(5),

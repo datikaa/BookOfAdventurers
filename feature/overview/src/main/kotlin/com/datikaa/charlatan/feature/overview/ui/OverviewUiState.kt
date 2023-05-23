@@ -5,5 +5,6 @@ import com.datikaa.charlatan.core.domain.Ability
 
 @Immutable
 data class OverviewUiState(
+    val name: String,
     val attributes: List<Ability>
 )
