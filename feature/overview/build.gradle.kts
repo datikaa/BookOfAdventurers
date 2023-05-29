@@ -2,6 +2,7 @@
 plugins {
     id("charlatan.android.library")
     id("charlatan.android.library.compose")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -29,6 +30,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.util)
 
     implementation(libs.androidx.lifecycle.runtime.compose)
+
+    implementation(libs.androidx.navigation.navigationCompose)
 
     implementation(libs.koin.androidx.compose)
 

@@ -26,15 +26,15 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun OverviewScreen(
+fun OverviewRoute(
     characterId: Int,
     navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
-    overviewViewModel: OverviewViewModel = koinViewModel() { parametersOf(characterId) }
+    overviewViewModel: OverviewViewModel = koinViewModel { parametersOf(characterId) }
 ) {
     val uiState by overviewViewModel.uiState.collectAsStateWithLifecycle()
 
-    OverviewView(
+    OverviewScreen(
         overviewUiState = uiState,
         clear = overviewViewModel::clearDb,
         navigateToCharacter = { navigate("characters") },
@@ -43,7 +43,7 @@ fun OverviewScreen(
 }
 
 @Composable
-fun OverviewView(
+fun OverviewScreen(
     overviewUiState: OverviewUiState,
     clear: () -> Unit,
     navigateToCharacter: () -> Unit,
@@ -92,7 +92,7 @@ fun OverviewView(
 @Preview
 @Composable
 private fun Preview() {
-    OverviewView(
+    OverviewScreen(
         overviewUiState = OverviewUiState(
             name = "Azmoday",
             attributes = listOf(
