@@ -10,22 +10,23 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.datikaa.charlatan.feature.overview.ui.OverviewRoute
 
-const val characterIdArg = "{characterId}"
-const val overviewRoute = "overview_route/$characterIdArg"
+private const val CHARACTER_ID_ARG = "characterId"
+private const val ROUTE_PARAM = "{$CHARACTER_ID_ARG}"
+const val overviewRoute = "overview_route/$ROUTE_PARAM"
 
 fun NavController.navigateToOverview(characterId: Int, navOptions: NavOptions? = null) {
-    navigate(overviewRoute.replace(characterIdArg, characterId.toString()), navOptions)
+    navigate(overviewRoute.replace(ROUTE_PARAM, characterId.toString()), navOptions)
 }
 
 fun NavGraphBuilder.overviewScreen() {
     composable(
         route = overviewRoute,
         arguments = listOf(
-            navArgument(characterIdArg) { type = NavType.IntType }
+            navArgument(CHARACTER_ID_ARG) { type = NavType.IntType }
         ),
     ) { backStackEntry ->
         OverviewRoute(
-            backStackEntry.arguments!!.getInt(characterIdArg),
+            backStackEntry.arguments!!.getInt(CHARACTER_ID_ARG),
             modifier = Modifier.fillMaxSize(),
             navigate = { }
         )
