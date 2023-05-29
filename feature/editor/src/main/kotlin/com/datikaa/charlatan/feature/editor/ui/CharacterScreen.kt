@@ -1,22 +1,12 @@
 package com.datikaa.charlatan.feature.editor.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
 import org.koin.androidx.compose.koinViewModel
@@ -32,7 +22,8 @@ fun EditorRoute(
     CharactersScreen(
         uiState = uiState,
         addCharacter = overviewViewModel::addCharacter,
-        openCharacter = openCharacter,
+        selectCharacter = overviewViewModel::selectCharacter,
+        openCharacter = { openCharacter(it.id) },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -41,54 +32,28 @@ fun EditorRoute(
 private fun CharactersScreen(
     uiState: CharactersUiState,
     addCharacter: (String) -> Unit,
-    openCharacter: (Int) -> Unit,
+    selectCharacter: (CmmCharacter?) -> Unit,
+    openCharacter: (CmmCharacter) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
-    ) {
-        CmmTitledCard(
-            title = "Add character",
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Column {
-                var charNameText by remember { mutableStateOf("") }
-                val addName = {
-                    addCharacter(charNameText)
-                    charNameText = ""
-                }
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = charNameText,
-                    onValueChange = { charNameText = it },
-                    label = { Text("Name") }
-                )
-                Button(onClick = addName) {
-                    Text("Add")
-                }
-            }
-        }
-
-        CmmTitledCard(
-            title = "Characters",
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Column {
-                uiState.characters.forEach { character ->
-                    OutlinedButton(
-                        onClick = { openCharacter(character.id) },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(text = character.name)
-                    }
-                }
-            }
-        }
+    if (uiState.selectedCharacter == null) {
+        CharacterList(
+            uiState = uiState,
+            addCharacter = addCharacter,
+            selectCharacter = selectCharacter,
+            modifier = modifier,
+        )
+    } else {
+        CharacterEditor(
+            uiState = uiState,
+            openCharacterSheet = openCharacter,
+            back = { selectCharacter(null) },
+            modifier = modifier,
+        )
     }
 }
 
-@Preview
+@DevicePreviews
 @Composable
 private fun Preview() {
     CharactersScreen(
@@ -99,6 +64,22 @@ private fun Preview() {
             )
         ),
         addCharacter = { /* nothing */ },
-        openCharacter= { /* nothing */ },
+        selectCharacter = { /* nothing */ },
+        openCharacter = { /* nothing */ },
     )
 }
+
+// TODO: this should be in a ":core:ui" module or something
+private const val DEVICES = "devices"
+
+@Preview(
+    name = "Phone",
+    group = DEVICES,
+    device = Devices.PIXEL_2,
+)
+@Preview(
+    name = "Tablet",
+    group = DEVICES,
+    device = Devices.PIXEL_C,
+)
+annotation class DevicePreviews

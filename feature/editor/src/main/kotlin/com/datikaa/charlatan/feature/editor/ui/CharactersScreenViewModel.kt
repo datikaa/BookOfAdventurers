@@ -37,7 +37,7 @@ class CharactersScreenViewModel(
         }
     }
 
-    fun selectCharacter(character: CmmCharacter) {
+    fun selectCharacter(character: CmmCharacter?) {
         _uiState.update { prev ->
             prev.copy(
                 selectedCharacter = character,
