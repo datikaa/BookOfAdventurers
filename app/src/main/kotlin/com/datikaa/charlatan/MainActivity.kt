@@ -9,8 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.editor.navigation.editorScreen
+import com.datikaa.charlatan.feature.overview.navigation.OverviewRouteArgs
+import com.datikaa.charlatan.feature.overview.navigation.navigateToOverview
 import com.datikaa.charlatan.feature.overview.navigation.overviewRoute
 import com.datikaa.charlatan.feature.overview.navigation.overviewScreen
 
@@ -28,7 +31,14 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = overviewRoute) {
                         overviewScreen()
-                        editorScreen()
+                        editorScreen {
+                            navController.navigateToOverview(
+                                args = OverviewRouteArgs(characterId = it),
+                                navOptions = navOptions {
+                                    launchSingleTop = true
+                                }
+                            )
+                        }
                     }
                 }
             }

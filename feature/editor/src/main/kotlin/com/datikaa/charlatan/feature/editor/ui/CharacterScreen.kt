@@ -23,6 +23,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun EditorRoute(
+    openCharacter: (Int) -> Unit,
     modifier: Modifier = Modifier,
     overviewViewModel: CharactersScreenViewModel = koinViewModel()
 ) {
@@ -31,8 +32,7 @@ fun EditorRoute(
     CharactersScreen(
         uiState = uiState,
         addCharacter = overviewViewModel::addCharacter,
-//        openCharacter = { navigate("overview/$it") },
-        openCharacter = {  },
+        openCharacter = openCharacter,
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }

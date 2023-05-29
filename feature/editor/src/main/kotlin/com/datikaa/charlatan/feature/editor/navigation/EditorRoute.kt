@@ -12,8 +12,12 @@ fun NavController.navigateToEditor(navOptions: NavOptions? = null) {
     this.navigate(editorRoute, navOptions)
 }
 
-fun NavGraphBuilder.editorScreen() {
+fun NavGraphBuilder.editorScreen(
+    openCharacter: (Int) -> Unit,
+) {
     composable(route = editorRoute) {
-        EditorRoute()
+        EditorRoute(
+            openCharacter = openCharacter,
+        )
     }
 }
