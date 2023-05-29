@@ -11,10 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
+import com.datikaa.charlatan.feature.editor.navigation.editorRoute
 import com.datikaa.charlatan.feature.editor.navigation.editorScreen
-import com.datikaa.charlatan.feature.overview.navigation.OverviewRouteArgs
 import com.datikaa.charlatan.feature.overview.navigation.navigateToOverview
-import com.datikaa.charlatan.feature.overview.navigation.overviewRoute
 import com.datikaa.charlatan.feature.overview.navigation.overviewScreen
 
 class MainActivity : ComponentActivity() {
@@ -29,11 +28,11 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = overviewRoute) {
+                    NavHost(navController = navController, startDestination = editorRoute) {
                         overviewScreen()
                         editorScreen {
                             navController.navigateToOverview(
-                                args = OverviewRouteArgs(characterId = it),
+                                characterId = it,
                                 navOptions = navOptions {
                                     launchSingleTop = true
                                 }
