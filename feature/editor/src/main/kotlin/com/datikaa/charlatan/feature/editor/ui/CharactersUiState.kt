@@ -1,7 +1,7 @@
-package com.datikaa.charlatan.feature.character.ui
+package com.datikaa.charlatan.feature.editor.ui
 
 import androidx.compose.runtime.Immutable
-import com.datikaa.charlatan.feature.character.domain.CmmCharacter
+import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
 
 @Immutable
 data class CharactersUiState(

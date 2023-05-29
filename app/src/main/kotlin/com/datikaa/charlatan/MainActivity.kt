@@ -13,7 +13,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.character.ui.CharactersScreen
+import com.datikaa.charlatan.feature.editor.navigation.editorRoute
+import com.datikaa.charlatan.feature.editor.navigation.editorScreen
 import com.datikaa.charlatan.feature.overview.ui.OverviewScreen
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "characters") {
+                    NavHost(navController = navController, startDestination = editorRoute) {
                         composable(
                             route = "overview/{characterId}",
                             arguments = listOf(
@@ -40,11 +41,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize(),
                                 navigate = { navController.navigate(it) })
                         }
-                        composable("characters") {
-                            CharactersScreen(
-                                modifier = Modifier.fillMaxSize(),
-                                navigate = { navController.navigate(it) })
-                        }
+                        editorScreen()
                     }
                 }
             }

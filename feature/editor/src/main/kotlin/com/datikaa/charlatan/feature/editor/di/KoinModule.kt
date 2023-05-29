@@ -1,8 +1,8 @@
-package com.datikaa.charlatan.feature.character.di
+package com.datikaa.charlatan.feature.editor.di
 
-import com.datikaa.charlatan.feature.character.domain.AddCharacterUseCase
-import com.datikaa.charlatan.feature.character.domain.FlowListAllCharactersUseCase
-import com.datikaa.charlatan.feature.character.ui.CharactersScreenViewModel
+import com.datikaa.charlatan.feature.editor.domain.AddCharacterUseCase
+import com.datikaa.charlatan.feature.editor.domain.FlowListAllCharactersUseCase
+import com.datikaa.charlatan.feature.editor.ui.CharactersScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module

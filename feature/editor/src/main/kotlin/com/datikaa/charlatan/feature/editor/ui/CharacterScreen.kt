@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.feature.character.ui
+package com.datikaa.charlatan.feature.editor.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,27 +18,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.character.domain.CmmCharacter
+import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CharactersScreen(
-    navigate: (String) -> Unit,
+fun EditorRoute(
     modifier: Modifier = Modifier,
     overviewViewModel: CharactersScreenViewModel = koinViewModel()
 ) {
     val uiState by overviewViewModel.uiState.collectAsStateWithLifecycle()
 
-    CharactersListView(
+    CharactersScreen(
         uiState = uiState,
         addCharacter = overviewViewModel::addCharacter,
-        openCharacter = { navigate("overview/$it") },
+//        openCharacter = { navigate("overview/$it") },
+        openCharacter = {  },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 
 @Composable
-private fun CharactersListView(
+private fun CharactersScreen(
     uiState: CharactersUiState,
     addCharacter: (String) -> Unit,
     openCharacter: (Int) -> Unit,
@@ -91,7 +91,7 @@ private fun CharactersListView(
 @Preview
 @Composable
 private fun Preview() {
-    CharactersListView(
+    CharactersScreen(
         uiState = CharactersUiState(
             selectedCharacter = null,
             characters = listOf(

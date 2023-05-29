@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.feature.character.domain
+package com.datikaa.charlatan.feature.editor.domain
 
 import androidx.compose.runtime.Immutable
 

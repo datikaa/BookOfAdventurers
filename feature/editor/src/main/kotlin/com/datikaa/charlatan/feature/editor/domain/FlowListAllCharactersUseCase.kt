@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.feature.character.domain
+package com.datikaa.charlatan.feature.editor.domain
 
 import com.datikaa.core.data.CharacterRepository
 import kotlinx.coroutines.flow.Flow

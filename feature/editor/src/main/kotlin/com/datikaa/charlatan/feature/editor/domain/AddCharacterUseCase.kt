@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.feature.character.domain
+package com.datikaa.charlatan.feature.editor.domain
 
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character

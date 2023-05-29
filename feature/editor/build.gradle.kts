@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datikaa.charlatan.feature.character"
+    namespace = "com.datikaa.charlatan.feature.editor"
 }
 
 dependencies {
@@ -25,6 +25,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.util)
 
     implementation(libs.androidx.lifecycle.runtime.compose)
+
+    implementation(libs.androidx.navigation.navigationCompose)
 
     implementation(libs.koin.androidx.compose)
 
