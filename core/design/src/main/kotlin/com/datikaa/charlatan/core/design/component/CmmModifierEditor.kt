@@ -1,6 +1,11 @@
 package com.datikaa.charlatan.core.design.component
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -23,10 +28,11 @@ fun CmmModifierEditor(
 ) {
     OutlinedCard(
         shape = RoundedCornerShape(percent = 100),
-        modifier = modifier,
     ) {
         Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier,
         ) {
             IconButton(onClick = decrease) {
                 Icon(
@@ -48,9 +54,20 @@ fun CmmModifierEditor(
 @Preview
 @Composable
 private fun CmmModifierEditorPreview() {
-    CmmModifierEditor(
-        text = "Strength",
-        decrease = { -> },
-        increase = { -> },
-    )
+    Column(
+        modifier = Modifier.width(IntrinsicSize.Max)
+    ) {
+        CmmModifierEditor(
+            text = "Str",
+            decrease = { -> },
+            increase = { -> },
+            modifier = Modifier.fillMaxWidth(),
+        )
+        CmmModifierEditor(
+            text = "Strength",
+            decrease = { -> },
+            increase = { -> },
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
 }
