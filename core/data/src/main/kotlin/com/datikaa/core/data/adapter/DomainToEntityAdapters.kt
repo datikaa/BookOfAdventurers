@@ -14,7 +14,7 @@ internal fun Ability.toEntity(id: Int, characterId: Int): AttributeEntity = Attr
 )
 
 internal fun Ability.toEntityEnum(): AttributeEntity.Type = when (this) {
-    is Ability.Charisma -> AttributeEntity.Type.Strength
+    is Ability.Charisma -> AttributeEntity.Type.Charisma
     is Ability.Constitution -> AttributeEntity.Type.Constitution
     is Ability.Dexterity -> AttributeEntity.Type.Dexterity
     is Ability.Intelligence -> AttributeEntity.Type.Intelligence
