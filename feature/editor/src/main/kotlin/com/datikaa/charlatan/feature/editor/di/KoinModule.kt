@@ -3,6 +3,7 @@ package com.datikaa.charlatan.feature.editor.di
 import com.datikaa.charlatan.feature.editor.domain.AddCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowListAllCharactersUseCase
+import com.datikaa.charlatan.feature.editor.domain.ModifyAbilityValueOfCharacterUseCase
 import com.datikaa.charlatan.feature.editor.ui.CharactersScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
@@ -14,6 +15,5 @@ val characterKoinModule = module {
     factoryOf(::AddCharacterUseCase)
     factoryOf(::FlowCharacterUseCase)
     factoryOf(::FlowListAllCharactersUseCase)
-
-
+    factoryOf(::ModifyAbilityValueOfCharacterUseCase)
 }

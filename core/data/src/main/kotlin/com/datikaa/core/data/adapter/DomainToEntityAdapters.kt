@@ -2,6 +2,7 @@ package com.datikaa.core.data.adapter
 
 import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
+import com.datikaa.charlatan.core.database.partial.AttributeEntityPartialUpdate
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 
@@ -29,4 +30,9 @@ internal fun Character.toEntity(): CharacterEntity = CharacterEntity(
     id = id,
     name = name,
     level = level
+)
+
+internal fun Ability.toPartialUpdate(id: Int) = AttributeEntityPartialUpdate(
+    id = id,
+    value = value,
 )

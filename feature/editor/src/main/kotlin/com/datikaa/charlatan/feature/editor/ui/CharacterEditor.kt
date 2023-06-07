@@ -25,6 +25,8 @@ import com.datikaa.charlatan.core.domain.Character
 fun CharacterEditor(
     uiState: CharactersUiState,
     openCharacterSheet: (Character) -> Unit,
+    decreaseAbility: (Character, Ability) -> Unit,
+    increaseAbility: (Character, Ability) -> Unit,
     back: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -50,11 +52,11 @@ fun CharacterEditor(
                             .align(Alignment.CenterHorizontally)
                             .width(IntrinsicSize.Max)
                     ) {
-                        uiState.selectedCharacter.abilityList.forEach {
+                        selectedCharacter.abilityList.forEach { ability ->
                             CmmModifierEditor(
-                                text = "${it::class.simpleName} ${it.value}",
-                                decrease = { /*TODO*/ },
-                                increase = { /*TODO*/ },
+                                text = "${ability::class.simpleName} ${ability.value}",
+                                decrease = { decreaseAbility(selectedCharacter, ability) },
+                                increase = { increaseAbility(selectedCharacter, ability) },
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
@@ -94,6 +96,8 @@ private fun CharacterEditorUnselectedPreview() {
         ),
         openCharacterSheet = { },
         back = { },
+        decreaseAbility = { _, _ -> },
+        increaseAbility = { _, _ -> },
     )
 }
 
@@ -128,5 +132,7 @@ private fun CharacterEditorSelectedPreview() {
         ),
         openCharacterSheet = { },
         back = { },
+        decreaseAbility = { _, _ -> },
+        increaseAbility = { _, _ -> },
     )
 }

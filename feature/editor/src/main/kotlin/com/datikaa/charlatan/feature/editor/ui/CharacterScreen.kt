@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
+import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 import org.koin.androidx.compose.koinViewModel
 
@@ -24,6 +25,8 @@ fun EditorRoute(
         addCharacter = overviewViewModel::addCharacter,
         selectCharacter = overviewViewModel::selectCharacter,
         openCharacter = { openCharacter(it.id) },
+        decreaseAbility = overviewViewModel::decreaseAttribute,
+        increaseAbility = overviewViewModel::increaseAttribute,
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -34,6 +37,8 @@ private fun CharactersScreen(
     addCharacter: (String) -> Unit,
     selectCharacter: (Character?) -> Unit,
     openCharacter: (Character) -> Unit,
+    decreaseAbility: (Character, Ability) -> Unit,
+    increaseAbility: (Character, Ability) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (uiState.selectedCharacter == null) {
@@ -48,6 +53,8 @@ private fun CharactersScreen(
             uiState = uiState,
             openCharacterSheet = openCharacter,
             back = { selectCharacter(null) },
+            decreaseAbility = decreaseAbility,
+            increaseAbility = increaseAbility,
             modifier = modifier,
         )
     }
@@ -72,6 +79,8 @@ private fun Preview() {
         addCharacter = { /* nothing */ },
         selectCharacter = { /* nothing */ },
         openCharacter = { /* nothing */ },
+        decreaseAbility = { _, _ -> /* nothing */ },
+        increaseAbility = { _, _ -> /* nothing */ },
     )
 }
 
