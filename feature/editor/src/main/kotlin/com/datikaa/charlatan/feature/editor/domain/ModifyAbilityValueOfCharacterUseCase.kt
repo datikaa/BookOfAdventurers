@@ -21,8 +21,8 @@ class ModifyAbilityValueOfCharacterUseCase(
     }
 
     private fun Ability.update(type: Type) = when(type) {
-        Type.Increase -> copy(value.inc())
-        Type.Decrease -> copy(value.dec())
+        Type.Increase -> if (value < 20) copy(value.inc()) else this
+        Type.Decrease -> if (value > 0) copy(value.dec()) else this
     }
 
     enum class Type {
