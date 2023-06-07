@@ -2,8 +2,8 @@ package com.datikaa.charlatan.feature.editor.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.datikaa.charlatan.core.domain.Character
 import com.datikaa.charlatan.feature.editor.domain.AddCharacterUseCase
-import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
 import com.datikaa.charlatan.feature.editor.domain.FlowListAllCharactersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,7 +37,7 @@ class CharactersScreenViewModel(
         }
     }
 
-    fun selectCharacter(character: CmmCharacter?) {
+    fun selectCharacter(character: Character?) {
         _uiState.update { prev ->
             prev.copy(
                 selectedCharacter = character,

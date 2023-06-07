@@ -8,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
+import com.datikaa.charlatan.core.domain.Character
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -32,8 +32,8 @@ fun EditorRoute(
 private fun CharactersScreen(
     uiState: CharactersUiState,
     addCharacter: (String) -> Unit,
-    selectCharacter: (CmmCharacter?) -> Unit,
-    openCharacter: (CmmCharacter) -> Unit,
+    selectCharacter: (Character?) -> Unit,
+    openCharacter: (Character) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (uiState.selectedCharacter == null) {
@@ -60,7 +60,13 @@ private fun Preview() {
         uiState = CharactersUiState(
             selectedCharacter = null,
             characters = listOf(
-                CmmCharacter(0, "Azmoday")
+                Character(
+                    id = 3144,
+                    name = "Dax",
+                    level = 8884,
+                    abilityList = listOf(),
+                    modifiers = listOf()
+                )
             )
         ),
         addCharacter = { /* nothing */ },

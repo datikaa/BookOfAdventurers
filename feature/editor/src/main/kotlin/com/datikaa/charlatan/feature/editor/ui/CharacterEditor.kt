@@ -15,12 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
+import com.datikaa.charlatan.core.domain.Character
 
 @Composable
 fun CharacterEditor(
     uiState: CharactersUiState,
-    openCharacterSheet: (CmmCharacter) -> Unit,
+    openCharacterSheet: (Character) -> Unit,
     back: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,9 +35,11 @@ fun CharacterEditor(
         ) {
             if (selectedCharacter != null) {
                 val scrollState = rememberScrollState()
-                Column(modifier = Modifier
-                    .verticalScroll(scrollState)
-                    .fillMaxWidth()) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(scrollState)
+                        .fillMaxWidth()
+                ) {
                     repeat(5) {
                         Text(text = "Demo modifier text $it")
                     }
@@ -65,7 +67,13 @@ private fun CharacterEditorUnselectedPreview() {
         uiState = CharactersUiState(
             selectedCharacter = null,
             characters = listOf(
-                CmmCharacter(0, "Azmoday")
+                Character(
+                    id = 3524,
+                    name = "Jessic",
+                    level = 6111,
+                    abilityList = listOf(),
+                    modifiers = listOf()
+                )
             )
         ),
         openCharacterSheet = { },
@@ -78,9 +86,21 @@ private fun CharacterEditorUnselectedPreview() {
 private fun CharacterEditorSelectedPreview() {
     CharacterEditor(
         uiState = CharactersUiState(
-            selectedCharacter = CmmCharacter(0, "Azmoday"),
+            selectedCharacter = Character(
+                id = 6497,
+                name = "Justin",
+                level = 797,
+                abilityList = listOf(),
+                modifiers = listOf()
+            ),
             characters = listOf(
-                CmmCharacter(0, "Azmoday")
+                Character(
+                    id = 6497,
+                    name = "Justin",
+                    level = 797,
+                    abilityList = listOf(),
+                    modifiers = listOf()
+                )
             )
         ),
         openCharacterSheet = { },

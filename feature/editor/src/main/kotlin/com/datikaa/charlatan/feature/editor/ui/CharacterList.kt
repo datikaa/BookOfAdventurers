@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.feature.editor.domain.CmmCharacter
+import com.datikaa.charlatan.core.domain.Character
 
 @Composable
 fun CharacterList(
     uiState: CharactersUiState,
     addCharacter: (String) -> Unit,
-    selectCharacter: (CmmCharacter) -> Unit,
+    selectCharacter: (Character) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -79,7 +79,13 @@ private fun Preview() {
         uiState = CharactersUiState(
             selectedCharacter = null,
             characters = listOf(
-                CmmCharacter(0, "Azmoday")
+                Character(
+                    id = 5614,
+                    name = "Jesi",
+                    level = 6108,
+                    abilityList = listOf(),
+                    modifiers = listOf()
+                )
             )
         ),
         addCharacter = { /* nothing */ },
