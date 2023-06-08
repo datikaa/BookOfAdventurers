@@ -11,7 +11,7 @@ fun Character.sumOfModifiersFor(modifiableScoreType: KClass<out ModifiableScore>
 fun Character.calculateAbilityScore(abilityType: AbilityType): Int {
     val baseScore = abilityList.first { it::class == abilityType }.value
     val modifierScore = sumOfModifiersFor(abilityType)
-    return baseScore + modifierScore
+    return (baseScore + modifierScore - 10).floorDiv(2)
 }
 
 fun <T> Character.calculateCalculatedScore(calculatedScore: T): Int where T : CalculatedScore, T : PossiblyProficient {

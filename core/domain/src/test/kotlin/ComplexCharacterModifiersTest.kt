@@ -25,30 +25,30 @@ class ComplexCharacterModifiersTest {
 
     @Test
     fun testAbilityScoreCalculations() {
-        testCharacter.calculateAbilityScore(Ability.Strength::class) shouldBeExactly 10
-        testCharacter.calculateAbilityScore(Ability.Dexterity::class) shouldBeExactly 12
-        testCharacter.calculateAbilityScore(Ability.Constitution::class) shouldBeExactly 13
-        testCharacter.calculateAbilityScore(Ability.Intelligence::class) shouldBeExactly 13
-        testCharacter.calculateAbilityScore(Ability.Wisdom::class) shouldBeExactly 14
-        testCharacter.calculateAbilityScore(Ability.Charisma::class) shouldBeExactly 15
+        testCharacter.calculateAbilityScore(Ability.Strength::class) shouldBeExactly -1
+        testCharacter.calculateAbilityScore(Ability.Dexterity::class) shouldBeExactly 1
+        testCharacter.calculateAbilityScore(Ability.Constitution::class) shouldBeExactly 1
+        testCharacter.calculateAbilityScore(Ability.Intelligence::class) shouldBeExactly 1
+        testCharacter.calculateAbilityScore(Ability.Wisdom::class) shouldBeExactly 2
+        testCharacter.calculateAbilityScore(Ability.Charisma::class) shouldBeExactly 2
     }
 
     @Test
     fun testSavingThrowCalculation() {
-        testCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 14
-        testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 13
-        testCharacter.calculateSavingThrowScore(SavingThrow.Constitution) shouldBeExactly 13
-        testCharacter.calculateSavingThrowScore(SavingThrow.Intelligence) shouldBeExactly 13
-        testCharacter.calculateSavingThrowScore(SavingThrow.Wisdom) shouldBeExactly 14
-        testCharacter.calculateSavingThrowScore(SavingThrow.Charisma) shouldBeExactly 15
+        testCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 3
+        testCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 2
+        testCharacter.calculateSavingThrowScore(SavingThrow.Constitution) shouldBeExactly 1
+        testCharacter.calculateSavingThrowScore(SavingThrow.Intelligence) shouldBeExactly 1
+        testCharacter.calculateSavingThrowScore(SavingThrow.Wisdom) shouldBeExactly 2
+        testCharacter.calculateSavingThrowScore(SavingThrow.Charisma) shouldBeExactly 2
     }
 
     @Test
     fun testSkillCalculation() {
-        testCharacter.calculateSkillCheckScore(Skill.Athletics) shouldBeExactly 10
-        testCharacter.calculateSkillCheckScore(Skill.Arcana) shouldBeExactly 13
-        testCharacter.calculateSkillCheckScore(Skill.Stealth) shouldBeExactly 13
-        testCharacter.calculateSkillCheckScore(Skill.Religion) shouldBeExactly 17
+        testCharacter.calculateSkillCheckScore(Skill.Athletics) shouldBeExactly -1
+        testCharacter.calculateSkillCheckScore(Skill.Arcana) shouldBeExactly 1
+        testCharacter.calculateSkillCheckScore(Skill.Stealth) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Religion) shouldBeExactly 5
     }
 }
 
@@ -128,12 +128,12 @@ private val testCharacter = Character(
     level = 10,
     name = "Rondell",
     abilityList = listOf(
-        Ability.Strength(value = 10),
-        Ability.Dexterity(value = 11),
-        Ability.Constitution(value = 12),
-        Ability.Intelligence(value = 13),
-        Ability.Wisdom(value = 14),
-        Ability.Charisma(value = 15),
+        Ability.Strength(value = 9), // -1
+        Ability.Dexterity(value = 11), // 0
+        Ability.Constitution(value = 12), // 1
+        Ability.Intelligence(value = 13), // 1
+        Ability.Wisdom(value = 14), // 2
+        Ability.Charisma(value = 15), // 2
     ),
     modifiers = listOf(
         plus1DexAndPlus1ConModifierCollection,
