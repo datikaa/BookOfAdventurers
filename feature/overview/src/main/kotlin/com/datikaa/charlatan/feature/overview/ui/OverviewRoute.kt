@@ -20,8 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.core.domain.Ability
-import com.datikaa.charlatan.feature.overview.etc.shortName
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -59,18 +57,23 @@ fun OverviewScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.align(Alignment.Center),
                 ) {
-                    overviewUiState.attributes.forEach { attr ->
-                        OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier
-                                    .padding(all = 4.dp)
-                                    .aspectRatio(1f, true)
-                            ) {
-                                Text(text = attr.shortName, fontSize = 10.sp, maxLines = 1)
-                                Text(text = attr.value.toString(), fontSize = 16.sp)
+                    overviewUiState.abilities.forEach { attr ->
+                        Column {
+                            OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(-(3).dp),
+                                    modifier = Modifier
+                                        .padding(all = 2.dp)
+                                        .aspectRatio(1f, true)
+                                ) {
+                                    Text(text = attr.shortName, fontSize = 10.sp, maxLines = 1)
+                                    Text(text = "${attr.calculatedScore}", fontSize = 16.sp)
+                                    Text(text = "${attr.baseScore}", fontSize = 8.sp)
+                                }
                             }
                         }
+
                     }
                 }
             }
@@ -95,10 +98,16 @@ private fun Preview() {
     OverviewScreen(
         overviewUiState = OverviewUiState(
             name = "Azmoday",
-            attributes = listOf(
-                Ability.Strength(6),
-                Ability.Intelligence(5),
-                Ability.Dexterity(4),
+            abilities = listOf(
+                OverviewUiState.UiAbility(
+                    name = "Strength", shortName = "Str", baseScore = 11, calculatedScore = 0,
+                ),
+                OverviewUiState.UiAbility(
+                    name = "Charisma", shortName = "Cha", baseScore = 14, calculatedScore = 3,
+                ),
+                OverviewUiState.UiAbility(
+                    name = "Dexterity", shortName = "Dex", baseScore = 8, calculatedScore = -1,
+                ),
             )
         ),
         clear = {},
