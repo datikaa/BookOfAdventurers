@@ -21,3 +21,5 @@ local.properties
 # Project exclude paths
 /**/build/
 /.idea/appInsightsSettings.xml
+/.idea/misc.xml
+/.idea/migrations.xml
