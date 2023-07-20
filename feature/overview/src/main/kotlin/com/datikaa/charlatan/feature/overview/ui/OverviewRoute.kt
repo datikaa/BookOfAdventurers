@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.datikaa.charlatan.core.design.component.CmmSkill
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import org.koin.androidx.compose.koinViewModel
@@ -77,9 +79,31 @@ fun OverviewScreen(
                     }
                 }
             }
-            CmmTitledCard(title = overviewUiState.name) {
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
+            Column(
+                verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+            ) {
+                CmmTitledCard(
+                    title = "Skills",
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+                        modifier = Modifier.width(IntrinsicSize.Max),
+                    ) {
+                        overviewUiState.skills.forEach { skill ->
+                            CmmSkill(
+                                name = skill.name,
+                                score = skill.score,
+                                proficiency = skill.proficiency,
+                            )
+                        }
+                    }
+                }
+                CmmTitledCard(title = overviewUiState.name) {
+                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
+                }
             }
+
         }
         Row {
             Button(onClick = { navigateToCharacter() }) {
@@ -108,7 +132,15 @@ private fun Preview() {
                 OverviewUiState.UiAbility(
                     name = "Dexterity", shortName = "Dex", baseScore = 8, calculatedScore = -1,
                 ),
-            )
+            ),
+            skills = listOf(
+                OverviewUiState.UiSkill(
+                    name = "Strength", score = 12, proficiency = false,
+                ),
+                OverviewUiState.UiSkill(
+                    name = "Slight of Hand", score = 12, proficiency = true,
+                ),
+            ),
         ),
         clear = {},
         navigateToCharacter = {},

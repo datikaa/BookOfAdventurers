@@ -5,5 +5,27 @@ data class Character(
     val name: String,
     val level: Int,
     val abilityList: List<Ability>,
+    val skills: List<Skill> = dnd5eSkillSet(),
     val modifiers: List<Modifier>,
+)
+
+private fun dnd5eSkillSet(): List<Skill> = listOf(
+    Skill.Acrobatics,
+    Skill.AnimalHandling,
+    Skill.Arcana,
+    Skill.Athletics,
+    Skill.Deception,
+    Skill.History,
+    Skill.Insight,
+    Skill.Intimidation,
+    Skill.Investigation,
+    Skill.Medicine,
+    Skill.Nature,
+    Skill.Perception,
+    Skill.Performance,
+    Skill.Persuasion,
+    Skill.Religion,
+    Skill.SleightOfHand,
+    Skill.Stealth,
+    Skill.Survival,
 )

@@ -3,6 +3,8 @@ package com.datikaa.charlatan.feature.overview.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.charlatan.core.domain.calculateAbilityScore
+import com.datikaa.charlatan.core.domain.calculateSkillCheckScore
+import com.datikaa.charlatan.core.domain.proficientIn
 import com.datikaa.charlatan.feature.overview.domain.ClearEverythingUseCase
 import com.datikaa.charlatan.feature.overview.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.overview.etc.name
@@ -36,6 +38,13 @@ class OverviewViewModel(
                                 calculatedScore = char.calculateAbilityScore(it::class),
                             )
                         },
+                        skills = char.skills.map { skill ->
+                            OverviewUiState.UiSkill(
+                                name = skill::class.simpleName ?: "",
+                                score = char.calculateSkillCheckScore(skill),
+                                proficiency = char.proficientIn(skill),
+                            )
+                        }
                     )
                 }
             }
@@ -51,5 +60,6 @@ class OverviewViewModel(
 
 private val initUiState = OverviewUiState(
     name = "",
-    abilities = emptyList()
+    abilities = emptyList(),
+    skills = emptyList(),
 )
