@@ -29,6 +29,7 @@ class OverviewViewModel(
             flowCharacterUseCase(characterId = characterId).collectLatest { char ->
                 _uiState.update { uiState ->
                     uiState.copy(
+                        level = char.level,
                         name = char.name,
                         abilities = char.abilityList.map {
                             OverviewUiState.UiAbility(
@@ -59,6 +60,7 @@ class OverviewViewModel(
 }
 
 private val initUiState = OverviewUiState(
+    level = 1,
     name = "",
     abilities = emptyList(),
     skills = emptyList(),

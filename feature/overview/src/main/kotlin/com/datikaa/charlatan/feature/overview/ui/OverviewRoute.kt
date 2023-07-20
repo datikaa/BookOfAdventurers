@@ -54,28 +54,44 @@ fun OverviewScreen(
         modifier = modifier,
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
-            CmmTitledCard(title = "Attrs") {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.align(Alignment.Center),
-                ) {
-                    overviewUiState.abilities.forEach { attr ->
-                        Column {
-                            OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(-(3).dp),
-                                    modifier = Modifier
-                                        .padding(all = 2.dp)
-                                        .aspectRatio(1f, true)
-                                ) {
-                                    Text(text = attr.shortName, fontSize = 10.sp, maxLines = 1)
-                                    Text(text = "${attr.calculatedScore}", fontSize = 16.sp)
-                                    Text(text = "${attr.baseScore}", fontSize = 8.sp)
+            Column {
+                CmmTitledCard(title = "Level") {
+                    OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(-(3).dp),
+                            modifier = Modifier
+                                .padding(all = 2.dp)
+                                .aspectRatio(1f, true)
+                        ) {
+                            Text(text = "", fontSize = 9.sp, maxLines = 1)
+                            Text(text = "${overviewUiState.level}", fontSize = 16.sp)
+                            Text(text = "", fontSize = 9.sp)
+                        }
+                    }
+                }
+                CmmTitledCard(title = "Attrs") {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.align(Alignment.Center),
+                    ) {
+                        overviewUiState.abilities.forEach { attr ->
+                            Column {
+                                OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.spacedBy(-(3).dp),
+                                        modifier = Modifier
+                                            .padding(all = 2.dp)
+                                            .aspectRatio(1f, true)
+                                    ) {
+                                        Text(text = attr.shortName, fontSize = 10.sp, maxLines = 1)
+                                        Text(text = "${attr.calculatedScore}", fontSize = 16.sp)
+                                        Text(text = "${attr.baseScore}", fontSize = 8.sp)
+                                    }
                                 }
                             }
                         }
-
                     }
                 }
             }
@@ -121,6 +137,7 @@ fun OverviewScreen(
 private fun Preview() {
     OverviewScreen(
         overviewUiState = OverviewUiState(
+            level = 7,
             name = "Azmoday",
             abilities = listOf(
                 OverviewUiState.UiAbility(

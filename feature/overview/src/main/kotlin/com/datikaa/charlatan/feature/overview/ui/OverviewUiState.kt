@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class OverviewUiState(
+    val level: Int,
     val name: String,
     val abilities: List<UiAbility>,
     val skills: List<UiSkill>,
