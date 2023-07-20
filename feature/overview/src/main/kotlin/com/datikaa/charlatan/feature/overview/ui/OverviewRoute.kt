@@ -1,6 +1,8 @@
 package com.datikaa.charlatan.feature.overview.ui
 
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -8,6 +10,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -38,7 +42,7 @@ fun OverviewRoute(
         overviewUiState = uiState,
         clear = overviewViewModel::clearDb,
         navigateToCharacter = { navigate("characters") },
-        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
+        modifier = modifier,
     )
 }
 
@@ -49,84 +53,93 @@ fun OverviewScreen(
     navigateToCharacter: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier,
-    ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
-            Column {
-                CmmTitledCard(title = "Level") {
-                    OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(-(3).dp),
-                            modifier = Modifier
-                                .padding(all = 2.dp)
-                                .aspectRatio(1f, true)
-                        ) {
-                            Text(text = "", fontSize = 9.sp, maxLines = 1)
-                            Text(text = "${overviewUiState.level}", fontSize = 16.sp)
-                            Text(text = "", fontSize = 9.sp)
+    Box(modifier = modifier) {
+        val scrollState = rememberScrollState()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .verticalScroll(state = scrollState)
+                .padding(CharlatanTheme.dimensions.screenPadding),
+        ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
+                Column(verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
+                    CmmTitledCard(title = "Level") {
+                        OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(-(3).dp),
+                                modifier = Modifier
+                                    .padding(all = 2.dp)
+                                    .aspectRatio(1f, true)
+                            ) {
+                                Text(text = "", fontSize = 9.sp, maxLines = 1)
+                                Text(text = "${overviewUiState.level}", fontSize = 16.sp)
+                                Text(text = "", fontSize = 9.sp)
+                            }
                         }
                     }
-                }
-                CmmTitledCard(title = "Attrs") {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.align(Alignment.Center),
-                    ) {
-                        overviewUiState.abilities.forEach { attr ->
-                            Column {
-                                OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
-                                    Column(
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.spacedBy(-(3).dp),
-                                        modifier = Modifier
-                                            .padding(all = 2.dp)
-                                            .aspectRatio(1f, true)
-                                    ) {
-                                        Text(text = attr.shortName, fontSize = 10.sp, maxLines = 1)
-                                        Text(text = "${attr.calculatedScore}", fontSize = 16.sp)
-                                        Text(text = "${attr.baseScore}", fontSize = 8.sp)
+                    CmmTitledCard(title = "Attrs") {
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.align(Alignment.Center),
+                        ) {
+                            overviewUiState.abilities.forEach { attr ->
+                                Column {
+                                    OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
+                                        Column(
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.spacedBy(-(3).dp),
+                                            modifier = Modifier
+                                                .padding(all = 2.dp)
+                                                .aspectRatio(1f, true)
+                                        ) {
+                                            Text(
+                                                text = attr.shortName,
+                                                fontSize = 10.sp,
+                                                maxLines = 1
+                                            )
+                                            Text(text = "${attr.calculatedScore}", fontSize = 16.sp)
+                                            Text(text = "${attr.baseScore}", fontSize = 8.sp)
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-            Column(
-                verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
-            ) {
-                CmmTitledCard(
-                    title = "Skills",
-                    modifier = Modifier.fillMaxWidth(),
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
-                        modifier = Modifier.width(IntrinsicSize.Max),
+                    CmmTitledCard(
+                        title = "Skills",
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
-                        overviewUiState.skills.forEach { skill ->
-                            CmmSkill(
-                                name = "${skill.name} (${skill.baseName})",
-                                score = skill.score,
-                                proficiency = skill.proficiency,
-                            )
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+                            modifier = Modifier.width(IntrinsicSize.Max),
+                        ) {
+                            overviewUiState.skills.forEach { skill ->
+                                CmmSkill(
+                                    name = "${skill.name} (${skill.baseName})",
+                                    score = skill.score,
+                                    proficiency = skill.proficiency,
+                                )
+                            }
                         }
                     }
+                    CmmTitledCard(title = overviewUiState.name) {
+                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
+                    }
                 }
-                CmmTitledCard(title = overviewUiState.name) {
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
-                }
-            }
 
-        }
-        Row {
-            Button(onClick = { navigateToCharacter() }) {
-                Text("Characters")
             }
-            Button(onClick = { clear() }) {
-                Text("Clear DB")
+            Row {
+                Button(onClick = { navigateToCharacter() }) {
+                    Text("Characters")
+                }
+                Button(onClick = { clear() }) {
+                    Text("Clear DB")
+                }
             }
         }
     }
