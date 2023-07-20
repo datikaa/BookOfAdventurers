@@ -108,7 +108,7 @@ fun OverviewScreen(
                     ) {
                         overviewUiState.skills.forEach { skill ->
                             CmmSkill(
-                                name = skill.name,
+                                name = "${skill.name} (${skill.baseName})",
                                 score = skill.score,
                                 proficiency = skill.proficiency,
                             )
@@ -152,10 +152,10 @@ private fun Preview() {
             ),
             skills = listOf(
                 OverviewUiState.UiSkill(
-                    name = "Strength", score = 12, proficiency = false,
+                    name = "Strength", baseName = "Str", score = 12, proficiency = false,
                 ),
                 OverviewUiState.UiSkill(
-                    name = "Slight of Hand", score = 12, proficiency = true,
+                    name = "Slight of Hand", baseName = "Cha", score = 12, proficiency = true,
                 ),
             ),
         ),

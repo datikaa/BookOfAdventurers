@@ -18,6 +18,7 @@ data class OverviewUiState(
 
     data class UiSkill(
         val name: String,
+        val baseName: String,
         val score: Int,
         val proficiency: Boolean,
     )

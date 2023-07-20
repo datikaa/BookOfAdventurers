@@ -42,6 +42,7 @@ class OverviewViewModel(
                         skills = char.skills.map { skill ->
                             OverviewUiState.UiSkill(
                                 name = skill::class.simpleName ?: "",
+                                baseName = char.abilityList.first { it::class == skill.baseAbility }.shortName,
                                 score = char.calculateSkillCheckScore(skill),
                                 proficiency = char.proficientIn(skill),
                             )
