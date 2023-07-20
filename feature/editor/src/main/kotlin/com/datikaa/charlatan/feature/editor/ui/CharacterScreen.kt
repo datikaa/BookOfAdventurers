@@ -27,6 +27,8 @@ fun EditorRoute(
         openCharacter = { openCharacter(it.id) },
         decreaseAbility = overviewViewModel::decreaseAttribute,
         increaseAbility = overviewViewModel::increaseAttribute,
+        decreaseLevel = overviewViewModel::decreaseLevel,
+        increaseLevel = overviewViewModel::increaseLevel,
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -39,6 +41,8 @@ private fun CharactersScreen(
     openCharacter: (Character) -> Unit,
     decreaseAbility: (Character, Ability) -> Unit,
     increaseAbility: (Character, Ability) -> Unit,
+    decreaseLevel: (Character) -> Unit,
+    increaseLevel: (Character) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (uiState.selectedCharacter == null) {
@@ -55,6 +59,8 @@ private fun CharactersScreen(
             back = { selectCharacter(null) },
             decreaseAbility = decreaseAbility,
             increaseAbility = increaseAbility,
+            decreaseLevel = decreaseLevel,
+            increaseLevel = increaseLevel,
             modifier = modifier,
         )
     }
@@ -81,6 +87,8 @@ private fun Preview() {
         openCharacter = { /* nothing */ },
         decreaseAbility = { _, _ -> /* nothing */ },
         increaseAbility = { _, _ -> /* nothing */ },
+        decreaseLevel = { _ -> /* nothing */ },
+        increaseLevel = { _ -> /* nothing */ },
     )
 }
 

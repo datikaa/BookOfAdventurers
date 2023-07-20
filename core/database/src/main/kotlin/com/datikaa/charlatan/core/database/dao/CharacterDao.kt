@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
 import com.datikaa.charlatan.core.database.entity.CharacterWithAttributes
@@ -15,6 +16,9 @@ interface CharacterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCharacter(characterEntity: CharacterEntity): Long
+
+    @Update
+    suspend fun updateCharacter(characterEntity: CharacterEntity)
 
     @Query("DELETE FROM CharacterEntity")
     suspend fun deleteCharacters()

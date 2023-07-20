@@ -8,6 +8,7 @@ import com.datikaa.charlatan.feature.editor.domain.AddCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowListAllCharactersUseCase
 import com.datikaa.charlatan.feature.editor.domain.ModifyAbilityValueOfCharacterUseCase
+import com.datikaa.charlatan.feature.editor.domain.ModifyLevelOfCharacterUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +24,7 @@ class CharactersScreenViewModel(
     private val flowListAllCharactersUseCase: FlowListAllCharactersUseCase,
     private val flowCharacterUseCase: FlowCharacterUseCase,
     private val modifyAbilityValueOfCharacterUseCase: ModifyAbilityValueOfCharacterUseCase,
+    private val modifyLevelOfCharacterUseCase: ModifyLevelOfCharacterUseCase,
 ) : ViewModel() {
 
     private val selectedCharacterId: MutableStateFlow<Int?> = MutableStateFlow(null)
@@ -81,6 +83,24 @@ class CharactersScreenViewModel(
                 character = character,
                 ability = ability,
                 type = ModifyAbilityValueOfCharacterUseCase.Type.Decrease,
+            )
+        }
+    }
+
+    fun increaseLevel(character: Character) {
+        viewModelScope.launch {
+            modifyLevelOfCharacterUseCase(
+                character = character,
+                type = ModifyLevelOfCharacterUseCase.Type.Increase,
+            )
+        }
+    }
+
+    fun decreaseLevel(character: Character) {
+        viewModelScope.launch {
+            modifyLevelOfCharacterUseCase(
+                character = character,
+                type = ModifyLevelOfCharacterUseCase.Type.Decrease,
             )
         }
     }

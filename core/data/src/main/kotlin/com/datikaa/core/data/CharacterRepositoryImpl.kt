@@ -28,6 +28,11 @@ class CharacterRepositoryImpl(
         .map { it.toDomain() }
         .flowOn(Dispatchers.IO)
 
+
+    override suspend fun updateCharacter(character: Character) =
+        withContext(Dispatchers.IO) {
+            characterDao.updateCharacter(character.toEntity())
+        }
     override suspend fun insertCharacter(character: Character) =
         withContext(Dispatchers.IO) {
             val id = characterDao.insertCharacter(character.toEntity())

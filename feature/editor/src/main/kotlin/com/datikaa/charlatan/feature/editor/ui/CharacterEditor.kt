@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +28,8 @@ fun CharacterEditor(
     openCharacterSheet: (Character) -> Unit,
     decreaseAbility: (Character, Ability) -> Unit,
     increaseAbility: (Character, Ability) -> Unit,
+    decreaseLevel: (Character) -> Unit,
+    increaseLevel: (Character) -> Unit,
     back: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -46,12 +49,20 @@ fun CharacterEditor(
                         .verticalScroll(scrollState)
                         .fillMaxWidth()
                 ) {
+
                     Column(
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .width(IntrinsicSize.Max)
                     ) {
+                        CmmModifierEditor(
+                            text = "Level: ${selectedCharacter.level}",
+                            decrease = { decreaseLevel(selectedCharacter) },
+                            increase = { increaseLevel(selectedCharacter) },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                        Divider(modifier = Modifier.fillMaxWidth())
                         selectedCharacter.abilityList.forEach { ability ->
                             CmmModifierEditor(
                                 text = "${ability::class.simpleName} ${ability.value}",
@@ -83,8 +94,7 @@ fun CharacterEditor(
 private fun CharacterEditorUnselectedPreview() {
     CharacterEditor(
         uiState = CharactersUiState(
-            selectedCharacter = null,
-            characters = listOf(
+            selectedCharacter = null, characters = listOf(
                 Character(
                     id = 3524,
                     name = "Jessic",
@@ -98,6 +108,8 @@ private fun CharacterEditorUnselectedPreview() {
         back = { },
         decreaseAbility = { _, _ -> },
         increaseAbility = { _, _ -> },
+        decreaseLevel = { _ -> },
+        increaseLevel = { _ -> },
     )
 }
 
@@ -107,20 +119,15 @@ private fun CharacterEditorSelectedPreview() {
     CharacterEditor(
         uiState = CharactersUiState(
             selectedCharacter = Character(
-                id = 6497,
-                name = "Justin",
-                level = 797,
-                abilityList = listOf(
+                id = 6497, name = "Justin", level = 797, abilityList = listOf(
                     Ability.Strength(value = 10),
                     Ability.Charisma(value = 10),
                     Ability.Constitution(value = 10),
                     Ability.Dexterity(value = 10),
                     Ability.Wisdom(value = 10),
                     Ability.Intelligence(value = 10),
-                ),
-                modifiers = listOf()
-            ),
-            characters = listOf(
+                ), modifiers = listOf()
+            ), characters = listOf(
                 Character(
                     id = 6497,
                     name = "Justin",
@@ -134,5 +141,7 @@ private fun CharacterEditorSelectedPreview() {
         back = { },
         decreaseAbility = { _, _ -> },
         increaseAbility = { _, _ -> },
+        decreaseLevel = { _ -> },
+        increaseLevel = { _ -> },
     )
 }
