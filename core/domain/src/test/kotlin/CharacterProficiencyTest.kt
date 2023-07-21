@@ -43,8 +43,8 @@ class CharacterProficiencyTest {
 
     @Test
     fun testScoresAffectedByProficiencyModifiers() {
-        modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 14
-        modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 10
+        modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Dexterity) shouldBeExactly 4
+        modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 0
     }
 
     private fun createScoreTestingCharacter(level: Int) = Character(
@@ -57,13 +57,11 @@ class CharacterProficiencyTest {
         )
     )
 
-    private val dexSavingThrowProficiencyModifier = Modifier(
+    private val dexSavingThrowProficiencyModifier = Modifier.Proficiency(
         id = 0,
         name = "",
         description = "",
-        types = listOf(
-            Modifier.Type.Proficiency(SavingThrow.Dexterity::class)
-        ),
+        proficiencyType = SavingThrow.Dexterity::class,
         nestedModifiers = listOf(),
     )
 

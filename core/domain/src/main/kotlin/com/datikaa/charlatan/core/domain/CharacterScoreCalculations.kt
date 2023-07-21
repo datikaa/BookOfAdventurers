@@ -4,7 +4,6 @@ import kotlin.reflect.KClass
 
 fun Character.sumOfModifiersFor(modifiableScoreType: KClass<out ModifiableScore>): Int = modifiers
     .flatten()
-    .flatMap { it.types }
     .filterScoreModifiers(modifiableScoreType)
     .sumOf { it.value }
 
@@ -29,7 +28,6 @@ fun Character.calculateSkillCheckScore(skill: Skill): Int =
 
 fun Character.proficientIn(possiblyProficient: PossiblyProficient): Boolean = modifiers
     .flatten()
-    .flatMap { it.types }
     .filterProficiencyModifiers(possiblyProficient::class)
     .isNotEmpty()
 

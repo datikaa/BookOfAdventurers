@@ -52,74 +52,65 @@ class ComplexCharacterModifiersTest {
     }
 }
 
-private val plus1DexModifier = Modifier(
+private val plus1DexModifier = Modifier.Score(
     id = 0,
     name = "Adds +1 Dex",
     description = "",
-    types = listOf(
-        Modifier.Type.Score(Ability.Dexterity::class, 1),
-    ),
-    nestedModifiers = listOf()
+    modifiableScoreType = Ability.Dexterity::class,
+    value = 1,
+    nestedModifiers = listOf(),
 )
 
-private val plus1ConModifier = Modifier(
+private val plus1ConModifier = Modifier.Score(
     id = 0,
     name = "Adds +1 Con",
     description = "",
-    types = listOf(
-        Modifier.Type.Score(Ability.Constitution::class, 1),
-    ),
+    modifiableScoreType = Ability.Constitution::class,
+    value = 1,
     nestedModifiers = listOf()
 )
 
-private val plus1DexAndPlus1ConModifierCollection = Modifier(
+private val plus1DexAndPlus1ConModifierCollection = Modifier.Holder(
     id = 0,
     name = "Collection of 2 modifiers without own attribute modifier",
     description = "",
-    types = listOf(),
     nestedModifiers = listOf(
         plus1DexModifier,
         plus1ConModifier,
     )
 )
 
-private val plus1DexSavingThrowModifier = Modifier(
+private val plus1DexSavingThrowModifier = Modifier.Score(
     id = 0,
     name = "Dex SaveThrow Attribute modifier",
     description = "",
-    types = listOf(
-        Modifier.Type.Score(SavingThrow.Dexterity::class, 1)
-    ),
+    modifiableScoreType = SavingThrow.Dexterity::class,
+    value = 1,
     nestedModifiers = emptyList()
 )
 
-private val plus1StealthSkillModifier = Modifier(
+private val plus1StealthSkillModifier = Modifier.Score(
     id = 0,
     name = "Adds +1 to Stealth skill",
     description = "",
-    types = listOf(
-        Modifier.Type.Score(Skill.Stealth::class, 1)
-    ),
+    modifiableScoreType = Skill.Stealth::class,
+    value = 1,
     nestedModifiers = emptyList()
 )
 
-private val religionSkillCheckProficiencyModifier = Modifier(
+private val religionSkillCheckProficiencyModifier = Modifier.Proficiency(
     id = 0,
     name = "Adds proficiency to Religion skill",
     description = "",
-    types = listOf(
-        Modifier.Type.Proficiency(Skill.Religion::class)
-    ),
+    proficiencyType = Skill.Religion::class,
     nestedModifiers = emptyList()
 )
 
-private val strengthSavingThrowProficiencyModifier = Modifier(
+private val strengthSavingThrowProficiencyModifier = Modifier.Proficiency(
     id = 0,
     name = "Adds proficiency to Strength saving throws",
     description = "",
-    types = listOf(
-        Modifier.Type.Proficiency(SavingThrow.Strength::class)
-    ),
+    proficiencyType = SavingThrow.Strength::class,
     nestedModifiers = emptyList()
 )
 

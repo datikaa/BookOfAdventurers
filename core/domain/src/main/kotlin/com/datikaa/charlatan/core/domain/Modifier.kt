@@ -2,34 +2,46 @@ package com.datikaa.charlatan.core.domain
 
 import kotlin.reflect.KClass
 
-data class Modifier(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val types: List<Type>,
-    val nestedModifiers: List<Modifier>,
-) {
-    sealed interface Type {
+sealed interface Modifier {
 
-        data class Score(
-            val modifiableScoreType: KClass<out ModifiableScore>,
-            val value: Int
-        ) : Type
+    val id: Int
+    val name: String
+    val description: String
+    val nestedModifiers: List<Modifier>
 
-        data class Proficiency(
-            val proficiencyType: KClass<out PossiblyProficient>,
-        ) : Type
-    }
+    data class Holder(
+        override val id: Int,
+        override val name: String,
+        override val description: String,
+        override val nestedModifiers: List<Modifier>,
+    ) : Modifier
+
+    data class Score(
+        override val id: Int,
+        override val name: String,
+        override val description: String,
+        override val nestedModifiers: List<Modifier>,
+        val modifiableScoreType: KClass<out ModifiableScore>,
+        val value: Int
+    ) : Modifier
+
+    data class Proficiency(
+        override val id: Int,
+        override val name: String,
+        override val description: String,
+        override val nestedModifiers: List<Modifier>,
+        val proficiencyType: KClass<out PossiblyProficient>,
+    ) : Modifier
 }
 
-fun List<Modifier.Type>.filterScoreModifiers(
+fun List<Modifier>.filterScoreModifiers(
     modifiableScoreType: KClass<out ModifiableScore>
 ) = this
-    .filterIsInstance<Modifier.Type.Score>()
+    .filterIsInstance<Modifier.Score>()
     .filter { it.modifiableScoreType == modifiableScoreType }
 
-fun List<Modifier.Type>.filterProficiencyModifiers(
+fun List<Modifier>.filterProficiencyModifiers(
     proficiencyType: KClass<out PossiblyProficient>,
 ) = this
-    .filterIsInstance<Modifier.Type.Proficiency>()
+    .filterIsInstance<Modifier.Proficiency>()
     .filter { it.proficiencyType == proficiencyType }
