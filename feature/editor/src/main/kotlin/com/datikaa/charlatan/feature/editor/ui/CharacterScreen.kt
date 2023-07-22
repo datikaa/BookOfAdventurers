@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,6 +31,7 @@ fun EditorRoute(
         increaseAbility = overviewViewModel::increaseAbility,
         decreaseLevel = overviewViewModel::decreaseLevel,
         increaseLevel = overviewViewModel::increaseLevel,
+        addModifier = overviewViewModel::addModifier,
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -44,6 +46,7 @@ private fun CharactersScreen(
     increaseAbility: (Character, Ability) -> Unit,
     decreaseLevel: (Character) -> Unit,
     increaseLevel: (Character) -> Unit,
+    addModifier: (Character, Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (uiState.selectedCharacter == null) {
@@ -62,6 +65,7 @@ private fun CharactersScreen(
             increaseAbility = increaseAbility,
             decreaseLevel = decreaseLevel,
             increaseLevel = increaseLevel,
+            addModifier = addModifier,
             modifier = modifier,
         )
     }
@@ -81,7 +85,8 @@ private fun Preview() {
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
-            )
+            ),
+            modifiers = listOf(),
         ),
         addCharacter = { /* nothing */ },
         selectCharacter = { /* nothing */ },
@@ -90,5 +95,6 @@ private fun Preview() {
         increaseAbility = { _, _ -> /* nothing */ },
         decreaseLevel = { _ -> /* nothing */ },
         increaseLevel = { _ -> /* nothing */ },
+        addModifier = { _, _ -> /* nothing */ }
     )
 }

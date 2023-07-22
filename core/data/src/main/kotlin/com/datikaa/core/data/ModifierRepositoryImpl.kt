@@ -33,4 +33,6 @@ internal class ModifierRepositoryImpl(
         modifierDao.flowModifiers().map { modifierEntities ->
             modifierEntities.map { modifierEntity -> modifierEntity.toDomain() }
         }
+
+    override suspend fun getModifier(id: Int): Modifier = modifierDao.getModifier(id).toDomain()
 }

@@ -1,6 +1,8 @@
 package com.datikaa.charlatan.feature.editor.di
 
 import com.datikaa.charlatan.feature.editor.domain.AddCharacterUseCase
+import com.datikaa.charlatan.feature.editor.domain.AddModifierToCharacterUseCase
+import com.datikaa.charlatan.feature.editor.domain.FlowAllModifiersUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowListAllCharactersUseCase
 import com.datikaa.charlatan.feature.editor.domain.ModifyAbilityValueOfCharacterUseCase
@@ -14,8 +16,10 @@ val editorKoinModule = module {
     viewModelOf(::CharactersScreenViewModel)
 
     factoryOf(::AddCharacterUseCase)
+    factoryOf(::FlowAllModifiersUseCase)
     factoryOf(::FlowCharacterUseCase)
     factoryOf(::FlowListAllCharactersUseCase)
     factoryOf(::ModifyAbilityValueOfCharacterUseCase)
     factoryOf(::ModifyLevelOfCharacterUseCase)
+    factoryOf(::AddModifierToCharacterUseCase)
 }

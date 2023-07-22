@@ -1,15 +1,25 @@
 package com.datikaa.charlatan.feature.editor.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +31,9 @@ import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
+import java.util.concurrent.Flow
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CharacterEditor(
     uiState: CharactersUiState,
@@ -30,6 +42,7 @@ fun CharacterEditor(
     increaseAbility: (Character, Ability) -> Unit,
     decreaseLevel: (Character) -> Unit,
     increaseLevel: (Character) -> Unit,
+    addModifier: (Character, Int) -> Unit,
     back: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -49,7 +62,6 @@ fun CharacterEditor(
                         .verticalScroll(scrollState)
                         .fillMaxWidth()
                 ) {
-
                     Column(
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         modifier = Modifier
@@ -71,6 +83,9 @@ fun CharacterEditor(
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
+                        selectedCharacter.modifiers.forEach { modifier ->
+                            Text(text = "Added: ${modifier.name}")
+                        }
                     }
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -86,6 +101,41 @@ fun CharacterEditor(
                 }
             }
         }
+        if (selectedCharacter != null) {
+            CmmTitledCard(
+                title = "Add modifiers",
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+                ) {
+                    uiState.modifiers.forEach {
+                        OutlinedCard(
+                            shape = CircleShape,
+                            modifier = Modifier.padding(vertical = CharlatanTheme.dimensions.cardSpacing / 2)
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .clickable {
+                                        addModifier(
+                                            uiState.selectedCharacter,
+                                            it.id
+                                        )
+                                    }
+                                    .padding(vertical = 4.dp, horizontal = 8.dp)
+                            ) {
+                                Text(text = it.name)
+                                Icon(
+                                    imageVector = Icons.Rounded.Add,
+                                    contentDescription = "increase"
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -94,7 +144,8 @@ fun CharacterEditor(
 private fun CharacterEditorUnselectedPreview() {
     CharacterEditor(
         uiState = CharactersUiState(
-            selectedCharacter = null, characters = listOf(
+            selectedCharacter = null,
+            characters = listOf(
                 Character(
                     id = 3524,
                     name = "Jessic",
@@ -102,7 +153,8 @@ private fun CharacterEditorUnselectedPreview() {
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
-            )
+            ),
+            modifiers = emptyList(),
         ),
         openCharacterSheet = { },
         back = { },
@@ -110,6 +162,7 @@ private fun CharacterEditorUnselectedPreview() {
         increaseAbility = { _, _ -> },
         decreaseLevel = { _ -> },
         increaseLevel = { _ -> },
+        addModifier = { _, _ -> },
     )
 }
 
@@ -127,7 +180,8 @@ private fun CharacterEditorSelectedPreview() {
                     Ability.Wisdom(value = 10),
                     Ability.Intelligence(value = 10),
                 ), modifiers = listOf()
-            ), characters = listOf(
+            ),
+            characters = listOf(
                 Character(
                     id = 6497,
                     name = "Justin",
@@ -135,7 +189,11 @@ private fun CharacterEditorSelectedPreview() {
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
-            )
+            ),
+            modifiers = listOf(
+                CharactersUiState.Modifier(0, "Proficiency modifier"),
+                CharactersUiState.Modifier(0, "Proficiency modifier")
+            ),
         ),
         openCharacterSheet = { },
         back = { },
@@ -143,5 +201,6 @@ private fun CharacterEditorSelectedPreview() {
         increaseAbility = { _, _ -> },
         decreaseLevel = { _ -> },
         increaseLevel = { _ -> },
+        addModifier = { _, _ -> },
     )
 }

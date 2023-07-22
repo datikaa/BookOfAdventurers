@@ -20,4 +20,7 @@ interface ModifierDao {
 
     @Query("SELECT * FROM ModifierEntity")
     fun flowModifiers(): Flow<List<ModifierEntity>>
+
+    @Query("SELECT * FROM ModifierEntity WHERE id = :id")
+    suspend fun getModifier(id: Int): ModifierEntity
 }

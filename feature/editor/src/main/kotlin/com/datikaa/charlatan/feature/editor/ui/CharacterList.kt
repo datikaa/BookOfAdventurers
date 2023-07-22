@@ -86,7 +86,8 @@ private fun Preview() {
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
-            )
+            ),
+            modifiers = emptyList(),
         ),
         addCharacter = { /* nothing */ },
         selectCharacter = { /* nothing */ },
