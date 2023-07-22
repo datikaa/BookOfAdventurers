@@ -18,4 +18,8 @@ class ModifierRepositoryImpl(
             modifierId = modifierId,
         ))
     }
+
+    override suspend fun deleteAllModifiers() {
+        modifierDao.deleteAllModifiers()
+    }
 }

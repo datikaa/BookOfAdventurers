@@ -24,5 +24,5 @@ interface AttributeDao {
     suspend fun getAttribute(characterId: Int, type: AttributeEntity.Type): AttributeEntity
 
     @Query("SELECT * FROM AttributeEntity")
-    fun getAttributes(): Flow<List<AttributeEntity>>
+    fun flowAttributes(): Flow<List<AttributeEntity>>
 }

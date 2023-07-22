@@ -3,19 +3,15 @@ package com.datikaa.charlatan.feature.editor.domain
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 import com.datikaa.core.data.CharacterRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class AddCharacterUseCase(
     private val characterRepository: CharacterRepository,
 ) {
 
     suspend operator fun invoke(name: String) {
-        withContext(Dispatchers.IO) {
-            characterRepository.insertCharacter(
-                createNew5eCharacter(name)
-            )
-        }
+        characterRepository.insertCharacter(
+            createNew5eCharacter(name)
+        )
     }
 }
 

@@ -16,7 +16,7 @@ interface ModifierDao {
     suspend fun insertCharacterModifierCrossRef(characterModifierCrossRef: CharacterModifierCrossRef): Long
 
     @Query("DELETE FROM ModifierEntity")
-    suspend fun deleteModifiers()
+    suspend fun deleteAllModifiers()
 
     @Query("SELECT * FROM ModifierEntity")
     fun getModifiers(): Flow<List<ModifierEntity>>

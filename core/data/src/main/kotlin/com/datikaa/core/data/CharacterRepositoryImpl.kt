@@ -11,11 +11,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 
 class CharacterRepositoryImpl(
     private val attributesDao: AttributeDao,
     private val characterDao: CharacterDao,
+    private val modifierRepository: ModifierRepository,
 ) : CharacterRepository {
 
     override fun flowListOfCharacters(): Flow<List<Character>> = characterDao
@@ -29,18 +29,19 @@ class CharacterRepositoryImpl(
         .flowOn(Dispatchers.IO)
 
 
-    override suspend fun updateCharacter(character: Character) = withContext(Dispatchers.IO) {
+    override suspend fun updateCharacter(character: Character) =
         characterDao.updateCharacter(character.toEntity())
-    }
 
-    override suspend fun insertCharacter(character: Character) = withContext(Dispatchers.IO) {
+
+    override suspend fun insertCharacter(character: Character): Long {
         val id = characterDao.insertCharacter(character.toEntity())
         characterDao.insertOrUpdateAttributes(character.abilityList.mapToEntity(id.toInt()))
-        return@withContext id
+        return id
     }
 
-    override suspend fun clearAll() = withContext(Dispatchers.IO) {
+    override suspend fun clearAll() {
         attributesDao.deleteAttributes()
         characterDao.deleteCharacters()
+        modifierRepository.deleteAllModifiers()
     }
 }
