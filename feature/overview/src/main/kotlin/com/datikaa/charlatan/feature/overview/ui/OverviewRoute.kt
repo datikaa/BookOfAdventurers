@@ -19,10 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.datikaa.charlatan.core.design.DevicePreviews
 import com.datikaa.charlatan.core.design.component.CmmSkill
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
@@ -145,7 +147,7 @@ fun OverviewScreen(
     }
 }
 
-@Preview
+@DevicePreviews
 @Composable
 private fun Preview() {
     OverviewScreen(

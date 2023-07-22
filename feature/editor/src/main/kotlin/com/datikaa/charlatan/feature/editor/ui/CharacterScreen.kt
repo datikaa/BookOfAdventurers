@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.datikaa.charlatan.core.design.DevicePreviews
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
@@ -91,18 +92,3 @@ private fun Preview() {
         increaseLevel = { _ -> /* nothing */ },
     )
 }
-
-// TODO: this should be in a ":core:ui" module or something
-private const val DEVICES = "devices"
-
-@Preview(
-    name = "Phone",
-    group = DEVICES,
-    device = Devices.PIXEL_2,
-)
-@Preview(
-    name = "Tablet",
-    group = DEVICES,
-    device = Devices.PIXEL_C,
-)
-annotation class DevicePreviews
