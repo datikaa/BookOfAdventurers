@@ -7,7 +7,7 @@ import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.dao.CharacterDao
 import com.datikaa.charlatan.core.database.dao.ModifierDao
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
-import com.datikaa.charlatan.core.database.entity.CharacterModifierCrossRef
+import com.datikaa.charlatan.core.database.crossref.CharacterModifierCrossRef
 import com.datikaa.charlatan.core.database.entity.ModifierEntity
 
 @Database(

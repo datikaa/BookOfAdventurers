@@ -3,7 +3,7 @@ package com.datikaa.charlatan.core.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.datikaa.charlatan.core.database.entity.CharacterModifierCrossRef
+import com.datikaa.charlatan.core.database.crossref.CharacterModifierCrossRef
 import com.datikaa.charlatan.core.database.entity.ModifierEntity
 import kotlinx.coroutines.flow.Flow
 

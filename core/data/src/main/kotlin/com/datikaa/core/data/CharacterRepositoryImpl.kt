@@ -35,7 +35,7 @@ class CharacterRepositoryImpl(
 
     override suspend fun insertCharacter(character: Character): Long {
         val id = characterDao.insertCharacter(character.toEntity())
-        characterDao.insertOrUpdateAttributes(character.abilityList.mapToEntity(id.toInt()))
+        attributesDao.insertOrUpdateAttributes(character.abilityList.mapToEntity(id.toInt()))
         return id
     }
 

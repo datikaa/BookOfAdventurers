@@ -2,6 +2,7 @@ package com.datikaa.charlatan.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.datikaa.charlatan.core.database.entity.AttributeEntity
@@ -13,6 +14,9 @@ interface AttributeDao {
 
     @Insert
     suspend fun insertAttribute(characterAttribute: AttributeEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdateAttributes(characterAttributes: List<AttributeEntity>)
 
     @Update(entity = AttributeEntity::class)
     suspend fun updateAttribute(characterAttribute: AttributeEntityPartialUpdate)

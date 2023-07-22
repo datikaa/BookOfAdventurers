@@ -60,9 +60,3 @@ data class ModifierEntity(
         Skill_Survival,
     }
 }
-
-@Entity(primaryKeys = ["characterId", "modifierId"])
-data class CharacterModifierCrossRef(
-    @ColumnInfo(index = true) val characterId: Long,
-    @ColumnInfo(index = true) val modifierId: Long
-)
