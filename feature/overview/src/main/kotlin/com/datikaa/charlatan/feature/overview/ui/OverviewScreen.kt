@@ -69,7 +69,7 @@ fun OverviewScreen(
                             }
                         }
                     }
-                    CmmTitledCard(title = "Attrs") {
+                    CmmTitledCard(title = "Abs") {
                         Column(
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                             modifier = Modifier.align(Alignment.Center),
@@ -94,6 +94,21 @@ fun OverviewScreen(
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                    CmmTitledCard(title = "Prof") {
+                        OutlinedCard(Modifier.width(IntrinsicSize.Min)) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(-(3).dp),
+                                modifier = Modifier
+                                    .padding(all = 2.dp)
+                                    .aspectRatio(1f, true)
+                            ) {
+                                Text(text = "", fontSize = 9.sp, maxLines = 1)
+                                Text(text = "${overviewUiState.proficiency}", fontSize = 16.sp)
+                                Text(text = "", fontSize = 9.sp)
                             }
                         }
                     }
@@ -135,6 +150,7 @@ private fun PreviewOverviewScreen() {
         overviewUiState = OverviewUiState(
             level = 7,
             name = "Azmoday",
+            proficiency = 3,
             abilities = listOf(
                 OverviewUiState.UiAbility(
                     name = "Strength", shortName = "Str", baseScore = 11, calculatedScore = 0,

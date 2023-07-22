@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.charlatan.core.domain.calculateAbilityScore
 import com.datikaa.charlatan.core.domain.calculateSkillCheckScore
+import com.datikaa.charlatan.core.domain.proficiencyScore
 import com.datikaa.charlatan.core.domain.proficientIn
 import com.datikaa.charlatan.feature.overview.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.overview.etc.name
@@ -29,6 +30,7 @@ class OverviewViewModel(
                     uiState.copy(
                         level = char.level,
                         name = char.name,
+                        proficiency = char.proficiencyScore,
                         abilities = char.abilityList.map {
                             OverviewUiState.UiAbility(
                                 name = it.name,
@@ -55,6 +57,7 @@ class OverviewViewModel(
 private val initUiState = OverviewUiState(
     level = 1,
     name = "",
+    proficiency = 0,
     abilities = emptyList(),
     skills = emptyList(),
 )
