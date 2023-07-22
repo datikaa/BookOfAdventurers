@@ -20,12 +20,12 @@ private fun createNew5eCharacter(name: String) = Character(
     name = name,
     level = 1,
     abilityList = listOf(
-        Ability.Strength(0),
-        Ability.Dexterity(0),
-        Ability.Constitution(0),
-        Ability.Intelligence(0),
-        Ability.Wisdom(0),
-        Ability.Charisma(0),
+        Ability.Strength(10),
+        Ability.Dexterity(10),
+        Ability.Constitution(10),
+        Ability.Intelligence(10),
+        Ability.Wisdom(10),
+        Ability.Charisma(10),
     ),
     modifiers = listOf()
 )

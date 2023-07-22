@@ -15,7 +15,7 @@ class ModifyLevelOfCharacterUseCase(
 
     private fun Character.updateLevel(type: Type) = when (type) {
         Type.Increase -> if (level < 20) copy(level = level.inc()) else this
-        Type.Decrease -> if (level > 0) copy(level = level.dec()) else this
+        Type.Decrease -> if (level > 1) copy(level = level.dec()) else this
     }
 
     enum class Type {
