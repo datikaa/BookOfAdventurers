@@ -34,18 +34,15 @@ fun CmmSkill(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp),
         ) {
-            Text(text = "$name:")
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.padding(start = 4.dp),
+                modifier = Modifier.padding(end = 4.dp),
             ) {
-                Text(text = "$score")
                 Box(
                     modifier = Modifier
                         .size(6.dp)
@@ -58,7 +55,9 @@ fun CmmSkill(
 
                         }
                 )
+                Text(text = "$score")
             }
+            Text(text = name)
         }
     }
 }
@@ -69,6 +68,6 @@ fun PrviewCmmSkill() {
     Column(Modifier.width(IntrinsicSize.Max)) {
         CmmSkill(name = "Skill name", score = 6, proficiency = true)
         CmmSkill(name = "Skill", score = 6, proficiency = false)
-        CmmSkill(name = "Lonf Skill name", score = 6, proficiency = true)
+        CmmSkill(name = "Long Skill name", score = 6, proficiency = true)
     }
 }
