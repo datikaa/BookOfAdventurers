@@ -61,20 +61,6 @@ fun ModifierScreen(
         modifier = modifier,
     ) {
         CmmTitledCard(
-            title = "Modifiers",
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            if (modifierUiState.modifiers.isEmpty()) {
-                Text(text = "No modifiers present")
-            } else {
-                Column {
-                    modifierUiState.modifiers.forEach {
-                        Text(text = it.toReadable())
-                    }
-                }
-            }
-        }
-        CmmTitledCard(
             title = "Add new modifier",
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -251,6 +237,20 @@ fun ModifierScreen(
                     },
                 ) {
                     Text(text = "Create Modifier")
+                }
+            }
+        }
+        CmmTitledCard(
+            title = "Modifiers",
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            if (modifierUiState.modifiers.isEmpty()) {
+                Text(text = "No modifiers present")
+            } else {
+                Column {
+                    modifierUiState.modifiers.forEach {
+                        Text(text = it.toReadable())
+                    }
                 }
             }
         }
