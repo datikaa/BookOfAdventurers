@@ -2,6 +2,7 @@ package com.datikaa.charlatan.core.database.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
@@ -13,13 +14,23 @@ data class CharacterEntity(
 )
 
 @Entity
-data class CharacterWithAttributes(
+data class CharacterWithAttributesAndModifiers(
     @Embedded
     val characterEntity: CharacterEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "characterId"
     )
-    val attributes: List<AttributeEntity>
+    val attributes: List<AttributeEntity>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        entity = ModifierEntity::class,
+        associateBy = Junction(
+            value = CharacterModifierCrossRef::class,
+            parentColumn = "characterId",
+            entityColumn = "modifierId",
+        )
+    )
+    val modifiers: List<ModifierEntity>,
 )
-

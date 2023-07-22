@@ -29,15 +29,15 @@ class CharacterRepositoryImpl(
         .flowOn(Dispatchers.IO)
 
 
-    override suspend fun updateCharacter(character: Character) =
-        withContext(Dispatchers.IO) {
-            characterDao.updateCharacter(character.toEntity())
-        }
-    override suspend fun insertCharacter(character: Character) =
-        withContext(Dispatchers.IO) {
-            val id = characterDao.insertCharacter(character.toEntity())
-            characterDao.insertOrUpdateAttributes(character.abilityList.mapToEntity(id.toInt()))
-        }
+    override suspend fun updateCharacter(character: Character) = withContext(Dispatchers.IO) {
+        characterDao.updateCharacter(character.toEntity())
+    }
+
+    override suspend fun insertCharacter(character: Character) = withContext(Dispatchers.IO) {
+        val id = characterDao.insertCharacter(character.toEntity())
+        characterDao.insertOrUpdateAttributes(character.abilityList.mapToEntity(id.toInt()))
+        return@withContext id
+    }
 
     override suspend fun clearAll() = withContext(Dispatchers.IO) {
         attributesDao.deleteAttributes()

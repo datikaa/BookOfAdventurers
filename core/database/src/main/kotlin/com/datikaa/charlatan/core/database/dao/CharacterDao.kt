@@ -8,7 +8,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.datikaa.charlatan.core.database.entity.AttributeEntity
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
-import com.datikaa.charlatan.core.database.entity.CharacterWithAttributes
+import com.datikaa.charlatan.core.database.entity.CharacterWithAttributesAndModifiers
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,12 +28,12 @@ interface CharacterDao {
 
     @Transaction
     @Query("SELECT * FROM CharacterEntity WHERE id = :id")
-    fun flowCharacterWithAttributes(id: Int): Flow<CharacterWithAttributes>
+    fun flowCharacterWithAttributes(id: Int): Flow<CharacterWithAttributesAndModifiers>
 
     @Transaction
-    suspend fun insertOrUpdateCharacterWithAttributes(characterWithAttributes: CharacterWithAttributes) {
-        insertCharacter(characterWithAttributes.characterEntity)
-        insertOrUpdateAttributes(characterWithAttributes.attributes)
+    suspend fun insertOrUpdateCharacterWithAttributes(characterWithAttributesAndModifiers: CharacterWithAttributesAndModifiers) {
+        insertCharacter(characterWithAttributesAndModifiers.characterEntity)
+        insertOrUpdateAttributes(characterWithAttributesAndModifiers.attributes)
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
