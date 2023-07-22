@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-class CharacterRepositoryImpl(
+internal class CharacterRepositoryImpl(
     private val abilityDao: AbilityDao,
     private val characterDao: CharacterDao,
     private val modifierRepository: ModifierRepository,

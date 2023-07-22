@@ -1,6 +1,7 @@
 package com.datikaa.charlatan.launcher.di
 
 import com.datikaa.charlatan.launcher.domain.ClearEverythingUseCase
+import com.datikaa.charlatan.launcher.domain.FlowAllModifiersUseCase
 import com.datikaa.charlatan.launcher.domain.FlowCharacterNamesUseCase
 import com.datikaa.charlatan.launcher.ui.LauncherViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -12,4 +13,5 @@ val launcherKoinModule = module {
 
     factoryOf(::ClearEverythingUseCase)
     factoryOf(::FlowCharacterNamesUseCase)
+    factoryOf(::FlowAllModifiersUseCase)
 }

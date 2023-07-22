@@ -15,11 +15,13 @@ fun NavController.navigateToLauncher(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.launcherScreen(
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
+    openModifiers: () -> Unit,
 ) {
     composable(route = launcherRoute) {
         LauncherRoute(
             openCharacter = openCharacter,
             openEditor = openEditor,
+            openModifiers = openModifiers,
         )
     }
 }

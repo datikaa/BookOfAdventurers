@@ -19,5 +19,5 @@ interface ModifierDao {
     suspend fun deleteAllModifiers()
 
     @Query("SELECT * FROM ModifierEntity")
-    fun getModifiers(): Flow<List<ModifierEntity>>
+    fun flowModifiers(): Flow<List<ModifierEntity>>
 }

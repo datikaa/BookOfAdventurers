@@ -18,6 +18,7 @@ import com.datikaa.charlatan.feature.overview.navigation.overviewScreen
 import com.datikaa.charlatan.launcher.navigation.launcherRoute
 import com.datikaa.charlatan.launcher.navigation.launcherScreen
 import com.datikaa.charlatan.modifier.navigation.modifierScreen
+import com.datikaa.charlatan.modifier.navigation.navigateToModifier
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,8 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = launcherRoute) {
                         launcherScreen(
                             openEditor = { navController.navigateToEditor() },
-                            openCharacter = { id -> navController.navigateToOverview(id) }
+                            openCharacter = { id -> navController.navigateToOverview(id) },
+                            openModifiers = { navController.navigateToModifier() },
                         )
                         overviewScreen()
                         editorScreen {

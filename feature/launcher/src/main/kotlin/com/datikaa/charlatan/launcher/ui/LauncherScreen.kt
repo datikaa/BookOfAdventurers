@@ -28,6 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 fun LauncherRoute(
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
+    openModifiers: () -> Unit,
     modifier: Modifier = Modifier,
     launcherViewModel: LauncherViewModel = koinViewModel(),
 ) {
@@ -38,6 +39,7 @@ fun LauncherRoute(
         clearDb = launcherViewModel::clearDb,
         openCharacter = openCharacter,
         openEditor = openEditor,
+        openModifiers = openModifiers,
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -49,6 +51,7 @@ fun LauncherScreen(
     clearDb: () -> Unit,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
+    openModifiers: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -59,7 +62,10 @@ fun LauncherScreen(
             title = "Characters",
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
                 launcherUiState.characters.forEach {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -77,6 +83,32 @@ fun LauncherScreen(
                 Row {
                     ElevatedButton(onClick = { openEditor() }) {
                         Text(text = "Manage characters")
+                    }
+                }
+            }
+        }
+        CmmTitledCard(
+            title = "Modifiers",
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                launcherUiState.modifiers.forEach {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                    ) {
+                        Text(text = it.name)
+                    }
+                }
+                Row {
+                    ElevatedButton(onClick = { openModifiers() }) {
+                        Text(text = "Manage modifiers")
                     }
                 }
             }
@@ -113,5 +145,6 @@ fun LauncherScreenPreview() {
         clearDb = { },
         openCharacter = { },
         openEditor = { },
+        openModifiers = { },
     )
 }

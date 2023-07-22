@@ -5,7 +5,7 @@ import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.core.data.adapter.ability.toEntityEnum
 import com.datikaa.core.data.adapter.ability.toPartialUpdate
 
-class AbilityRepositoryImpl(
+internal class AbilityRepositoryImpl(
     private val abilityDao: AbilityDao,
 ) : AbilityRepository {
     override suspend fun updateAbility(characterId: Int, ability: Ability) {
