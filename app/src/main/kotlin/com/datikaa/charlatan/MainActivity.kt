@@ -15,6 +15,7 @@ import com.datikaa.charlatan.feature.editor.navigation.editorRoute
 import com.datikaa.charlatan.feature.editor.navigation.editorScreen
 import com.datikaa.charlatan.feature.overview.navigation.navigateToOverview
 import com.datikaa.charlatan.feature.overview.navigation.overviewScreen
+import com.datikaa.charlatan.modifier.navigation.modifierScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+                        modifierScreen()
                     }
                 }
             }
