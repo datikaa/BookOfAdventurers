@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,9 +52,22 @@ fun OverviewScreen(
     Box(modifier = modifier) {
         val scrollState = rememberScrollState()
         Column(
+            verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.verticalScroll(state = scrollState),
         ) {
+            Card(
+                shape = CircleShape,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    text = overviewUiState.name,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .align(Alignment.CenterHorizontally),
+                )
+            }
             Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
                 Column(verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
                     CmmTitledCard(title = "Level") {
@@ -133,11 +149,7 @@ fun OverviewScreen(
                             }
                         }
                     }
-                    CmmTitledCard(title = overviewUiState.name) {
-                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur commodo, lectus nec mollis tempus, tellus sapien ultrices nisl, commodo volutpat felis ipsum eget massa.")
-                    }
                 }
-
             }
         }
     }
