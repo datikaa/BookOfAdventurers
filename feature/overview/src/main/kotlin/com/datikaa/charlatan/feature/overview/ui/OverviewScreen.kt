@@ -1,6 +1,5 @@
 package com.datikaa.charlatan.feature.overview.ui
 
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,7 +41,7 @@ fun OverviewRoute(
         overviewUiState = uiState,
         clear = overviewViewModel::clearDb,
         navigateToCharacter = { navigate("characters") },
-        modifier = modifier,
+        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 
@@ -59,9 +56,7 @@ fun OverviewScreen(
         val scrollState = rememberScrollState()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .verticalScroll(state = scrollState)
-                .padding(CharlatanTheme.dimensions.screenPadding),
+            modifier = Modifier.verticalScroll(state = scrollState),
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
                 Column(verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
@@ -149,7 +144,7 @@ fun OverviewScreen(
 
 @DevicePreviews
 @Composable
-private fun Preview() {
+private fun PreviewOverviewScreen() {
     OverviewScreen(
         overviewUiState = OverviewUiState(
             level = 7,
