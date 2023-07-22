@@ -3,10 +3,10 @@ package com.datikaa.core.data
 import com.datikaa.charlatan.core.database.dao.AbilityDao
 import com.datikaa.charlatan.core.database.dao.CharacterDao
 import com.datikaa.charlatan.core.domain.Character
-import com.datikaa.core.data.adapter.mapToDomain
-import com.datikaa.core.data.adapter.mapToEntity
-import com.datikaa.core.data.adapter.toDomain
-import com.datikaa.core.data.adapter.toEntity
+import com.datikaa.core.data.adapter.ability.mapToEntity
+import com.datikaa.core.data.adapter.character.mapToDomain
+import com.datikaa.core.data.adapter.character.toDomain
+import com.datikaa.core.data.adapter.character.toEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

@@ -32,18 +32,20 @@ import kotlinx.coroutines.flow.Flow;
 public final class AbilityDao_Impl implements AbilityDao {
   private final RoomDatabase __db;
 
-  private final EntityInsertionAdapter<AbilityEntity> __insertionAdapterOfAttributeEntity;
+  private final EntityInsertionAdapter<AbilityEntity> __insertionAdapterOfAbilityEntity;
 
-  private final EntityDeletionOrUpdateAdapter<AbilityEntityPartialUpdate> __updateAdapterOfAttributeEntityPartialUpdateAsAttributeEntity;
+  private final EntityInsertionAdapter<AbilityEntity> __insertionAdapterOfAbilityEntity_1;
 
-  private final SharedSQLiteStatement __preparedStmtOfDeleteAttributes;
+  private final EntityDeletionOrUpdateAdapter<AbilityEntityPartialUpdate> __updateAdapterOfAbilityEntityPartialUpdateAsAbilityEntity;
+
+  private final SharedSQLiteStatement __preparedStmtOfDeleteAllAbilities;
 
   public AbilityDao_Impl(RoomDatabase __db) {
     this.__db = __db;
-    this.__insertionAdapterOfAttributeEntity = new EntityInsertionAdapter<AbilityEntity>(__db) {
+    this.__insertionAdapterOfAbilityEntity = new EntityInsertionAdapter<AbilityEntity>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR ABORT INTO `AttributeEntity` (`id`,`characterId`,`type`,`value`) VALUES (nullif(?, 0),?,?,?)";
+        return "INSERT OR ABORT INTO `AbilityEntity` (`id`,`characterId`,`type`,`value`) VALUES (nullif(?, 0),?,?,?)";
       }
 
       @Override
@@ -58,10 +60,28 @@ public final class AbilityDao_Impl implements AbilityDao {
         stmt.bindLong(4, value.getValue());
       }
     };
-    this.__updateAdapterOfAttributeEntityPartialUpdateAsAttributeEntity = new EntityDeletionOrUpdateAdapter<AbilityEntityPartialUpdate>(__db) {
+    this.__insertionAdapterOfAbilityEntity_1 = new EntityInsertionAdapter<AbilityEntity>(__db) {
       @Override
       public String createQuery() {
-        return "UPDATE OR ABORT `AttributeEntity` SET `id` = ?,`value` = ? WHERE `id` = ?";
+        return "INSERT OR REPLACE INTO `AbilityEntity` (`id`,`characterId`,`type`,`value`) VALUES (nullif(?, 0),?,?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, AbilityEntity value) {
+        stmt.bindLong(1, value.getId());
+        stmt.bindLong(2, value.getCharacterId());
+        if (value.getType() == null) {
+          stmt.bindNull(3);
+        } else {
+          stmt.bindString(3, __Type_enumToString(value.getType()));
+        }
+        stmt.bindLong(4, value.getValue());
+      }
+    };
+    this.__updateAdapterOfAbilityEntityPartialUpdateAsAbilityEntity = new EntityDeletionOrUpdateAdapter<AbilityEntityPartialUpdate>(__db) {
+      @Override
+      public String createQuery() {
+        return "UPDATE OR ABORT `AbilityEntity` SET `id` = ?,`value` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -71,10 +91,10 @@ public final class AbilityDao_Impl implements AbilityDao {
         stmt.bindLong(3, value.getId());
       }
     };
-    this.__preparedStmtOfDeleteAttributes = new SharedSQLiteStatement(__db) {
+    this.__preparedStmtOfDeleteAllAbilities = new SharedSQLiteStatement(__db) {
       @Override
       public String createQuery() {
-        final String _query = "DELETE FROM AttributeEntity";
+        final String _query = "DELETE FROM AbilityEntity";
         return _query;
       }
     };
@@ -82,13 +102,31 @@ public final class AbilityDao_Impl implements AbilityDao {
 
   @Override
   public Object insertAbility(final AbilityEntity abilityEntity,
-                              final Continuation<? super Unit> continuation) {
+      final Continuation<? super Unit> continuation) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       public Unit call() throws Exception {
         __db.beginTransaction();
         try {
-          __insertionAdapterOfAttributeEntity.insert(abilityEntity);
+          __insertionAdapterOfAbilityEntity.insert(abilityEntity);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, continuation);
+  }
+
+  @Override
+  public Object insertOrUpdateAbility(final List<AbilityEntity> abilityEntities,
+      final Continuation<? super Unit> continuation) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __insertionAdapterOfAbilityEntity_1.insert(abilityEntities);
           __db.setTransactionSuccessful();
           return Unit.INSTANCE;
         } finally {
@@ -100,13 +138,13 @@ public final class AbilityDao_Impl implements AbilityDao {
 
   @Override
   public Object updateAbility(final AbilityEntityPartialUpdate abilityEntityPartialUpdate,
-                              final Continuation<? super Unit> continuation) {
+      final Continuation<? super Unit> continuation) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       public Unit call() throws Exception {
         __db.beginTransaction();
         try {
-          __updateAdapterOfAttributeEntityPartialUpdateAsAttributeEntity.handle(abilityEntityPartialUpdate);
+          __updateAdapterOfAbilityEntityPartialUpdateAsAbilityEntity.handle(abilityEntityPartialUpdate);
           __db.setTransactionSuccessful();
           return Unit.INSTANCE;
         } finally {
@@ -121,7 +159,7 @@ public final class AbilityDao_Impl implements AbilityDao {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       public Unit call() throws Exception {
-        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteAttributes.acquire();
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteAllAbilities.acquire();
         __db.beginTransaction();
         try {
           _stmt.executeUpdateDelete();
@@ -129,7 +167,7 @@ public final class AbilityDao_Impl implements AbilityDao {
           return Unit.INSTANCE;
         } finally {
           __db.endTransaction();
-          __preparedStmtOfDeleteAttributes.release(_stmt);
+          __preparedStmtOfDeleteAllAbilities.release(_stmt);
         }
       }
     }, continuation);
@@ -137,8 +175,8 @@ public final class AbilityDao_Impl implements AbilityDao {
 
   @Override
   public Object getAbility(final int characterId, final AbilityEntity.Type type,
-                           final Continuation<? super AbilityEntity> continuation) {
-    final String _sql = "SELECT * FROM AttributeEntity WHERE characterId = ? AND type = ?";
+      final Continuation<? super AbilityEntity> continuation) {
+    final String _sql = "SELECT * FROM AbilityEntity WHERE characterId = ? AND type = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
     _statement.bindLong(_argIndex, characterId);
@@ -183,9 +221,9 @@ public final class AbilityDao_Impl implements AbilityDao {
 
   @Override
   public Flow<List<AbilityEntity>> flowAbilities() {
-    final String _sql = "SELECT * FROM AttributeEntity";
+    final String _sql = "SELECT * FROM AbilityEntity";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
-    return CoroutinesRoom.createFlow(__db, false, new String[]{"AttributeEntity"}, new Callable<List<AbilityEntity>>() {
+    return CoroutinesRoom.createFlow(__db, false, new String[]{"AbilityEntity"}, new Callable<List<AbilityEntity>>() {
       @Override
       public List<AbilityEntity> call() throws Exception {
         final Cursor _cursor = DBUtil.query(__db, _statement, false, null);

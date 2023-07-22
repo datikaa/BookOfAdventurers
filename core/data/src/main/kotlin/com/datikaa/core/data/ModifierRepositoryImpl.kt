@@ -1,9 +1,9 @@
 package com.datikaa.core.data
 
-import com.datikaa.charlatan.core.database.dao.ModifierDao
 import com.datikaa.charlatan.core.database.crossref.CharacterModifierCrossRef
+import com.datikaa.charlatan.core.database.dao.ModifierDao
 import com.datikaa.charlatan.core.domain.Modifier
-import com.datikaa.core.data.adapter.toEntity
+import com.datikaa.core.data.adapter.modifier.toEntity
 
 class ModifierRepositoryImpl(
     private val modifierDao: ModifierDao,

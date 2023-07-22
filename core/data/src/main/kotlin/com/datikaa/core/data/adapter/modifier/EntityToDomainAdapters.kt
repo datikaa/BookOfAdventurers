@@ -1,47 +1,13 @@
-package com.datikaa.core.data.adapter
+package com.datikaa.core.data.adapter.modifier
 
-import com.datikaa.charlatan.core.database.entity.AbilityEntity
-import com.datikaa.charlatan.core.database.entity.CharacterEntity
-import com.datikaa.charlatan.core.database.entity.CharacterWithAbilitiesAndModifiers
 import com.datikaa.charlatan.core.database.entity.ModifierEntity
 import com.datikaa.charlatan.core.domain.Ability
-import com.datikaa.charlatan.core.domain.Character
 import com.datikaa.charlatan.core.domain.ModifiableScore
 import com.datikaa.charlatan.core.domain.Modifier
 import com.datikaa.charlatan.core.domain.PossiblyProficient
 import com.datikaa.charlatan.core.domain.SavingThrow
 import com.datikaa.charlatan.core.domain.Skill
 import kotlin.reflect.KClass
-
-internal fun AbilityEntity.toDomain(): Ability = when (type) {
-    AbilityEntity.Type.Strength -> Ability.Strength(value)
-    AbilityEntity.Type.Dexterity -> Ability.Dexterity(value)
-    AbilityEntity.Type.Constitution -> Ability.Constitution(value)
-    AbilityEntity.Type.Intelligence -> Ability.Intelligence(value)
-    AbilityEntity.Type.Wisdom -> Ability.Wisdom(value)
-    AbilityEntity.Type.Charisma -> Ability.Charisma(value)
-}
-
-@JvmName("mapAbilityEntityToDomain")
-internal fun List<AbilityEntity>.mapToDomain() = map { it.toDomain() }
-
-internal fun CharacterWithAbilitiesAndModifiers.toDomain(): Character = Character(
-    id = characterEntity.id,
-    name = characterEntity.name,
-    level = characterEntity.level,
-    abilityList = abilityEntities.mapToDomain(),
-    modifiers = modifierEntities.mapToDomain(),
-)
-
-@JvmName("mapCharacterEntityToDomain")
-internal fun List<CharacterEntity>.mapToDomain() = map { it.toDomain() }
-internal fun CharacterEntity.toDomain(): Character = Character(
-    id = id,
-    name = name,
-    level = level,
-    abilityList = emptyList(),
-    modifiers = emptyList(),
-)
 
 internal fun List<ModifierEntity>.mapToDomain() =  map { it.toDomain() }
 internal fun ModifierEntity.toDomain() = when (type) {
