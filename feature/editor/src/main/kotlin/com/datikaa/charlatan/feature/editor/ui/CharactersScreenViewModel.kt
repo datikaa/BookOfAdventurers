@@ -67,7 +67,7 @@ class CharactersScreenViewModel(
         }
     }
 
-    fun increaseAttribute(character: Character, ability: Ability) {
+    fun increaseAbility(character: Character, ability: Ability) {
         viewModelScope.launch {
             modifyAbilityValueOfCharacterUseCase(
                 character = character,
@@ -77,7 +77,7 @@ class CharactersScreenViewModel(
         }
     }
 
-    fun decreaseAttribute(character: Character, ability: Ability) {
+    fun decreaseAbility(character: Character, ability: Ability) {
         viewModelScope.launch {
             modifyAbilityValueOfCharacterUseCase(
                 character = character,

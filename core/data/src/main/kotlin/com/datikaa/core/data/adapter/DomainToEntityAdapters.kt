@@ -1,9 +1,9 @@
 package com.datikaa.core.data.adapter
 
-import com.datikaa.charlatan.core.database.entity.AttributeEntity
+import com.datikaa.charlatan.core.database.entity.AbilityEntity
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
 import com.datikaa.charlatan.core.database.entity.ModifierEntity
-import com.datikaa.charlatan.core.database.partial.AttributeEntityPartialUpdate
+import com.datikaa.charlatan.core.database.partial.AbilityEntityPartialUpdate
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 import com.datikaa.charlatan.core.domain.Modifier
@@ -11,23 +11,23 @@ import com.datikaa.charlatan.core.domain.SavingThrow
 import com.datikaa.charlatan.core.domain.Skill
 import kotlin.reflect.KClass
 
-internal fun Ability.toEntity(id: Int, characterId: Int): AttributeEntity = AttributeEntity(
+internal fun Ability.toEntity(id: Int, characterId: Int): AbilityEntity = AbilityEntity(
     id = id,
     characterId = characterId,
     type = toEntityEnum(),
     value = 0,
 )
 
-internal fun Ability.toEntityEnum(): AttributeEntity.Type = when (this) {
-    is Ability.Charisma -> AttributeEntity.Type.Charisma
-    is Ability.Constitution -> AttributeEntity.Type.Constitution
-    is Ability.Dexterity -> AttributeEntity.Type.Dexterity
-    is Ability.Intelligence -> AttributeEntity.Type.Intelligence
-    is Ability.Strength -> AttributeEntity.Type.Strength
-    is Ability.Wisdom -> AttributeEntity.Type.Wisdom
+internal fun Ability.toEntityEnum(): AbilityEntity.Type = when (this) {
+    is Ability.Charisma -> AbilityEntity.Type.Charisma
+    is Ability.Constitution -> AbilityEntity.Type.Constitution
+    is Ability.Dexterity -> AbilityEntity.Type.Dexterity
+    is Ability.Intelligence -> AbilityEntity.Type.Intelligence
+    is Ability.Strength -> AbilityEntity.Type.Strength
+    is Ability.Wisdom -> AbilityEntity.Type.Wisdom
 }
 
-internal fun List<Ability>.mapToEntity(characterId: Int): List<AttributeEntity> = map { ability ->
+internal fun List<Ability>.mapToEntity(characterId: Int): List<AbilityEntity> = map { ability ->
     ability.toEntity(0, characterId)
 }
 
@@ -37,7 +37,7 @@ internal fun Character.toEntity(): CharacterEntity = CharacterEntity(
     level = level
 )
 
-internal fun Ability.toPartialUpdate(id: Int) = AttributeEntityPartialUpdate(
+internal fun Ability.toPartialUpdate(id: Int) = AbilityEntityPartialUpdate(
     id = id,
     value = value,
 )

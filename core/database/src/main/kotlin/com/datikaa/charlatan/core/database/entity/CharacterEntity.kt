@@ -15,14 +15,14 @@ data class CharacterEntity(
 )
 
 @Entity
-data class CharacterWithAttributesAndModifiers(
+data class CharacterWithAbilitiesAndModifiers(
     @Embedded
     val characterEntity: CharacterEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "characterId"
     )
-    val attributes: List<AttributeEntity>,
+    val abilityEntities: List<AbilityEntity>,
     @Relation(
         parentColumn = "id",
         entityColumn = "id",
@@ -33,5 +33,5 @@ data class CharacterWithAttributesAndModifiers(
             entityColumn = "modifierId",
         )
     )
-    val modifiers: List<ModifierEntity>,
+    val modifierEntities: List<ModifierEntity>,
 )

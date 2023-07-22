@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
-import com.datikaa.charlatan.core.database.entity.CharacterWithAttributesAndModifiers
+import com.datikaa.charlatan.core.database.entity.CharacterWithAbilitiesAndModifiers
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,5 +27,5 @@ interface CharacterDao {
 
     @Transaction
     @Query("SELECT * FROM CharacterEntity WHERE id = :id")
-    fun flowCharacterWithAttributes(id: Int): Flow<CharacterWithAttributesAndModifiers>
+    fun flowCharacterWithAbilitiesAndModifiers(id: Int): Flow<CharacterWithAbilitiesAndModifiers>
 }

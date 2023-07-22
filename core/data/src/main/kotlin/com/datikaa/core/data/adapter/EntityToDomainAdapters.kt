@@ -1,8 +1,8 @@
 package com.datikaa.core.data.adapter
 
-import com.datikaa.charlatan.core.database.entity.AttributeEntity
+import com.datikaa.charlatan.core.database.entity.AbilityEntity
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
-import com.datikaa.charlatan.core.database.entity.CharacterWithAttributesAndModifiers
+import com.datikaa.charlatan.core.database.entity.CharacterWithAbilitiesAndModifiers
 import com.datikaa.charlatan.core.database.entity.ModifierEntity
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
@@ -13,24 +13,24 @@ import com.datikaa.charlatan.core.domain.SavingThrow
 import com.datikaa.charlatan.core.domain.Skill
 import kotlin.reflect.KClass
 
-internal fun AttributeEntity.toDomain(): Ability = when (type) {
-    AttributeEntity.Type.Strength -> Ability.Strength(value)
-    AttributeEntity.Type.Dexterity -> Ability.Dexterity(value)
-    AttributeEntity.Type.Constitution -> Ability.Constitution(value)
-    AttributeEntity.Type.Intelligence -> Ability.Intelligence(value)
-    AttributeEntity.Type.Wisdom -> Ability.Wisdom(value)
-    AttributeEntity.Type.Charisma -> Ability.Charisma(value)
+internal fun AbilityEntity.toDomain(): Ability = when (type) {
+    AbilityEntity.Type.Strength -> Ability.Strength(value)
+    AbilityEntity.Type.Dexterity -> Ability.Dexterity(value)
+    AbilityEntity.Type.Constitution -> Ability.Constitution(value)
+    AbilityEntity.Type.Intelligence -> Ability.Intelligence(value)
+    AbilityEntity.Type.Wisdom -> Ability.Wisdom(value)
+    AbilityEntity.Type.Charisma -> Ability.Charisma(value)
 }
 
-@JvmName("mapAttributeEntityToDomain")
-internal fun List<AttributeEntity>.mapToDomain() = map { it.toDomain() }
+@JvmName("mapAbilityEntityToDomain")
+internal fun List<AbilityEntity>.mapToDomain() = map { it.toDomain() }
 
-internal fun CharacterWithAttributesAndModifiers.toDomain(): Character = Character(
+internal fun CharacterWithAbilitiesAndModifiers.toDomain(): Character = Character(
     id = characterEntity.id,
     name = characterEntity.name,
     level = characterEntity.level,
-    abilityList = attributes.mapToDomain(),
-    modifiers = modifiers.mapToDomain(),
+    abilityList = abilityEntities.mapToDomain(),
+    modifiers = modifierEntities.mapToDomain(),
 )
 
 @JvmName("mapCharacterEntityToDomain")

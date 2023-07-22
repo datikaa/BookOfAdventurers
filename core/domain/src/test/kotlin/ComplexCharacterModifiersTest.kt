@@ -72,7 +72,7 @@ private val plus1ConModifier = Modifier.Score(
 
 private val plus1DexAndPlus1ConModifierCollection = Modifier.Holder(
     id = 0,
-    name = "Collection of 2 modifiers without own attribute modifier",
+    name = "Collection of 2 modifiers without own ability modifier",
     description = "",
     nestedModifiers = listOf(
         plus1DexModifier,
@@ -82,7 +82,7 @@ private val plus1DexAndPlus1ConModifierCollection = Modifier.Holder(
 
 private val plus1DexSavingThrowModifier = Modifier.Score(
     id = 0,
-    name = "Dex SaveThrow Attribute modifier",
+    name = "Dex SaveThrow Ability modifier",
     description = "",
     modifiableScoreType = SavingThrow.Dexterity::class,
     value = 1,

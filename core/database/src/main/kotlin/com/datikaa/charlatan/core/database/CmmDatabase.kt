@@ -2,8 +2,8 @@ package com.datikaa.charlatan.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.datikaa.charlatan.core.database.dao.AttributeDao
-import com.datikaa.charlatan.core.database.entity.AttributeEntity
+import com.datikaa.charlatan.core.database.dao.AbilityDao
+import com.datikaa.charlatan.core.database.entity.AbilityEntity
 import com.datikaa.charlatan.core.database.dao.CharacterDao
 import com.datikaa.charlatan.core.database.dao.ModifierDao
 import com.datikaa.charlatan.core.database.entity.CharacterEntity
@@ -13,13 +13,13 @@ import com.datikaa.charlatan.core.database.entity.ModifierEntity
 @Database(
     entities = [
         CharacterEntity::class,
-        AttributeEntity::class,
+        AbilityEntity::class,
         ModifierEntity::class,
         CharacterModifierCrossRef::class,
-    ], version = 5
+    ], version = 6
 )
 abstract class CmmDatabase : RoomDatabase() {
-    abstract fun attributesDao(): AttributeDao
+    abstract fun abilityDao(): AbilityDao
     abstract fun characterDao(): CharacterDao
 
     abstract fun modifierDao(): ModifierDao

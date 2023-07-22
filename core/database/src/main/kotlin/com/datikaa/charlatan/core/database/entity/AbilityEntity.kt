@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
         childColumns = ["characterId"],
     )]
 )
-data class AttributeEntity(
+data class AbilityEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(index = true) val characterId: Int,
     val type: Type,
