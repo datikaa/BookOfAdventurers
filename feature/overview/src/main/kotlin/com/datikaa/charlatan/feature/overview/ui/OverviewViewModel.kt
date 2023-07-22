@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.datikaa.charlatan.core.domain.calculateAbilityScore
 import com.datikaa.charlatan.core.domain.calculateSkillCheckScore
 import com.datikaa.charlatan.core.domain.proficientIn
-import com.datikaa.charlatan.feature.overview.domain.ClearEverythingUseCase
 import com.datikaa.charlatan.feature.overview.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.overview.etc.name
 import com.datikaa.charlatan.feature.overview.etc.shortName
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class OverviewViewModel(
     characterId: Int,
-    private val clearEverythingUseCase: ClearEverythingUseCase,
     private val flowCharacterUseCase: FlowCharacterUseCase,
 ) : ViewModel() {
 
@@ -50,12 +48,6 @@ class OverviewViewModel(
                     )
                 }
             }
-        }
-    }
-
-    fun clearDb() {
-        viewModelScope.launch {
-            clearEverythingUseCase()
         }
     }
 }

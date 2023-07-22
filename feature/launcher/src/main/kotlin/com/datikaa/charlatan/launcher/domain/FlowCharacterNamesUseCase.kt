@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.launcher
+package com.datikaa.charlatan.launcher.domain
 
 import com.datikaa.core.data.CharacterRepository
 

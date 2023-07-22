@@ -2,10 +2,15 @@ package com.datikaa.charlatan.launcher.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -17,7 +22,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.charlatan.core.design.DevicePreviews
 import com.datikaa.charlatan.core.design.component.CmmTitledCard
 import com.datikaa.charlatan.core.design.theme.CharlatanTheme
-import com.datikaa.charlatan.launcher.LauncherUiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -31,22 +35,29 @@ fun LauncherRoute(
 
     LauncherScreen(
         launcherUiState = launcherUiState,
+        clearDb = launcherViewModel::clearDb,
         openCharacter = openCharacter,
         openEditor = openEditor,
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LauncherScreen(
     launcherUiState: LauncherUiState,
+    clearDb: () -> Unit,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+        modifier = modifier,
+    ) {
         CmmTitledCard(
             title = "Characters",
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 launcherUiState.characters.forEach {
@@ -65,7 +76,20 @@ fun LauncherScreen(
                 }
                 Row {
                     ElevatedButton(onClick = { openEditor() }) {
-                        Text(text = "Open Character editor")
+                        Text(text = "Manage characters")
+                    }
+                }
+            }
+        }
+        OutlinedCard(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(4.dp)) {
+                Text(
+                    text = "Debug tools",
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                FlowRow {
+                    OutlinedButton(onClick = { clearDb() }) {
+                        Text("Clear DB")
                     }
                 }
             }
@@ -86,6 +110,7 @@ fun LauncherScreenPreview() {
             ),
             modifiers = listOf()
         ),
+        clearDb = { },
         openCharacter = { },
         openEditor = { },
     )

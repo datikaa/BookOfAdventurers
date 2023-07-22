@@ -2,16 +2,18 @@ package com.datikaa.charlatan.launcher.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datikaa.charlatan.launcher.FlowCharacterNamesUseCase
-import com.datikaa.charlatan.launcher.LauncherUiState
+import com.datikaa.charlatan.launcher.domain.ClearEverythingUseCase
+import com.datikaa.charlatan.launcher.domain.FlowCharacterNamesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class LauncherViewModel(
     flowCharacterNamesUseCase: FlowCharacterNamesUseCase,
+    private val clearEverythingUseCase: ClearEverythingUseCase,
 ) : ViewModel(
 
 ) {
@@ -30,6 +32,12 @@ class LauncherViewModel(
                 )
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun clearDb() {
+        viewModelScope.launch {
+            clearEverythingUseCase()
+        }
     }
 }
 

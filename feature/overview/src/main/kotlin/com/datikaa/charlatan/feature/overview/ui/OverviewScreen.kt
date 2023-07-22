@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +30,6 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun OverviewRoute(
     characterId: Int,
-    navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
     overviewViewModel: OverviewViewModel = koinViewModel { parametersOf(characterId) }
 ) {
@@ -39,8 +37,6 @@ fun OverviewRoute(
 
     OverviewScreen(
         overviewUiState = uiState,
-        clear = overviewViewModel::clearDb,
-        navigateToCharacter = { navigate("characters") },
         modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
@@ -48,8 +44,6 @@ fun OverviewRoute(
 @Composable
 fun OverviewScreen(
     overviewUiState: OverviewUiState,
-    clear: () -> Unit,
-    navigateToCharacter: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
@@ -130,14 +124,6 @@ fun OverviewScreen(
                 }
 
             }
-            Row {
-                Button(onClick = { navigateToCharacter() }) {
-                    Text("Characters")
-                }
-                Button(onClick = { clear() }) {
-                    Text("Clear DB")
-                }
-            }
         }
     }
 }
@@ -169,7 +155,5 @@ private fun PreviewOverviewScreen() {
                 ),
             ),
         ),
-        clear = {},
-        navigateToCharacter = {},
     )
 }

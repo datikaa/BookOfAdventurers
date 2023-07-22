@@ -28,7 +28,6 @@ fun NavGraphBuilder.overviewScreen() {
         OverviewRoute(
             backStackEntry.arguments!!.getInt(CHARACTER_ID_ARG),
             modifier = Modifier.fillMaxSize(),
-            navigate = { }
         )
     }
 }

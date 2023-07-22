@@ -1,4 +1,4 @@
-package com.datikaa.charlatan.launcher
+package com.datikaa.charlatan.launcher.ui
 
 import androidx.compose.runtime.Immutable
 
