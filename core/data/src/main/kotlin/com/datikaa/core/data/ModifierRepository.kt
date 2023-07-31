@@ -1,5 +1,6 @@
 package com.datikaa.core.data
 
+import com.datikaa.charlatan.core.database.crossref.CharacterModifierCrossRef
 import com.datikaa.charlatan.core.domain.Modifier
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +15,14 @@ interface ModifierRepository {
     fun flowAllModifiers(): Flow<List<Modifier>>
 
     suspend fun getModifier(id: Int): Modifier
+
+    suspend fun getCharacterModifierCrossRef(
+        modifierId: Long,
+        characterId: Long
+    ):  Pair<Long, Long>?
+
+    suspend fun removeCharacterModifierCrossRef(
+        modifierId: Long,
+        characterId: Long
+    )
 }

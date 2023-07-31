@@ -14,9 +14,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedFilterChip
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
@@ -33,7 +41,7 @@ import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 import java.util.concurrent.Flow
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterEditor(
     uiState: CharactersUiState,
@@ -83,9 +91,6 @@ fun CharacterEditor(
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
-                        selectedCharacter.modifiers.forEach { modifier ->
-                            Text(text = "Added: ${modifier.name}")
-                        }
                     }
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -103,35 +108,25 @@ fun CharacterEditor(
         }
         if (selectedCharacter != null) {
             CmmTitledCard(
-                title = "Add modifiers",
+                title = "Modifiers",
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
                 ) {
                     uiState.modifiers.forEach {
-                        OutlinedCard(
+                        FilterChip(
+                            selected = it.selected,
+                            onClick = { addModifier(uiState.selectedCharacter, it.id) },
+                            label = { Text(text = it.name) },
                             shape = CircleShape,
-                            modifier = Modifier.padding(vertical = CharlatanTheme.dimensions.cardSpacing / 2)
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier
-                                    .clickable {
-                                        addModifier(
-                                            uiState.selectedCharacter,
-                                            it.id
-                                        )
-                                    }
-                                    .padding(vertical = 4.dp, horizontal = 8.dp)
-                            ) {
-                                Text(text = it.name)
+                            trailingIcon = {
                                 Icon(
-                                    imageVector = Icons.Rounded.Add,
-                                    contentDescription = "increase"
+                                    imageVector = if (it.selected) Icons.Rounded.Check else Icons.Rounded.Close,
+                                    contentDescription = "check"
                                 )
-                            }
-                        }
+                            },
+                        )
                     }
                 }
             }
@@ -191,8 +186,8 @@ private fun CharacterEditorSelectedPreview() {
                 )
             ),
             modifiers = listOf(
-                CharactersUiState.Modifier(0, "Proficiency modifier"),
-                CharactersUiState.Modifier(0, "Proficiency modifier")
+                CharactersUiState.Modifier(0, "Proficiency modifier", true),
+                CharactersUiState.Modifier(0, "Proficiency modifier", false)
             ),
         ),
         openCharacterSheet = { },

@@ -23,4 +23,10 @@ interface ModifierDao {
 
     @Query("SELECT * FROM ModifierEntity WHERE id = :id")
     suspend fun getModifier(id: Int): ModifierEntity
+
+    @Query("SELECT * FROM CharacterModifierCrossRef WHERE characterId = :characterId AND modifierId = :modifierId LIMIT 1")
+    suspend fun getCharacterModifierCrossRef(modifierId: Long, characterId: Long): CharacterModifierCrossRef?
+
+    @Query("DELETE FROM CharacterModifierCrossRef WHERE characterId = :characterId AND modifierId = :modifierId")
+    suspend fun removeCharacterModifierCrossRef(modifierId: Long, characterId: Long)
 }

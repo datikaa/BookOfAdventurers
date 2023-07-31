@@ -295,7 +295,7 @@ private fun KClass<*>.toReadable(type: String) = when (this) {
     SavingThrow.Wisdom::class -> "Wisdom saving throw $type modifier"
     SavingThrow.Charisma::class -> "Charisma saving throw $type modifier"
 
-    else -> throw IllegalStateException("Unknown type: $this")
+    else -> error("Unknown type: $this")
 }
 
 @DevicePreviews

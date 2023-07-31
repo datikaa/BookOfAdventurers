@@ -35,4 +35,23 @@ internal class ModifierRepositoryImpl(
         }
 
     override suspend fun getModifier(id: Int): Modifier = modifierDao.getModifier(id).toDomain()
+
+    override suspend fun getCharacterModifierCrossRef(
+        modifierId: Long,
+        characterId: Long
+    ): Pair<Long, Long>? {
+        return modifierDao.getCharacterModifierCrossRef(
+            characterId = characterId,
+            modifierId = modifierId,
+        )?.let { crossRef ->
+            crossRef.characterId to crossRef.modifierId
+        }
+    }
+
+    override suspend fun removeCharacterModifierCrossRef(
+        modifierId: Long,
+        characterId: Long
+    ) {
+        modifierDao.removeCharacterModifierCrossRef(modifierId, characterId)
+    }
 }

@@ -12,5 +12,6 @@ data class CharactersUiState(
     data class Modifier(
         val id: Int,
         val name: String,
+        val selected: Boolean,
     )
 }

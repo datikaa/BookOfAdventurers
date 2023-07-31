@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.datikaa.charlatan.core.domain.Ability
 import com.datikaa.charlatan.core.domain.Character
 import com.datikaa.charlatan.feature.editor.domain.AddCharacterUseCase
-import com.datikaa.charlatan.feature.editor.domain.AddModifierToCharacterUseCase
-import com.datikaa.charlatan.feature.editor.domain.FlowAllModifiersUseCase
+import com.datikaa.charlatan.feature.editor.domain.AddOrRemoveModifierToCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.FlowListAllCharactersUseCase
+import com.datikaa.charlatan.feature.editor.domain.FlowSelectedModifiersForCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.ModifyAbilityValueOfCharacterUseCase
 import com.datikaa.charlatan.feature.editor.domain.ModifyLevelOfCharacterUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,10 +23,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalCoroutinesApi::class)
 class CharactersScreenViewModel(
     private val addCharacterUseCase: AddCharacterUseCase,
-    private val addModifierToCharacterUseCase: AddModifierToCharacterUseCase,
-    private val flowAllModifiersUseCase: FlowAllModifiersUseCase,
+    private val addOrRemoveModifierToCharacterUseCase: AddOrRemoveModifierToCharacterUseCase,
     private val flowListAllCharactersUseCase: FlowListAllCharactersUseCase,
     private val flowCharacterUseCase: FlowCharacterUseCase,
+    private val flowSelectedModifiersForCharacterUseCase: FlowSelectedModifiersForCharacterUseCase,
     private val modifyAbilityValueOfCharacterUseCase: ModifyAbilityValueOfCharacterUseCase,
     private val modifyLevelOfCharacterUseCase: ModifyLevelOfCharacterUseCase,
 ) : ViewModel() {
@@ -58,11 +58,13 @@ class CharactersScreenViewModel(
             }
         }
         viewModelScope.launch {
-            flowAllModifiersUseCase().collectLatest { modifiers ->
+            selectedCharacterId.flatMapLatest {
+                if (it != null) flowSelectedModifiersForCharacterUseCase(it) else flowOf(null)
+            }.collectLatest { modifiers ->
                 _uiState.update { prev ->
                     prev.copy(
-                        modifiers = modifiers.map {
-                            CharactersUiState.Modifier(it.id, it.name)
+                        modifiers = modifiers.orEmpty().map { (modifier, selected) ->
+                            CharactersUiState.Modifier(modifier.id, modifier.name, selected)
                         },
                     )
                 }
@@ -122,7 +124,7 @@ class CharactersScreenViewModel(
 
     fun addModifier(character: Character, modifierId: Int) {
         viewModelScope.launch {
-            addModifierToCharacterUseCase(
+            addOrRemoveModifierToCharacterUseCase(
                 characterId = character.id,
                 modifierId = modifierId,
             )
