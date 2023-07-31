@@ -12,7 +12,7 @@ internal fun Ability.toEntity(id: Int, characterId: Int): AbilityEntity = Abilit
     id = id,
     characterId = characterId,
     type = toEntityEnum(),
-    value = 0,
+    value = value,
 )
 
 internal fun Ability.toEntityEnum(): AbilityEntity.Type = when (this) {
