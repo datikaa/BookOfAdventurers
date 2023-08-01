@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -33,6 +35,7 @@ fun LauncherRoute(
     launcherViewModel: LauncherViewModel = koinViewModel(),
 ) {
     val launcherUiState by launcherViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     LauncherScreen(
         launcherUiState = launcherUiState,
@@ -40,7 +43,9 @@ fun LauncherRoute(
         openCharacter = openCharacter,
         openEditor = openEditor,
         openModifiers = openModifiers,
-        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
+        modifier = modifier
+            .verticalScroll(state = scrollState)
+            .padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 

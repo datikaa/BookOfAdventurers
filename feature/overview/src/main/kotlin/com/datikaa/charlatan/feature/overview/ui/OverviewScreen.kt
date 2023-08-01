@@ -29,10 +29,13 @@ fun OverviewRoute(
     overviewViewModel: OverviewViewModel = koinViewModel { parametersOf(characterId) }
 ) {
     val uiState by overviewViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     OverviewScreen(
         overviewUiState = uiState,
-        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
+        modifier = modifier
+            .verticalScroll(state = scrollState)
+            .padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 
@@ -41,25 +44,22 @@ fun OverviewScreen(
     overviewUiState: OverviewUiState,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier) {
-        val scrollState = rememberScrollState()
-        Column(
-            verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.verticalScroll(state = scrollState),
-        ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
-                Column(verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
-                    LevelCard(level = overviewUiState.level)
-                    AbilitiesCard(abilities = overviewUiState.abilities)
-                    ProficiencyCard(proficiency = overviewUiState.proficiency)
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
-                ) {
-                    SavingThrowsCard(savingThrow = overviewUiState.savingThrows)
-                    SkillsCard(skills = overviewUiState.skills)
-                }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
+            Column(verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing)) {
+                LevelCard(level = overviewUiState.level)
+                AbilitiesCard(abilities = overviewUiState.abilities)
+                ProficiencyCard(proficiency = overviewUiState.proficiency)
+            }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
+            ) {
+                SavingThrowsCard(savingThrow = overviewUiState.savingThrows)
+                SkillsCard(skills = overviewUiState.skills)
             }
         }
     }

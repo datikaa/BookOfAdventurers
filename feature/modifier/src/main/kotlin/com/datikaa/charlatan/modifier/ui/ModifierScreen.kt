@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,11 +43,14 @@ fun ModifierRoute(
     modifierViewModel: ModifierViewModel = koinViewModel(),
 ) {
     val modifierUiState by modifierViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     ModifierScreen(
         modifierUiState = modifierUiState,
         createNewModifier = modifierViewModel::createModifier,
-        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
+        modifier = modifier
+            .verticalScroll(state = scrollState)
+            .padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 

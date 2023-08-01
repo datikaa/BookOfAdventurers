@@ -1,6 +1,8 @@
 package com.datikaa.charlatan.feature.editor.ui
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,6 +23,7 @@ fun EditorRoute(
     overviewViewModel: CharactersScreenViewModel = koinViewModel()
 ) {
     val uiState by overviewViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     CharactersScreen(
         uiState = uiState,
@@ -32,7 +35,9 @@ fun EditorRoute(
         decreaseLevel = overviewViewModel::decreaseLevel,
         increaseLevel = overviewViewModel::increaseLevel,
         addModifier = overviewViewModel::addModifier,
-        modifier = modifier.padding(CharlatanTheme.dimensions.screenPadding),
+        modifier = modifier
+            .verticalScroll(state = scrollState)
+            .padding(CharlatanTheme.dimensions.screenPadding),
     )
 }
 
