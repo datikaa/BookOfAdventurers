@@ -9,7 +9,10 @@ data class OverviewUiState(
     val proficiency: Int,
     val abilities: List<UiAbility>,
     val skills: List<UiSkill>,
+    val savingThrows: List<UiSavingThrow>,
 ) {
+
+    @Immutable
     data class UiAbility(
         val name: String,
         val shortName: String,
@@ -17,7 +20,16 @@ data class OverviewUiState(
         val calculatedScore: Int,
     )
 
+    @Immutable
     data class UiSkill(
+        val name: String,
+        val baseName: String,
+        val score: Int,
+        val proficiency: Boolean,
+    )
+
+    @Immutable
+    data class UiSavingThrow(
         val name: String,
         val baseName: String,
         val score: Int,

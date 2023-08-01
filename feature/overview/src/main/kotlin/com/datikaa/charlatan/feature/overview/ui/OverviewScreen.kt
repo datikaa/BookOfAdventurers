@@ -17,6 +17,7 @@ import com.datikaa.charlatan.core.design.theme.CharlatanTheme
 import com.datikaa.charlatan.feature.overview.ui.components.AbilitiesCard
 import com.datikaa.charlatan.feature.overview.ui.components.LevelCard
 import com.datikaa.charlatan.feature.overview.ui.components.ProficiencyCard
+import com.datikaa.charlatan.feature.overview.ui.components.SavingThrowsCard
 import com.datikaa.charlatan.feature.overview.ui.components.SkillsCard
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -56,6 +57,7 @@ fun OverviewScreen(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(CharlatanTheme.dimensions.cardSpacing),
                 ) {
+                    SavingThrowsCard(savingThrow = overviewUiState.savingThrows)
                     SkillsCard(skills = overviewUiState.skills)
                 }
             }
@@ -87,6 +89,14 @@ private fun PreviewOverviewScreen() {
                     name = "Strength", baseName = "Str", score = 12, proficiency = false,
                 ),
                 OverviewUiState.UiSkill(
+                    name = "Slight of Hand", baseName = "Cha", score = 12, proficiency = true,
+                ),
+            ),
+            savingThrows = listOf(
+                OverviewUiState.UiSavingThrow(
+                    name = "Strength", baseName = "Str", score = 12, proficiency = false,
+                ),
+                OverviewUiState.UiSavingThrow(
                     name = "Slight of Hand", baseName = "Cha", score = 12, proficiency = true,
                 ),
             ),

@@ -3,6 +3,7 @@ package com.datikaa.charlatan.feature.overview.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.charlatan.core.domain.calculateAbilityScore
+import com.datikaa.charlatan.core.domain.calculateSavingThrowScore
 import com.datikaa.charlatan.core.domain.calculateSkillCheckScore
 import com.datikaa.charlatan.core.domain.proficiencyScore
 import com.datikaa.charlatan.core.domain.proficientIn
@@ -46,6 +47,14 @@ class OverviewViewModel(
                                 score = char.calculateSkillCheckScore(skill),
                                 proficiency = char.proficientIn(skill),
                             )
+                        },
+                        savingThrows = char.savingThrow.map { savingThrow ->
+                            OverviewUiState.UiSavingThrow(
+                                name = savingThrow::class.simpleName ?: "",
+                                baseName = char.abilityList.first { it::class == savingThrow.baseAbility }.shortName,
+                                score = char.calculateSavingThrowScore(savingThrow),
+                                proficiency = char.proficientIn(savingThrow),
+                            )
                         }
                     )
                 }
@@ -60,4 +69,5 @@ private val initUiState = OverviewUiState(
     proficiency = 0,
     abilities = emptyList(),
     skills = emptyList(),
+    savingThrows = emptyList(),
 )

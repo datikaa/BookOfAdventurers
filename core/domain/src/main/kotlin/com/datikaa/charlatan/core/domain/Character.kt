@@ -6,6 +6,7 @@ data class Character(
     val level: Int,
     val abilityList: List<Ability>,
     val skills: List<Skill> = dnd5eSkillSet(),
+    val savingThrow: List<SavingThrow> = dnd5eSavingThrowSet(),
     val modifiers: List<Modifier>,
 )
 
@@ -28,4 +29,13 @@ private fun dnd5eSkillSet(): List<Skill> = listOf(
     Skill.SleightOfHand,
     Skill.Stealth,
     Skill.Survival,
+)
+
+private fun dnd5eSavingThrowSet(): List<SavingThrow> = listOf(
+    SavingThrow.Charisma,
+    SavingThrow.Constitution,
+    SavingThrow.Dexterity,
+    SavingThrow.Intelligence,
+    SavingThrow.Strength,
+    SavingThrow.Wisdom,
 )
