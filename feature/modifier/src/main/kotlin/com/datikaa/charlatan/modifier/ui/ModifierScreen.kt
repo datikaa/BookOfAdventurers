@@ -234,6 +234,10 @@ fun ModifierScreen(
                                 value = value,
                             )
                         )
+                        name = ""
+                        selectedType = null
+                        selectedScoreType = null
+                        selectedAbility = null
                     },
                 ) {
                     Text(text = "Create Modifier")
