@@ -2,6 +2,7 @@
 plugins {
     id("boa.android.application")
     id("boa.android.application.compose")
+    id("boa.android.application.firebase")
 }
 
 android {
@@ -37,6 +38,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core:analytics"))
     implementation(project(":core:data"))
     implementation(project(":core:database"))
     implementation(project(":core:design"))

@@ -1,5 +1,6 @@
 package com.datikaa.boa.di
 
+import com.datikaa.boa.core.analytics.analyticsModule
 import com.datikaa.boa.core.database.di.databaseKoinModule
 import com.datikaa.boa.feature.editor.di.editorKoinModule
 import com.datikaa.boa.feature.overview.di.overviewKoinModule
@@ -15,6 +16,7 @@ val appModule = module {
 }
 
 private fun Module.includeCoreModules() = includes(
+    analyticsModule,
     dataModule,
     editorKoinModule,
     databaseKoinModule,

@@ -24,3 +24,4 @@ local.properties
 /.idea/misc.xml
 /.idea/migrations.xml
 /.idea/shelf/*
+/app/google-services.json
