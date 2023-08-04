@@ -1,10 +1,10 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("charlatan.android.library")
+    id("boa.android.library")
 }
 
 android {
-    namespace = "com.datikaa.charlatan.core.domain"
+    namespace = "com.datikaa.boa.core.domain"
 
 }
 

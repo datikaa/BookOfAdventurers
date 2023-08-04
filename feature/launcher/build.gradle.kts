@@ -1,12 +1,12 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("charlatan.android.library")
-    id("charlatan.android.library.compose")
+    id("boa.android.library")
+    id("boa.android.library.compose")
     id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.datikaa.charlatan.feature.launcher"
+    namespace = "com.datikaa.boa.feature.launcher"
 }
 
 dependencies {

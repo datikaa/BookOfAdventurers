@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.datikaa.charlatan.buildlogic"
+group = "com.datikaa.boa.buildlogic"
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
@@ -13,19 +13,19 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidLibrary") {
-            id = "charlatan.android.library"
+            id = "boa.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "charlatan.android.library.compose"
+            id = "boa.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidApplication") {
-            id = "charlatan.android.application"
+            id = "boa.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidApplicationCompose") {
-            id = "charlatan.android.application.compose"
+            id = "boa.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
     }

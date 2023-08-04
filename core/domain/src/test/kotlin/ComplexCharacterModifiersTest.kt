@@ -1,12 +1,12 @@
-import com.datikaa.charlatan.core.domain.Ability
-import com.datikaa.charlatan.core.domain.Character
-import com.datikaa.charlatan.core.domain.Modifier
-import com.datikaa.charlatan.core.domain.SavingThrow
-import com.datikaa.charlatan.core.domain.Skill
-import com.datikaa.charlatan.core.domain.calculateAbilityScore
-import com.datikaa.charlatan.core.domain.calculateSavingThrowScore
-import com.datikaa.charlatan.core.domain.calculateSkillCheckScore
-import com.datikaa.charlatan.core.domain.flatten
+import com.datikaa.boa.core.domain.Ability
+import com.datikaa.boa.core.domain.BoaCharacter
+import com.datikaa.boa.core.domain.Modifier
+import com.datikaa.boa.core.domain.SavingThrow
+import com.datikaa.boa.core.domain.Skill
+import com.datikaa.boa.core.domain.calculateAbilityScore
+import com.datikaa.boa.core.domain.calculateSavingThrowScore
+import com.datikaa.boa.core.domain.calculateSkillCheckScore
+import com.datikaa.boa.core.domain.flatten
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
 import org.junit.Test
@@ -114,7 +114,7 @@ private val strengthSavingThrowProficiencyModifier = Modifier.Proficiency(
     nestedModifiers = emptyList()
 )
 
-private val testCharacter = Character(
+private val testCharacter = BoaCharacter(
     id = 0,
     level = 10,
     name = "Rondell",

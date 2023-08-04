@@ -1,10 +1,10 @@
-import com.datikaa.charlatan.core.domain.Ability
-import com.datikaa.charlatan.core.domain.Character
-import com.datikaa.charlatan.core.domain.Modifier
-import com.datikaa.charlatan.core.domain.SavingThrow
-import com.datikaa.charlatan.core.domain.calculateSavingThrowScore
-import com.datikaa.charlatan.core.domain.proficiencyScore
-import com.datikaa.charlatan.core.domain.proficientIn
+import com.datikaa.boa.core.domain.Ability
+import com.datikaa.boa.core.domain.BoaCharacter
+import com.datikaa.boa.core.domain.Modifier
+import com.datikaa.boa.core.domain.SavingThrow
+import com.datikaa.boa.core.domain.calculateSavingThrowScore
+import com.datikaa.boa.core.domain.proficiencyScore
+import com.datikaa.boa.core.domain.proficientIn
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
 import org.junit.Test
@@ -47,7 +47,7 @@ class CharacterProficiencyTest {
         modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 0
     }
 
-    private fun createScoreTestingCharacter(level: Int) = Character(
+    private fun createScoreTestingCharacter(level: Int) = BoaCharacter(
         id = 0,
         level = level,
         name = "Rondell",
@@ -65,7 +65,7 @@ class CharacterProficiencyTest {
         nestedModifiers = listOf(),
     )
 
-    private val modifierTestingCharacter = Character(
+    private val modifierTestingCharacter = BoaCharacter(
         id = 0,
         level = 10,
         name = "Rondell",

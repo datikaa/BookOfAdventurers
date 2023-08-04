@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Charlatan"
+rootProject.name = "bookofadventurers"
 
 include(":app")
 include(":core:data")
