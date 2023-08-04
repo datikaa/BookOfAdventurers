@@ -1,10 +1,10 @@
-import com.datikaa.boa.core.domain.Ability
-import com.datikaa.boa.core.domain.BoaCharacter
-import com.datikaa.boa.core.domain.Modifier
-import com.datikaa.boa.core.domain.SavingThrow
-import com.datikaa.boa.core.domain.calculateSavingThrowScore
-import com.datikaa.boa.core.domain.proficiencyScore
-import com.datikaa.boa.core.domain.proficientIn
+import com.datikaa.bookofadventurers.core.domain.Ability
+import com.datikaa.bookofadventurers.core.domain.BoaCharacter
+import com.datikaa.bookofadventurers.core.domain.Modifier
+import com.datikaa.bookofadventurers.core.domain.SavingThrow
+import com.datikaa.bookofadventurers.core.domain.calculateSavingThrowScore
+import com.datikaa.bookofadventurers.core.domain.proficiencyScore
+import com.datikaa.bookofadventurers.core.domain.proficientIn
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
 import org.junit.Test

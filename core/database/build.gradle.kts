@@ -1,11 +1,11 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.ksp)
-    id("boa.android.library")
+    id("bookofadventurers.android.library")
 }
 
 android {
-    namespace = "com.datikaa.boa.core.database"
+    namespace = "com.datikaa.bookofadventurers.core.database"
 
     defaultConfig {
         ksp {

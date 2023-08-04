@@ -1,5 +1,5 @@
 import com.android.build.gradle.LibraryExtension
-import com.datikaa.boa.configureAndroidCompose
+import com.datikaa.bookofadventurers.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.datikaa.boa.buildlogic"
+group = "com.datikaa.bookofadventurers.buildlogic"
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
@@ -15,23 +15,23 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidLibrary") {
-            id = "boa.android.library"
+            id = "bookofadventurers.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "boa.android.library.compose"
+            id = "bookofadventurers.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidApplication") {
-            id = "boa.android.application"
+            id = "bookofadventurers.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidApplicationCompose") {
-            id = "boa.android.application.compose"
+            id = "bookofadventurers.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
         register("androidApplicationFirebase") {
-            id = "boa.android.application.firebase"
+            id = "bookofadventurers.android.application.firebase"
             implementationClass = "AndroidApplicationFirebaseConventionPlugin"
         }
     }
