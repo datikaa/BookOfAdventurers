@@ -57,8 +57,7 @@ fun CharacterList(
             title = "Characters",
             modifier = Modifier.fillMaxWidth(),
         ) {
-            val scrollState = rememberScrollState()
-            Column(modifier = Modifier.verticalScroll(scrollState)) {
+            Column {
                 uiState.characters.forEach { character ->
                     OutlinedButton(
                         onClick = { selectCharacter(character) },
