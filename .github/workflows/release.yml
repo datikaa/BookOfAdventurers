@@ -67,7 +67,7 @@ jobs:
         # ID used to access action output
         id: sign_app
         with:
-          releaseDirectory: android/app/build/outputs/bundle/release
+          releaseDirectory: app/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -79,6 +79,6 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
           packageName: com.datikaa.bookofadventurers
-          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: internal
           inAppUpdatePriority: 3
