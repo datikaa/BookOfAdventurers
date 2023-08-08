@@ -128,6 +128,9 @@ fun LauncherScreen(
                     OutlinedButton(onClick = { clearDb() }) {
                         Text("Clear DB")
                     }
+                    OutlinedButton(onClick = { error("Debug non-fatal exception") }) {
+                        Text("Firebase Non-fatal")
+                    }
                 }
             }
         }

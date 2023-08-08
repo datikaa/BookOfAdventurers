@@ -1,6 +1,6 @@
 package com.datikaa.bookofadventurers.di
 
-import com.datikaa.bookofadventurers.core.analytics.analyticsModule
+import com.datikaa.bookofadventurers.core.analytics.di.analyticsModule
 import com.datikaa.bookofadventurers.core.database.di.databaseKoinModule
 import com.datikaa.bookofadventurers.feature.editor.di.editorKoinModule
 import com.datikaa.bookofadventurers.feature.overview.di.overviewKoinModule
