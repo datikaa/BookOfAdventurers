@@ -25,3 +25,4 @@ local.properties
 /.idea/migrations.xml
 /.idea/shelf/*
 /app/google-services.json
+/.keystore/
