@@ -54,7 +54,7 @@ jobs:
 
       # Build, test and assemble release
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew assemble
 
       - name: UnitTest
         run: ./gradlew testDebugUnitTest
