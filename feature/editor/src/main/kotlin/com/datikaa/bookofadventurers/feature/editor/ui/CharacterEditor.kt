@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
@@ -54,10 +52,8 @@ fun CharacterEditor(
             modifier = Modifier.fillMaxWidth(),
         ) {
             if (selectedCharacter != null) {
-                val scrollState = rememberScrollState()
                 Column(
                     modifier = Modifier
-                        .verticalScroll(scrollState)
                         .fillMaxWidth()
                 ) {
                     Column(
