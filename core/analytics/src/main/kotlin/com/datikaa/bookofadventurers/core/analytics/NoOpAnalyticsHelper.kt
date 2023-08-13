@@ -5,4 +5,5 @@ package com.datikaa.bookofadventurers.core.analytics
  */
 class NoOpAnalyticsHelper : AnalyticsHelper {
     override fun logEvent(event: AnalyticsEvent) = Unit
+    override fun recordNonFatalException(throwable: Throwable) = Unit
 }

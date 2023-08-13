@@ -2,6 +2,7 @@ package com.datikaa.bookofadventurers.core.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import javax.inject.Inject
 
 /**
@@ -9,6 +10,7 @@ import javax.inject.Inject
  */
 class FirebaseAnalyticsHelper(
     private val firebaseAnalytics: FirebaseAnalytics,
+    private val firebaseCrashlytics: FirebaseCrashlytics,
 ) : AnalyticsHelper {
 
     override fun logEvent(event: AnalyticsEvent) {
@@ -21,5 +23,9 @@ class FirebaseAnalyticsHelper(
                 )
             }
         }
+    }
+
+    override fun recordNonFatalException(throwable: Throwable) {
+        firebaseCrashlytics.recordException(throwable)
     }
 }

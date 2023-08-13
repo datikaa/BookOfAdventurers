@@ -12,4 +12,8 @@ class StubAnalyticsHelper : AnalyticsHelper {
     override fun logEvent(event: AnalyticsEvent) {
         Log.d(TAG, "Received analytics event: $event")
     }
+
+    override fun recordNonFatalException(throwable: Throwable) {
+        Log.e(TAG, "Non fatal exception", throwable)
+    }
 }
