@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.datikaa.bookofadventurers.core.design.component.CmmTitledCard
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
+import com.datikaa.bookofadventurers.core.domain.BoaClass
 
 @Composable
 fun CharacterList(
@@ -85,6 +86,7 @@ private fun Preview() {
                     id = 5614,
                     name = "Jesi",
                     level = 6108,
+                    boaClass = BoaClass(1, "Wizard", emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )

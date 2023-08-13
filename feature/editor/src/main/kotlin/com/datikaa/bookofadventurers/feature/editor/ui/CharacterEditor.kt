@@ -28,6 +28,7 @@ import com.datikaa.bookofadventurers.core.design.component.CmmTitledCard
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
+import com.datikaa.bookofadventurers.core.domain.BoaClass
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -131,6 +132,7 @@ private fun CharacterEditorUnselectedPreview() {
                     id = 3524,
                     name = "Jessic",
                     level = 6111,
+                    boaClass = BoaClass(1, "Wizard", emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
@@ -153,7 +155,10 @@ private fun CharacterEditorSelectedPreview() {
     CharacterEditor(
         uiState = CharactersUiState(
             selectedCharacter = BoaCharacter(
-                id = 6497, name = "Justin", level = 797, abilityList = listOf(
+                id = 6497, name = "Justin",
+                boaClass = BoaClass(1, "Wizard", emptyList()),
+                level = 797,
+                abilityList = listOf(
                     Ability.Strength(value = 10),
                     Ability.Charisma(value = 10),
                     Ability.Constitution(value = 10),
@@ -167,6 +172,7 @@ private fun CharacterEditorSelectedPreview() {
                     id = 6497,
                     name = "Justin",
                     level = 797,
+                    boaClass = BoaClass(1, "Wizard", emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
