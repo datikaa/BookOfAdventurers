@@ -3,6 +3,7 @@ package com.datikaa.bookofadventurers.launcher.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.bookofadventurers.launcher.domain.ClearEverythingUseCase
+import com.datikaa.bookofadventurers.launcher.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowAllModifiersUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowCharacterNamesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 class LauncherViewModel(
     flowCharacterNamesUseCase: FlowCharacterNamesUseCase,
     flowAllModifiersUseCase: FlowAllModifiersUseCase,
+    flowAllClassesUseCase: FlowAllClassesUseCase,
     private val clearEverythingUseCase: ClearEverythingUseCase,
 ) : ViewModel(
 
@@ -46,6 +48,18 @@ class LauncherViewModel(
                 )
             }
         }.launchIn(viewModelScope)
+        flowAllClassesUseCase().onEach { classes ->
+            _uiState.update { oldState ->
+                oldState.copy(
+                    classes = classes.map { classItem ->
+                        LauncherUiState.ClassListItem(
+                            id = classItem.id.toInt(),
+                            name = classItem.name,
+                        )
+                    }
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun clearDb() {
@@ -57,5 +71,6 @@ class LauncherViewModel(
 
 private fun initialState() = LauncherUiState(
     characters = listOf(),
+    classes = listOf(),
     modifiers = listOf(),
 )

@@ -1,5 +1,6 @@
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
+import com.datikaa.bookofadventurers.core.domain.BoaClass
 import com.datikaa.bookofadventurers.core.domain.Modifier
 import com.datikaa.bookofadventurers.core.domain.SavingThrow
 import com.datikaa.bookofadventurers.core.domain.Skill
@@ -16,7 +17,7 @@ class ComplexCharacterModifiersTest {
     @Test
     fun testModifierFlattening() {
         val flattenModifiers = testCharacter.modifiers.flatten()
-        flattenModifiers.size shouldBeExactly 7
+        flattenModifiers.size shouldBeExactly 6
         plus1DexModifier shouldBeIn flattenModifiers
         plus1ConModifier shouldBeIn flattenModifiers
         plus1DexAndPlus1ConModifierCollection shouldBeIn flattenModifiers
@@ -126,11 +127,17 @@ private val testCharacter = BoaCharacter(
         Ability.Wisdom(value = 14), // 2
         Ability.Charisma(value = 15), // 2
     ),
+    boaClass = BoaClass(
+        id = 0L,
+        name = "Test",
+        modifiers = listOf(
+            strengthSavingThrowProficiencyModifier,
+        )
+    ),
     modifiers = listOf(
         plus1DexAndPlus1ConModifierCollection,
         plus1DexSavingThrowModifier,
         plus1StealthSkillModifier,
         religionSkillCheckProficiencyModifier,
-        strengthSavingThrowProficiencyModifier,
     )
 )

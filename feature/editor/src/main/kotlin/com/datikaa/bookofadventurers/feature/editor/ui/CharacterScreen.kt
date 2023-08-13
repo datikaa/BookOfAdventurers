@@ -19,6 +19,7 @@ import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
+import com.datikaa.bookofadventurers.core.domain.BoaClass
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -50,7 +51,7 @@ fun EditorRoute(
 private fun CharactersScreen(
     uiState: CharactersUiState,
     navigateBack: () -> Unit,
-    addCharacter: (String) -> Unit,
+    addCharacter: (String, Int) -> Unit,
     selectCharacter: (BoaCharacter?) -> Unit,
     openCharacter: (BoaCharacter) -> Unit,
     decreaseAbility: (BoaCharacter, Ability) -> Unit,
@@ -114,14 +115,16 @@ private fun Preview() {
                     id = 3144,
                     name = "Dax",
                     level = 8884,
+                    boaClass = BoaClass(1, "Wizard", emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
             ),
+            classes = emptyList(),
             modifiers = listOf(),
         ),
         navigateBack = {},
-        addCharacter = {},
+        addCharacter = { _, _ -> },
         selectCharacter = {},
         openCharacter = {},
         decreaseAbility = { _, _ -> },

@@ -2,6 +2,7 @@ package com.datikaa.bookofadventurers.feature.editor.di
 
 import com.datikaa.bookofadventurers.feature.editor.domain.AddCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.AddOrRemoveModifierToCharacterUseCase
+import com.datikaa.bookofadventurers.feature.editor.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowAllModifiersUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowListAllCharactersUseCase
@@ -18,6 +19,7 @@ val editorKoinModule = module {
 
     factoryOf(::AddCharacterUseCase)
     factoryOf(::FlowAllModifiersUseCase)
+    factoryOf(::FlowAllClassesUseCase)
     factoryOf(::FlowCharacterUseCase)
     factoryOf(::FlowListAllCharactersUseCase)
     factoryOf(::ModifyAbilityValueOfCharacterUseCase)

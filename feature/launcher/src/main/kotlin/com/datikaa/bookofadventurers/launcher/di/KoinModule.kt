@@ -1,6 +1,7 @@
 package com.datikaa.bookofadventurers.launcher.di
 
 import com.datikaa.bookofadventurers.launcher.domain.ClearEverythingUseCase
+import com.datikaa.bookofadventurers.launcher.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowAllModifiersUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowCharacterNamesUseCase
 import com.datikaa.bookofadventurers.launcher.ui.LauncherViewModel
@@ -14,4 +15,5 @@ val launcherKoinModule = module {
     factoryOf(::ClearEverythingUseCase)
     factoryOf(::FlowCharacterNamesUseCase)
     factoryOf(::FlowAllModifiersUseCase)
+    factoryOf(::FlowAllClassesUseCase)
 }

@@ -2,10 +2,14 @@ package com.datikaa.bookofadventurers.core.domain
 
 import kotlin.reflect.KClass
 
-fun BoaCharacter.sumOfModifiersFor(modifiableScoreType: KClass<out ModifiableScore>): Int = modifiers
-    .flatten()
-    .filterScoreModifiers(modifiableScoreType)
-    .sumOf { it.value }
+val BoaCharacter.combinedModifiers: List<Modifier>
+    get() = modifiers + boaClass.modifiers
+
+fun BoaCharacter.sumOfModifiersFor(modifiableScoreType: KClass<out ModifiableScore>): Int =
+    combinedModifiers
+        .flatten()
+        .filterScoreModifiers(modifiableScoreType)
+        .sumOf { it.value }
 
 fun BoaCharacter.calculateAbilityScore(abilityType: AbilityType): Int {
     val baseScore = abilityList.first { it::class == abilityType }.value
@@ -26,10 +30,11 @@ fun BoaCharacter.calculateSavingThrowScore(savingThrow: SavingThrow): Int =
 fun BoaCharacter.calculateSkillCheckScore(skill: Skill): Int =
     calculateCalculatedScore(skill)
 
-fun BoaCharacter.proficientIn(possiblyProficient: PossiblyProficient): Boolean = modifiers
-    .flatten()
-    .filterProficiencyModifiers(possiblyProficient::class)
-    .isNotEmpty()
+fun BoaCharacter.proficientIn(possiblyProficient: PossiblyProficient): Boolean =
+    combinedModifiers
+        .flatten()
+        .filterProficiencyModifiers(possiblyProficient::class)
+        .isNotEmpty()
 
 val BoaCharacter.proficiencyScore: Int
     get() = (level - 1).floorDiv(4) + 2
