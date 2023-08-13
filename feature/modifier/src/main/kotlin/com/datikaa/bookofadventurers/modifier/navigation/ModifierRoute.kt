@@ -14,9 +14,12 @@ fun NavController.navigateToModifier(navOptions: NavOptions? = null) {
     navigate(modifierRoute, navOptions)
 }
 
-fun NavGraphBuilder.modifierScreen() {
+fun NavGraphBuilder.modifierScreen(
+    navigateBack: () -> Unit,
+) {
     composable(route = modifierRoute) {
         ModifierRoute(
+            navigateBack = navigateBack,
             modifier = Modifier.fillMaxSize(),
         )
     }

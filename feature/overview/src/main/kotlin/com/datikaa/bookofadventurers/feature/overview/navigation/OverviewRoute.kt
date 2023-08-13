@@ -18,7 +18,9 @@ fun NavController.navigateToOverview(characterId: Int, navOptions: NavOptions? =
     navigate(overviewRoute.replace(ROUTE_PARAM, characterId.toString()), navOptions)
 }
 
-fun NavGraphBuilder.overviewScreen() {
+fun NavGraphBuilder.overviewScreen(
+    navigateBack: () -> Unit,
+) {
     composable(
         route = overviewRoute,
         arguments = listOf(
@@ -26,6 +28,7 @@ fun NavGraphBuilder.overviewScreen() {
         ),
     ) { backStackEntry ->
         OverviewRoute(
+            navigateBack = navigateBack,
             backStackEntry.arguments!!.getInt(CHARACTER_ID_ARG),
             modifier = Modifier.fillMaxSize(),
         )
