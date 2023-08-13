@@ -3,7 +3,6 @@ package com.datikaa.bookofadventurers.core.analytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import javax.inject.Inject
 
 /**
  * Implementation of `AnalyticsHelper` which logs events to a Firebase backend.
