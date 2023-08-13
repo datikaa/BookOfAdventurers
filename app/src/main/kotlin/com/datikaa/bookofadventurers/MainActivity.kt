@@ -48,16 +48,23 @@ class MainActivity : ComponentActivity() {
                                 openCharacter = { id -> navController.navigateToOverview(id) },
                                 openModifiers = { navController.navigateToModifier() },
                             )
-                            overviewScreen()
-                            editorScreen {
-                                navController.navigateToOverview(
-                                    characterId = it,
-                                    navOptions = navOptions {
-                                        launchSingleTop = true
-                                    }
-                                )
-                            }
-                            modifierScreen()
+                            overviewScreen(
+                                navigateBack = { navController.popBackStack() },
+                            )
+                            editorScreen(
+                                navigateBack = { navController.popBackStack() },
+                                openCharacter = {
+                                    navController.navigateToOverview(
+                                        characterId = it,
+                                        navOptions = navOptions {
+                                            launchSingleTop = true
+                                        }
+                                    )
+                                }
+                            )
+                            modifierScreen(
+                                navigateBack = { navController.popBackStack() },
+                            )
                         }
                     }
                 }
