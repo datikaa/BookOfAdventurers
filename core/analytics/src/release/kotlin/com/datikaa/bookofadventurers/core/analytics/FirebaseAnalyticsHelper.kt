@@ -2,13 +2,14 @@ package com.datikaa.bookofadventurers.core.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import javax.inject.Inject
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 /**
  * Implementation of `AnalyticsHelper` which logs events to a Firebase backend.
  */
 class FirebaseAnalyticsHelper(
     private val firebaseAnalytics: FirebaseAnalytics,
+    private val firebaseCrashlytics: FirebaseCrashlytics,
 ) : AnalyticsHelper {
 
     override fun logEvent(event: AnalyticsEvent) {
@@ -21,5 +22,9 @@ class FirebaseAnalyticsHelper(
                 )
             }
         }
+    }
+
+    override fun recordNonFatalException(throwable: Throwable) {
+        firebaseCrashlytics.recordException(throwable)
     }
 }

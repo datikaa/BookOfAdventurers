@@ -6,4 +6,5 @@ package com.datikaa.bookofadventurers.core.analytics
  */
 interface AnalyticsHelper {
     fun logEvent(event: AnalyticsEvent)
+    fun recordNonFatalException(throwable: Throwable)
 }

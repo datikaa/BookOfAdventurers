@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.datikaa.bookofadventurers.core.analytics.LocalAnalyticsHelper
 import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.component.CmmTitledCard
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
@@ -59,6 +60,7 @@ fun LauncherScreen(
     openModifiers: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val analytics = LocalAnalyticsHelper.current
     Scaffold(
         topBar = { CenterAlignedTopAppBar(title = { Text(text = "Book of Adventurers") }) },
         modifier = modifier,
@@ -136,7 +138,13 @@ fun LauncherScreen(
                         OutlinedButton(onClick = { clearDb() }) {
                             Text("Clear DB")
                         }
-                        OutlinedButton(onClick = { error("Debug non-fatal exception") }) {
+                        OutlinedButton(onClick = {
+                            try {
+                                error("Debug non-fatal exception")
+                            } catch (e: IllegalStateException) {
+                                analytics.recordNonFatalException(e)
+                            }
+                        }) {
                             Text("Firebase Non-fatal")
                         }
                     }
