@@ -26,3 +26,6 @@ local.properties
 /.idea/shelf/*
 /app/google-services.json
 /.keystore/
+/.idea/.name
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
