@@ -29,3 +29,5 @@ local.properties
 /.idea/.name
 /.idea/codeStyles/codeStyleConfig.xml
 /.idea/codeStyles/Project.xml
+/.idea/compiler.xml
+/.idea/kotlinc.xml

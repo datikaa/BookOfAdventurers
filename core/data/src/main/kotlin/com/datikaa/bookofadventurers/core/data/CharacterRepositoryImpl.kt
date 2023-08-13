@@ -38,7 +38,7 @@ internal class CharacterRepositoryImpl(
 
     override suspend fun insertCharacter(character: BoaCharacter): Long {
         val id = characterDao.insertCharacter(character.toEntity())
-        characterDao.insertCharacterClassCrossRef(CharacterClassCrossRef(id, 1))
+        characterDao.insertCharacterClassCrossRef(CharacterClassCrossRef(id, character.boaClass.id))
         abilityDao.insertOrUpdateAbility(character.abilityList.mapToEntity(id.toInt()))
         return id
     }
