@@ -9,23 +9,23 @@ import com.datikaa.bookofadventurers.core.database.crossref.ClassModifierCrossRe
 
 @Entity
 data class ClassEntity(
-        @PrimaryKey(autoGenerate = true) val id: Long,
-        val name: String,
+    @PrimaryKey(autoGenerate = true) val id: Long,
+    val name: String,
 )
 
 @Entity
 data class ClassWithModifiers(
-        @Embedded
-        val classEntity: ClassEntity,
-        @Relation(
-                parentColumn = "id",
-                entityColumn = "id",
-                entity = ModifierEntity::class,
-                associateBy = Junction(
-                        value = ClassModifierCrossRef::class,
-                        parentColumn = "classId",
-                        entityColumn = "modifierId",
-                )
+    @Embedded
+    val classEntity: ClassEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        entity = ModifierEntity::class,
+        associateBy = Junction(
+            value = ClassModifierCrossRef::class,
+            parentColumn = "classId",
+            entityColumn = "modifierId",
         )
-        val modifierEntities: List<ModifierEntity>,
+    )
+    val modifierEntities: List<ModifierEntity>,
 )

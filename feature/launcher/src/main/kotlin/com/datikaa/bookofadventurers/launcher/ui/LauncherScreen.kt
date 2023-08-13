@@ -106,6 +106,27 @@ fun LauncherScreen(
                 }
             }
             CmmTitledCard(
+                title = "Classes",
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    launcherUiState.classes.forEach {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                        ) {
+                            Text(text = it.name)
+                        }
+                    }
+                }
+            }
+            CmmTitledCard(
                 title = "Modifiers",
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -177,7 +198,9 @@ fun LauncherScreenPreview() {
                 LauncherUiState.CharacterListItem(id = 1, name = "Barbarianna"),
                 LauncherUiState.CharacterListItem(id = 2, name = "Saira"),
                 LauncherUiState.CharacterListItem(id = 3, name = "Kosh"),
-            ), modifiers = listOf()
+            ),
+            classes = emptyList(),
+            modifiers = listOf(),
         ),
         clearDb = { },
         openCharacter = { },

@@ -25,7 +25,7 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
         super.onCreate(db)
         CoroutineScope(Dispatchers.IO).launch {
             fillWithStartingModifiers(context)
-            fillWithClasses()
+            fillWithClasses(context)
         }
     }
 
@@ -35,13 +35,13 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
             for (i in 0 until modifiers.length()) {
                 val item = modifiers.getJSONObject(i)
                 val modifierEntity = ModifierEntity(
-                        id = 0,
-                        parentModifierId = null,
-                        name = item.getString("name"),
-                        description = item.getString("description"),
-                        type = item.toType(),
-                        modifiableScoreType = item.toModifiableScoreType(),
-                        modifierValue = item.getModifierValue(),
+                    id = 0,
+                    parentModifierId = null,
+                    name = item.getString("name"),
+                    description = item.getString("description"),
+                    type = item.toType(),
+                    modifiableScoreType = item.toModifiableScoreType(),
+                    modifierValue = item.getModifierValue(),
                 )
                 db.modifierDao().insertModifier(modifierEntity)
             }
@@ -52,24 +52,25 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
         }
     }
 
-    private suspend fun fillWithClasses() {
+    private suspend fun fillWithClasses(context: Context) {
         try {
-            db.classDao().run {
-                insertClass(
-                    ClassEntity(
-                        id = 0, name = "Wizard",
-                    )
+            val classDao = db.classDao()
+            val classes = loadJsonArray(context, R.raw.classes)
+            for (i in 0 until classes.length()) {
+                val item = classes.getJSONObject(i)
+                val classEntity = ClassEntity(
+                    id = 0,
+                    name = item.getString("name"),
                 )
-                insertClassModifierCrossRef(
-                    ClassModifierCrossRef(
-                        classId = 1, modifierId = 1,
+                val classId = classDao.insertClass(classEntity)
+                val classModifiers = item.getJSONArray("modifiers")
+                for (j in 0 until classModifiers.length()) {
+                    val classModifierCrossRef = ClassModifierCrossRef(
+                        classId = classId,
+                        modifierId = classModifiers.getInt(j).toLong(),
                     )
-                )
-                insertClassModifierCrossRef(
-                    ClassModifierCrossRef(
-                        classId = 1, modifierId = 3,
-                    )
-                )
+                    classDao.insertClassModifierCrossRef(classModifierCrossRef)
+                }
             }
         } catch (e: JSONException) {
             Log.e("PrefillBasicModifiers", "Prefill error", e)
@@ -78,14 +79,15 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
         }
     }
 
-    private fun JSONObject.toType(): ModifierEntity.Type = ModifierEntity.Type.values().firstOrNull {
-        it.name == getString("type")
-    } ?: throw IllegalStateException("Type $this is unknown.")
+    private fun JSONObject.toType(): ModifierEntity.Type =
+        ModifierEntity.Type.values().firstOrNull {
+            it.name == getString("type")
+        } ?: throw IllegalStateException("Type $this is unknown.")
 
     private fun JSONObject.toModifiableScoreType(): ModifierEntity.ModifiableScoreType =
-            ModifierEntity.ModifiableScoreType.values().firstOrNull {
-                it.name == getString("modifiableScoreType")
-            } ?: throw IllegalStateException("Type $this is unknown.")
+        ModifierEntity.ModifiableScoreType.values().firstOrNull {
+            it.name == getString("modifiableScoreType")
+        } ?: throw IllegalStateException("Type $this is unknown.")
 
     private fun JSONObject.getModifierValue(): Int? = if (has("modifierValue")) {
         getInt("modifierValue")
