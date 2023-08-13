@@ -10,13 +10,13 @@ import org.koin.dsl.module
 val databaseKoinModule = module {
     single<BoaDatabase> {
         Room
-                .databaseBuilder(
-                        androidApplication(),
-                        BoaDatabase::class.java, "book-of-adventurers-database"
-                )
-                .fallbackToDestructiveMigrationFrom(5)
-                .addCallback(PreloadBasicModifiers(androidContext()))
-                .build()
+            .databaseBuilder(
+                androidApplication(),
+                BoaDatabase::class.java, "book-of-adventurers-database"
+            )
+            .fallbackToDestructiveMigrationFrom(5)
+            .addCallback(PreloadBasicModifiers(androidContext()))
+            .build()
     }
 
     factory { get<BoaDatabase>().abilityDao() }
