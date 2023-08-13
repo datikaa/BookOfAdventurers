@@ -3,13 +3,12 @@ package com.datikaa.bookofadventurers.feature.editor.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +36,7 @@ fun CharacterList(
         ) {
             Column {
                 var charNameText by remember { mutableStateOf("") }
+                val buttonEnabled by remember { derivedStateOf { charNameText.isNotBlank() } }
                 val addName = {
                     addCharacter(charNameText)
                     charNameText = ""
@@ -47,7 +47,10 @@ fun CharacterList(
                     onValueChange = { charNameText = it },
                     label = { Text("Name") }
                 )
-                Button(onClick = addName) {
+                Button(
+                    enabled = buttonEnabled,
+                    onClick = addName,
+                ) {
                     Text("Add")
                 }
             }
