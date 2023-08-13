@@ -2,7 +2,8 @@ name: Android Build and Release on test track
 
 on:
   push:
-    branches: [ test-track ]
+    tags:
+      - 'test-track'
 
 jobs:
   android-build:
