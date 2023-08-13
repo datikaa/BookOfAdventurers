@@ -12,6 +12,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.feature.overview.ui.components.AbilitiesCard
-import com.datikaa.bookofadventurers.feature.overview.ui.components.LevelCard
 import com.datikaa.bookofadventurers.feature.overview.ui.components.ProficiencyCard
 import com.datikaa.bookofadventurers.feature.overview.ui.components.SavingThrowsCard
 import com.datikaa.bookofadventurers.feature.overview.ui.components.SkillsCard
@@ -55,7 +55,15 @@ fun OverviewScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = overviewUiState.name) },
+                title = {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(text = overviewUiState.name)
+                        Text(
+                            text = "Level ${overviewUiState.level} - ${overviewUiState.className}",
+                            style = MaterialTheme.typography.titleSmall,
+                        )
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = navigateBack) {
                         Icon(Icons.Rounded.ArrowBack, "backIcon")
@@ -76,7 +84,6 @@ fun OverviewScreen(
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing)) {
                 Column(verticalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing)) {
-                    LevelCard(level = overviewUiState.level)
                     AbilitiesCard(abilities = overviewUiState.abilities)
                     ProficiencyCard(proficiency = overviewUiState.proficiency)
                 }
@@ -98,6 +105,7 @@ private fun PreviewOverviewScreen() {
         overviewUiState = OverviewUiState(
             level = 7,
             name = "Azmoday",
+            className = "Wizard",
             proficiency = 3,
             abilities = listOf(
                 OverviewUiState.UiAbility(
