@@ -32,6 +32,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LauncherRoute(
+    versionName: String,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
@@ -41,6 +42,7 @@ fun LauncherRoute(
     val launcherUiState by launcherViewModel.uiState.collectAsStateWithLifecycle()
 
     LauncherScreen(
+        versionName = versionName,
         launcherUiState = launcherUiState,
         clearDb = launcherViewModel::clearDb,
         openCharacter = openCharacter,
@@ -53,6 +55,7 @@ fun LauncherRoute(
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LauncherScreen(
+    versionName: String,
     launcherUiState: LauncherUiState,
     clearDb: () -> Unit,
     openCharacter: (Int) -> Unit,
@@ -130,10 +133,19 @@ fun LauncherScreen(
             }
             OutlinedCard(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(4.dp)) {
-                    Text(
-                        text = "Debug tools",
-                        style = MaterialTheme.typography.bodySmall,
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(
+                            text = "Debug tools",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                        Text(
+                            text = versionName,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
                     FlowRow {
                         OutlinedButton(onClick = { clearDb() }) {
                             Text("Clear DB")
@@ -158,6 +170,7 @@ fun LauncherScreen(
 @Composable
 fun LauncherScreenPreview() {
     LauncherScreen(
+        versionName = "v0.0.1",
         launcherUiState = LauncherUiState(
             characters = listOf(
                 LauncherUiState.CharacterListItem(id = 0, name = "Azmoday"),

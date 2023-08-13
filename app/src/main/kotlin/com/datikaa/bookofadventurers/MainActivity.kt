@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
                         val navController = rememberNavController()
                         NavHost(navController = navController, startDestination = launcherRoute) {
                             launcherScreen(
+                                versionName = BuildConfig.VERSION_NAME,
                                 openEditor = { navController.navigateToEditor() },
                                 openCharacter = { id -> navController.navigateToOverview(id) },
                                 openModifiers = { navController.navigateToModifier() },
