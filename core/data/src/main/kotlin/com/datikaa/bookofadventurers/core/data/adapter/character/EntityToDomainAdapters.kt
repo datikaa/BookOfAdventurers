@@ -1,11 +1,11 @@
 package com.datikaa.bookofadventurers.core.data.adapter.character
 
+import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToDomain
+import com.datikaa.bookofadventurers.core.data.adapter.classes.mapToDomain
+import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
 import com.datikaa.bookofadventurers.core.database.entity.CharacterWithAbilitiesAndModifiers
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
-import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToDomain
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
-import com.datikaa.bookofadventurers.core.database.entity.ClassWithModifiers
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 
 internal fun CharacterWithAbilitiesAndModifiers.toDomain(): BoaCharacter = BoaCharacter(
@@ -27,13 +27,4 @@ internal fun CharacterEntity.toDomain(): BoaCharacter = BoaCharacter(
     boaClass = BoaClass(0, "Wizard", emptyList()),
     abilityList = emptyList(),
     modifiers = emptyList(),
-)
-
-@JvmName("mapClassWithModifiersToDomain")
-internal fun List<ClassWithModifiers>.mapToDomain() = map { it.toDomain() }
-
-internal fun ClassWithModifiers.toDomain() = BoaClass(
-    id = classEntity.id,
-    name = classEntity.name,
-    modifiers = modifierEntities.mapToDomain()
 )
