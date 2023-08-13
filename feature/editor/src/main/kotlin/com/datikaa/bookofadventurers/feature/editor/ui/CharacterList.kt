@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -20,10 +24,11 @@ import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterList(
     uiState: CharactersUiState,
-    addCharacter: (String) -> Unit,
+    addCharacter: (String, Int) -> Unit,
     selectCharacter: (BoaCharacter) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,19 +40,51 @@ fun CharacterList(
             title = "Add character",
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Column {
+            Column(verticalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing)) {
                 var charNameText by remember { mutableStateOf("") }
-                val buttonEnabled by remember { derivedStateOf { charNameText.isNotBlank() } }
+                var classListExpanded by remember { mutableStateOf(false) }
+                var selectedClassId by remember { mutableStateOf<Int?>(null) }
+                val buttonEnabled by remember {
+                    derivedStateOf {
+                        charNameText.isNotBlank() && selectedClassId != null
+                    }
+                }
                 val addName = {
-                    addCharacter(charNameText)
+                    addCharacter(charNameText, selectedClassId!!)
+                    selectedClassId = null
                     charNameText = ""
                 }
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                     value = charNameText,
                     onValueChange = { charNameText = it },
-                    label = { Text("Name") }
-                )
+                    label = { Text("Name") })
+                ExposedDropdownMenuBox(expanded = classListExpanded, onExpandedChange = {
+                    classListExpanded = !classListExpanded
+                }) {
+                    OutlinedTextField(
+                        value = uiState.classes.firstOrNull { it.id == selectedClassId }?.name
+                            ?: "Select class",
+                        onValueChange = {},
+                        readOnly = true,
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = classListExpanded)
+                        },
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth()
+                    )
+                    ExposedDropdownMenu(expanded = classListExpanded,
+                        onDismissRequest = { classListExpanded = false }) {
+                        uiState.classes.forEach { classItem ->
+                            DropdownMenuItem(text = { Text(text = classItem.name) },
+                                onClick = {
+                                    selectedClassId = classItem.id
+                                    classListExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
                 Button(
                     enabled = buttonEnabled,
                     onClick = addName,
@@ -91,9 +128,10 @@ private fun Preview() {
                     modifiers = listOf()
                 )
             ),
+            classes = emptyList(),
             modifiers = emptyList(),
         ),
-        addCharacter = { /* nothing */ },
+        addCharacter = { _, _ -> /* nothing */ },
         selectCharacter = { /* nothing */ },
     )
 }

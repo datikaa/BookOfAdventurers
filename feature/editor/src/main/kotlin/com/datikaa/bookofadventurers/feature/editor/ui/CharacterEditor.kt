@@ -137,6 +137,7 @@ private fun CharacterEditorUnselectedPreview() {
                     modifiers = listOf()
                 )
             ),
+            classes = emptyList(),
             modifiers = emptyList(),
         ),
         openCharacterSheet = { },
@@ -177,6 +178,7 @@ private fun CharacterEditorSelectedPreview() {
                     modifiers = listOf()
                 )
             ),
+            classes = listOf(),
             modifiers = listOf(
                 CharactersUiState.Modifier(0, "Proficiency modifier", true),
                 CharactersUiState.Modifier(0, "Proficiency modifier", false)

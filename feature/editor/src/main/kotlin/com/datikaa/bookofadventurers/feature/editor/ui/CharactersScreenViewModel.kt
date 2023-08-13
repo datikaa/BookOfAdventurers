@@ -6,6 +6,7 @@ import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.feature.editor.domain.AddCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.AddOrRemoveModifierToCharacterUseCase
+import com.datikaa.bookofadventurers.feature.editor.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowListAllCharactersUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowSelectedModifiersForCharacterUseCase
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 class CharactersScreenViewModel(
     private val addCharacterUseCase: AddCharacterUseCase,
     private val addOrRemoveModifierToCharacterUseCase: AddOrRemoveModifierToCharacterUseCase,
+    private val flowAllClassesUseCase: FlowAllClassesUseCase,
     private val flowListAllCharactersUseCase: FlowListAllCharactersUseCase,
     private val flowCharacterUseCase: FlowCharacterUseCase,
     private val flowSelectedModifiersForCharacterUseCase: FlowSelectedModifiersForCharacterUseCase,
@@ -42,6 +44,20 @@ class CharactersScreenViewModel(
                 _uiState.update { prev ->
                     prev.copy(
                         characters = characters,
+                    )
+                }
+            }
+        }
+        viewModelScope.launch {
+            flowAllClassesUseCase().collectLatest { classes ->
+                _uiState.update { prev ->
+                    prev.copy(
+                        classes = classes.map { classItem ->
+                            CharactersUiState.ClassItem(
+                                id = classItem.id.toInt(),
+                                name = classItem.name,
+                            )
+                        },
                     )
                 }
             }
@@ -72,9 +88,9 @@ class CharactersScreenViewModel(
         }
     }
 
-    fun addCharacter(name: String) {
+    fun addCharacter(name: String, classId: Int) {
         viewModelScope.launch {
-            addCharacterUseCase(name)
+            addCharacterUseCase(name, classId)
         }
     }
 
@@ -135,5 +151,6 @@ class CharactersScreenViewModel(
 private val initialUiState = CharactersUiState(
     selectedCharacter = null,
     characters = listOf(),
+    classes = listOf(),
     modifiers = listOf(),
 )

@@ -51,7 +51,7 @@ fun EditorRoute(
 private fun CharactersScreen(
     uiState: CharactersUiState,
     navigateBack: () -> Unit,
-    addCharacter: (String) -> Unit,
+    addCharacter: (String, Int) -> Unit,
     selectCharacter: (BoaCharacter?) -> Unit,
     openCharacter: (BoaCharacter) -> Unit,
     decreaseAbility: (BoaCharacter, Ability) -> Unit,
@@ -120,10 +120,11 @@ private fun Preview() {
                     modifiers = listOf()
                 )
             ),
+            classes = emptyList(),
             modifiers = listOf(),
         ),
         navigateBack = {},
-        addCharacter = {},
+        addCharacter = { _, _ -> },
         selectCharacter = {},
         openCharacter = {},
         decreaseAbility = { _, _ -> },
