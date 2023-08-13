@@ -1,4 +1,5 @@
 package com.datikaa.bookofadventurers.core.domain
+
 fun List<Modifier>.flatten(): List<Modifier> {
     val result = ArrayList<Modifier>()
     forEach { modifier ->
