@@ -1,6 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.ksp)
+    alias(libs.plugins.realm)
     id("bookofadventurers.android.library")
 }
 
@@ -16,6 +17,7 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
+    implementation(libs.realm.base)
 
     ksp(libs.room.compiler)
     api(libs.room.ktx)

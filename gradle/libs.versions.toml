@@ -23,6 +23,7 @@ koinAndroid = "3.4.0"
 koinAndroidxCompose = "3.4.4"
 koinCore = "3.4.0"
 kotest = "5.6.2"
+realm = "1.10.0"
 room = "2.5.2"
 
 [libraries]
@@ -69,6 +70,8 @@ koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koinC
 
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 
+realm-base = { group = "io.realm.kotlin", name = "library-base", version.ref= "realm" }
+
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -88,5 +91,6 @@ gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+realm = { id = "io.realm.kotlin", version.ref = "realm" }
 
 [bundles]
