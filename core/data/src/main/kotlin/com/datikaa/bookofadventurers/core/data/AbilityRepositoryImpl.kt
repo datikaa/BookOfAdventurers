@@ -1,15 +1,17 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.database.dao.AbilityDao
+import com.datikaa.bookofadventurers.core.data.adapter.toEntityEnum
+import com.datikaa.bookofadventurers.core.database.realm.RealmCharacter
 import com.datikaa.bookofadventurers.core.domain.Ability
-import com.datikaa.bookofadventurers.core.data.adapter.ability.toEntityEnum
-import com.datikaa.bookofadventurers.core.data.adapter.ability.toPartialUpdate
+import io.realm.kotlin.Realm
+import io.realm.kotlin.ext.query
 
 internal class AbilityRepositoryImpl(
-    private val abilityDao: AbilityDao,
+    private val realm: Realm,
 ) : AbilityRepository {
-    override suspend fun updateAbility(characterId: Int, ability: Ability) {
-        val abilityEntity = abilityDao.getAbility(characterId, ability.toEntityEnum())
-        abilityDao.updateAbility(ability.toPartialUpdate(abilityEntity.id))
+    override suspend fun updateAbility(characterId: Int, ability: Ability): Unit = realm.write {
+        val realmCharacter = query<RealmCharacter>("_id == $0", characterId).first().find()
+            ?: throw IllegalStateException("Missing character for id")
+        realmCharacter.abilityList.first { ability.toEntityEnum().ordinal == it.type }.value = ability.value
     }
 }

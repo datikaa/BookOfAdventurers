@@ -25,7 +25,7 @@
   },
   {
     "name": "Str ST Prof",
-    "description": "Adds proficiency to Wisdom saving-throws.",
+    "description": "Adds proficiency to Strength saving-throws.",
     "type": "Proficiency",
     "modifiableScoreType": "SavingThrow_Strength"
   },
@@ -35,9 +35,6 @@
     "type": "Proficiency",
     "modifiableScoreType": "SavingThrow_Wisdom"
   },
-
-
-
   {
     "name": "Acrobatics Prof",
     "description": "Adds proficiency to Acrobatics skill checks.",
