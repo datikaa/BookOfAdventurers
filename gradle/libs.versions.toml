@@ -23,7 +23,7 @@ koinAndroid = "3.4.0"
 koinAndroidxCompose = "3.4.4"
 koinCore = "3.4.0"
 kotest = "5.6.2"
-realm = "1.10.0"
+realm = "1.10.2"
 room = "2.5.2"
 
 [libraries]

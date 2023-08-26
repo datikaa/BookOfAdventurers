@@ -1,43 +1,42 @@
 package com.datikaa.bookofadventurers.core.data.adapter.modifier
 
 import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
+import com.datikaa.bookofadventurers.core.database.realm.RealmProficiencyModifier
+import com.datikaa.bookofadventurers.core.database.realm.RealmScoreModifier
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.ModifiableScore
 import com.datikaa.bookofadventurers.core.domain.Modifier
 import com.datikaa.bookofadventurers.core.domain.PossiblyProficient
 import com.datikaa.bookofadventurers.core.domain.SavingThrow
 import com.datikaa.bookofadventurers.core.domain.Skill
+import io.realm.kotlin.types.RealmList
 import kotlin.reflect.KClass
 
-internal fun List<ModifierEntity>.mapToDomain() =  map { it.toDomain() }
-internal fun ModifierEntity.toDomain() = when (type) {
-    ModifierEntity.Type.Holder -> toDomainAsHolder()
-    ModifierEntity.Type.Score -> toDomainAsScore()
-    ModifierEntity.Type.Proficiency -> toDomainAsProficiency()
+@JvmName("mapRealmScoreModifierToDomain")
+internal fun RealmList<RealmScoreModifier>.toDomain() = map {
+    it.toDomain()
 }
 
-private fun ModifierEntity.toDomainAsHolder() = Modifier.Holder(
-    id = id,
+internal fun RealmScoreModifier.toDomain() = Modifier.Score(
+    id = _id,
     name = name,
     description = description,
     nestedModifiers = listOf(),
+    modifiableScoreType = ModifierEntity.ModifiableScoreType.entries[modifiableScoreType].toDomainAsModifiableScoreType(),
+    value = modifierValue
 )
 
-private fun ModifierEntity.toDomainAsScore() = Modifier.Score(
-    id = id,
-    name = name,
-    description = description,
-    nestedModifiers = listOf(),
-    modifiableScoreType = modifiableScoreType.toDomainAsModifiableScoreType(),
-    value = modifierValue ?: throw IllegalStateException("Illegal state, modifierValue was null"),
-)
+@JvmName("mapRealmProficiencyModifierToDomain")
+internal fun RealmList<RealmProficiencyModifier>.toDomain() = map {
+    it.toDomain()
+}
 
-private fun ModifierEntity.toDomainAsProficiency() = Modifier.Proficiency(
-    id = id,
+internal fun RealmProficiencyModifier.toDomain() = Modifier.Proficiency(
+    id = _id,
     name = name,
     description = description,
     nestedModifiers = listOf(),
-    proficiencyType = modifiableScoreType.toDomainAsPossiblyProficient(),
+    proficiencyType = ModifierEntity.ModifiableScoreType.entries[proficiencyType].toDomainAsPossiblyProficient(),
 )
 
 private fun ModifierEntity.ModifiableScoreType?.toDomainAsPossiblyProficient(): KClass<out PossiblyProficient> =

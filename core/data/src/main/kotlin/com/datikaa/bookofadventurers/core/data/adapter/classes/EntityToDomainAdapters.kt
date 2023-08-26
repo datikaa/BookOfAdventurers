@@ -1,23 +1,19 @@
 package com.datikaa.bookofadventurers.core.data.adapter.classes
 
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
-import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
-import com.datikaa.bookofadventurers.core.database.entity.ClassWithModifiers
+import com.datikaa.bookofadventurers.core.data.adapter.modifier.toDomain
+import com.datikaa.bookofadventurers.core.data.adapter.modifier.toProficiencyRealm
+import com.datikaa.bookofadventurers.core.data.adapter.modifier.toScoreRealm
+import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 
-@JvmName("mapClassWithModifiersToDomain")
-internal fun List<ClassWithModifiers>.mapToDomain() = map { it.toDomain() }
-internal fun ClassWithModifiers.toDomain() = BoaClass(
-    id = classEntity.id,
-    name = classEntity.name,
-    modifiers = modifierEntities.mapToDomain(),
-)
+internal fun BoaClass.toRealm() = RealmPlayerClass().apply {
+    name = this@toRealm.name
+    scoreModifiers = modifiers.toScoreRealm()
+    proficiencyModifiers = modifiers.toProficiencyRealm()
+}
 
-@JvmName("mapClassEntitiesToDomain")
-internal fun List<ClassEntity>.mapToDomain() = map { it.toDomain() }
-
-internal fun ClassEntity.toDomain() = BoaClass(
-    id = id,
+internal fun RealmPlayerClass.toDomain() = BoaClass(
+    id = _id.toLong(),
     name = name,
-    modifiers = emptyList(),
+    modifiers = proficiencyModifiers.toDomain() + scoreModifiers.toDomain()
 )

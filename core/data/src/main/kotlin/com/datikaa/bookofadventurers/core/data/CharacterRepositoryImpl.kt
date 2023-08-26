@@ -1,52 +1,70 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.database.dao.AbilityDao
-import com.datikaa.bookofadventurers.core.database.dao.CharacterDao
-import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToEntity
+import com.datikaa.bookofadventurers.core.data.adapter.ability.toRealm
 import com.datikaa.bookofadventurers.core.data.adapter.character.mapToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toDomain
-import com.datikaa.bookofadventurers.core.data.adapter.character.toEntity
-import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
-import com.datikaa.bookofadventurers.core.database.dao.ClassDao
+import com.datikaa.bookofadventurers.core.data.adapter.modifier.toProficiencyRealm
+import com.datikaa.bookofadventurers.core.data.adapter.modifier.toScoreRealm
+import com.datikaa.bookofadventurers.core.database.realm.RealmCharacter
+import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
-import kotlinx.coroutines.Dispatchers
+import io.realm.kotlin.Realm
+import io.realm.kotlin.ext.query
+import io.realm.kotlin.ext.toRealmList
+import io.realm.kotlin.query.Sort
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 internal class CharacterRepositoryImpl(
-    private val abilityDao: AbilityDao,
-    private val characterDao: CharacterDao,
-    private val classDao: ClassDao,
-    private val modifierRepository: ModifierRepository,
+    private val realm: Realm,
 ) : CharacterRepository {
 
-    override fun flowListOfCharacters(): Flow<List<BoaCharacter>> = characterDao
-        .flowCharacters()
-        .map { it.mapToDomain() }
-        .flowOn(Dispatchers.IO)
+    override fun flowListOfCharacters(): Flow<List<BoaCharacter>> = realm
+        .query<RealmCharacter>()
+        .asFlow()
+        .map { it.list.mapToDomain() }
 
-    override fun flowCharacter(id: Int): Flow<BoaCharacter> = characterDao
-        .flowCharacterWithAbilitiesAndModifiers(id)
-        .map { it.toDomain() }
-        .flowOn(Dispatchers.IO)
+    override fun flowCharacter(id: Int): Flow<BoaCharacter> = realm
+        .query<RealmCharacter>("_id == $0", id)
+        .asFlow()
+        .map { it.list.firstOrNull()?.toDomain() ?: throw IllegalArgumentException("Missing character for id") }
 
+    override suspend fun updateCharacter(character: BoaCharacter): Unit = realm.write {
+        val realmCharacter = query<RealmCharacter>("_id == $0", character.id).first().find()
+            ?: throw IllegalArgumentException("Missing character for id")
+        val realmClass = query<RealmPlayerClass>("_id == $0", character.boaClass.id).first().find()
+            ?: throw IllegalArgumentException("Missing class for id")
+        realmCharacter.apply {
+            name = character.name
+            level = character.level
+            boaClass = realmClass
+            abilityList = character.abilityList.map { it.toRealm() }.toRealmList()
+            scoreModifiers = character.modifiers.toScoreRealm()
+            proficiencyModifiers = character.modifiers.toProficiencyRealm()
+        }
+    }
 
-    override suspend fun updateCharacter(character: BoaCharacter) =
-        characterDao.updateCharacter(character.toEntity())
-
-
-    override suspend fun insertCharacter(character: BoaCharacter): Long {
-        val id = characterDao.insertCharacter(character.toEntity())
-        characterDao.insertCharacterClassCrossRef(CharacterClassCrossRef(id, character.boaClass.id))
-        abilityDao.insertOrUpdateAbility(character.abilityList.mapToEntity(id.toInt()))
-        return id
+    override suspend fun insertCharacter(character: BoaCharacter): Long = realm.write {
+        var lastRealmCharacterId =
+            query<RealmCharacter>().sort("_id", Sort.DESCENDING).first().find()?._id ?: -1
+        val realmClass = query<RealmPlayerClass>("_id == $0", character.boaClass.id).first().find()
+            ?: throw IllegalArgumentException("Missing class for id")
+        val realmCharacter = RealmCharacter().apply {
+            _id = lastRealmCharacterId++
+            name = character.name
+            level = character.level
+            boaClass = realmClass
+            abilityList = character.abilityList.map { it.toRealm() }.toRealmList()
+            scoreModifiers = character.modifiers.toScoreRealm()
+            proficiencyModifiers = character.modifiers.toProficiencyRealm()
+        }
+        copyToRealm(realmCharacter)
+        realmCharacter._id.toLong()
     }
 
     override suspend fun clearAll() {
-        abilityDao.deleteAllAbilities()
-        characterDao.deleteCharacters()
-        classDao.deleteClasses()
-        modifierRepository.deleteAllModifiers()
+        realm.write {
+            deleteAll()
+        }
     }
 }

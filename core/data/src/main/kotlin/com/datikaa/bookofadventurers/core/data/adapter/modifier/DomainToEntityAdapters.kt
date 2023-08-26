@@ -1,39 +1,34 @@
 package com.datikaa.bookofadventurers.core.data.adapter.modifier
 
 import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
+import com.datikaa.bookofadventurers.core.database.realm.RealmProficiencyModifier
+import com.datikaa.bookofadventurers.core.database.realm.RealmScoreModifier
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.Modifier
 import com.datikaa.bookofadventurers.core.domain.SavingThrow
 import com.datikaa.bookofadventurers.core.domain.Skill
+import io.realm.kotlin.ext.toRealmList
 import kotlin.reflect.KClass
 
-internal fun Modifier.toEntity() = ModifierEntity(
-    id = id,
-    parentModifierId = null,
-    name = name,
-    description = description,
-    type = toEntityEnum(),
-    modifiableScoreType = toModifiableScoreTypeEntityEnum(),
-    modifierValue = toModifierValue(),
+internal fun List<Modifier>.toProficiencyRealm() = filterIsInstance<Modifier.Proficiency>()
+    .map { it.toRealm() }
+    .toRealmList()
 
-)
+internal fun List<Modifier>.toScoreRealm() = filterIsInstance<Modifier.Score>()
+    .map { it.toRealm() }
+    .toRealmList()
 
-internal fun Modifier.toEntityEnum() = when(this) {
-    is Modifier.Holder -> ModifierEntity.Type.Holder
-    is Modifier.Proficiency -> ModifierEntity.Type.Proficiency
-    is Modifier.Score -> ModifierEntity.Type.Score
+internal fun Modifier.Proficiency.toRealm() = RealmProficiencyModifier().apply {
+    name = this@toRealm.name
+    description = this@toRealm.description
+    proficiencyType = this@toRealm.proficiencyType.toEntityEnum().ordinal
 }
 
-internal fun Modifier.toModifiableScoreTypeEntityEnum() = when(this) {
-    is Modifier.Holder -> null
-    is Modifier.Proficiency -> proficiencyType.toEntityEnum()
-    is Modifier.Score -> modifiableScoreType.toEntityEnum()
-}
-
-internal fun Modifier.toModifierValue() = when(this) {
-    is Modifier.Holder -> null
-    is Modifier.Proficiency -> null
-    is Modifier.Score -> value
+internal fun Modifier.Score.toRealm() = RealmScoreModifier().apply {
+    name = this@toRealm.name
+    description = this@toRealm.description
+    modifiableScoreType = this@toRealm.modifiableScoreType.toEntityEnum().ordinal
+    modifierValue = this@toRealm.value
 }
 
 internal fun KClass<*>.toEntityEnum() = when(this) {

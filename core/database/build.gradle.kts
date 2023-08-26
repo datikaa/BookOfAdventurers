@@ -17,7 +17,7 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
-    implementation(libs.realm.base)
+    api(libs.realm.base)
 
     ksp(libs.room.compiler)
     api(libs.room.ktx)
