@@ -3,7 +3,8 @@ package com.datikaa.bookofadventurers.core.database.prefill
 import android.content.Context
 import android.util.Log
 import com.datikaa.bookofadventurers.core.database.R
-import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
+import com.datikaa.bookofadventurers.core.database.realm.ModifiableScoreType
+import com.datikaa.bookofadventurers.core.database.realm.ModifierType
 import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
 import com.datikaa.bookofadventurers.core.database.realm.RealmProficiencyModifier
 import com.datikaa.bookofadventurers.core.database.realm.RealmScoreModifier
@@ -30,11 +31,11 @@ class PreloadDb(private val context: Context) : InitialDataCallback {
             for (i in 0 until modifiers.length()) {
                 val item = modifiers.getJSONObject(i)
                 val realmObj: RealmObject = when (item.toType()) {
-                    ModifierEntity.Type.Holder -> {
+                    ModifierType.Holder -> {
                         throw IllegalArgumentException("Deprecated type")
                     }
 
-                    ModifierEntity.Type.Score -> RealmScoreModifier().apply {
+                    ModifierType.Score -> RealmScoreModifier().apply {
                         _id = modifierId.getAndIncrement()
                         name = item.getString("name")
                         description = item.getString("description")
@@ -43,7 +44,7 @@ class PreloadDb(private val context: Context) : InitialDataCallback {
                             ?: throw IllegalArgumentException("Score modifier must have value")
                     }
 
-                    ModifierEntity.Type.Proficiency -> RealmProficiencyModifier().apply {
+                    ModifierType.Proficiency -> RealmProficiencyModifier().apply {
                         _id = modifierId.getAndIncrement()
                         name = item.getString("name")
                         description = item.getString("description")
@@ -87,13 +88,13 @@ class PreloadDb(private val context: Context) : InitialDataCallback {
         }
     }
 
-    private fun JSONObject.toType(): ModifierEntity.Type =
-        ModifierEntity.Type.entries.firstOrNull {
+    private fun JSONObject.toType(): ModifierType =
+        ModifierType.entries.firstOrNull {
             it.name == getString("type")
         } ?: throw IllegalStateException("Type $this is unknown.")
 
-    private fun JSONObject.toModifiableScoreType(): ModifierEntity.ModifiableScoreType =
-        ModifierEntity.ModifiableScoreType.entries.firstOrNull {
+    private fun JSONObject.toModifiableScoreType(): ModifiableScoreType =
+        ModifiableScoreType.entries.firstOrNull {
             it.name == getString("modifiableScoreType")
         } ?: throw IllegalStateException("Type $this is unknown.")
 

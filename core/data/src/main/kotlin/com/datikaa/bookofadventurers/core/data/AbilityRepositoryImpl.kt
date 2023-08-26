@@ -1,6 +1,6 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.data.adapter.character.toEntityEnum
+import com.datikaa.bookofadventurers.core.data.adapter.toEntityEnum
 import com.datikaa.bookofadventurers.core.database.realm.RealmCharacter
 import com.datikaa.bookofadventurers.core.domain.Ability
 import io.realm.kotlin.Realm

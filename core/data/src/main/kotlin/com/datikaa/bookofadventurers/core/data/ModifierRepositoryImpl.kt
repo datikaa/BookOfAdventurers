@@ -1,7 +1,7 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toDomain
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toEntityEnum
+import com.datikaa.bookofadventurers.core.data.adapter.toDomain
+import com.datikaa.bookofadventurers.core.data.adapter.toEntityEnum
 import com.datikaa.bookofadventurers.core.database.realm.RealmCharacter
 import com.datikaa.bookofadventurers.core.database.realm.RealmProficiencyModifier
 import com.datikaa.bookofadventurers.core.database.realm.RealmScoreModifier

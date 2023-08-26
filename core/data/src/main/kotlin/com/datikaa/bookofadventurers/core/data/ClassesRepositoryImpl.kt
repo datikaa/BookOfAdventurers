@@ -1,6 +1,6 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.data.adapter.classes.toDomain
+import com.datikaa.bookofadventurers.core.data.adapter.toDomain
 import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 import io.realm.kotlin.Realm

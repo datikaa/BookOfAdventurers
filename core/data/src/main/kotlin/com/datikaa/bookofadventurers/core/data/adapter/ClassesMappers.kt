@@ -1,8 +1,5 @@
-package com.datikaa.bookofadventurers.core.data.adapter.classes
+package com.datikaa.bookofadventurers.core.data.adapter
 
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toDomain
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toProficiencyRealm
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toScoreRealm
 import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 

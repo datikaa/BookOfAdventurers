@@ -1,10 +1,10 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.data.adapter.ability.toRealm
-import com.datikaa.bookofadventurers.core.data.adapter.character.mapToDomain
-import com.datikaa.bookofadventurers.core.data.adapter.character.toDomain
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toProficiencyRealm
-import com.datikaa.bookofadventurers.core.data.adapter.modifier.toScoreRealm
+import com.datikaa.bookofadventurers.core.data.adapter.toRealm
+import com.datikaa.bookofadventurers.core.data.adapter.mapToDomain
+import com.datikaa.bookofadventurers.core.data.adapter.toDomain
+import com.datikaa.bookofadventurers.core.data.adapter.toProficiencyRealm
+import com.datikaa.bookofadventurers.core.data.adapter.toScoreRealm
 import com.datikaa.bookofadventurers.core.database.realm.RealmCharacter
 import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
