@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "bookofadventurers"
+rootProject.name = "BookOfAdventurers"
 
 include(":app")
 include(":core:analytics")
