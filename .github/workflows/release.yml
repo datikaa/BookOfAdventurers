@@ -3,7 +3,7 @@ name: Android Build and Release on test track
 on:
   push:
     tags:
-      - 'test-track'
+      - v*
 
 jobs:
   android-build:
