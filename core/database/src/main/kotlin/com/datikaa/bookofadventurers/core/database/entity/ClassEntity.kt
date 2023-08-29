@@ -5,12 +5,13 @@ import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import com.datikaa.bookofadventurers.core.database.crossref.ClassModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
 
 @Entity
 data class ClassEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val name: String,
+    val selectableSkillCount: Int,
 )
 
 @Entity
@@ -22,7 +23,7 @@ data class ClassWithModifiers(
         entityColumn = "id",
         entity = ModifierEntity::class,
         associateBy = Junction(
-            value = ClassModifierCrossRef::class,
+            value = ClassSavingThrowCrossRef::class,
             parentColumn = "classId",
             entityColumn = "modifierId",
         )

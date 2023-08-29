@@ -6,7 +6,8 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.datikaa.bookofadventurers.core.database.BoaDatabase
 import com.datikaa.bookofadventurers.core.database.R
-import com.datikaa.bookofadventurers.core.database.crossref.ClassModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
 import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,14 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
 
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
+        CoroutineScope(Dispatchers.IO).launch {
+            fillWithStartingModifiers(context)
+            fillWithClasses(context)
+        }
+    }
+
+    override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+        super.onDestructiveMigration(db)
         CoroutineScope(Dispatchers.IO).launch {
             fillWithStartingModifiers(context)
             fillWithClasses(context)
@@ -61,15 +70,25 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
                 val classEntity = ClassEntity(
                     id = 0,
                     name = item.getString("name"),
+                    selectableSkillCount = item.getInt("selectableSkillCount"),
                 )
                 val classId = classDao.insertClass(classEntity)
-                val classModifiers = item.getJSONArray("modifiers")
-                for (j in 0 until classModifiers.length()) {
-                    val classModifierCrossRef = ClassModifierCrossRef(
+                val savingThrows = item.getJSONArray("savingThrows")
+                for (j in 0 until savingThrows.length()) {
+                    val classSavingThrowsCrossRef = ClassSavingThrowCrossRef(
                         classId = classId,
-                        modifierId = classModifiers.getInt(j).toLong(),
+                        modifierId = savingThrows.getInt(j).toLong(),
                     )
-                    classDao.insertClassModifierCrossRef(classModifierCrossRef)
+                    classDao.insertClassSavingThrowCrossRef(classSavingThrowsCrossRef)
+                }
+
+                val skills = item.getJSONArray("skills")
+                for (j in 0 until skills.length()) {
+                    val classSkillProficiencyCrossRef = ClassSkillProficiencyCrossRef(
+                        classId = classId,
+                        modifierId = skills.getInt(j).toLong(),
+                    )
+                    classDao.insertClassSkillProficiencyCrossRef(classSkillProficiencyCrossRef)
                 }
             }
         } catch (e: JSONException) {
@@ -80,12 +99,12 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
     }
 
     private fun JSONObject.toType(): ModifierEntity.Type =
-        ModifierEntity.Type.values().firstOrNull {
+        ModifierEntity.Type.entries.firstOrNull {
             it.name == getString("type")
         } ?: throw IllegalStateException("Type $this is unknown.")
 
     private fun JSONObject.toModifiableScoreType(): ModifierEntity.ModifiableScoreType =
-        ModifierEntity.ModifiableScoreType.values().firstOrNull {
+        ModifierEntity.ModifiableScoreType.entries.firstOrNull {
             it.name == getString("modifiableScoreType")
         } ?: throw IllegalStateException("Type $this is unknown.")
 
