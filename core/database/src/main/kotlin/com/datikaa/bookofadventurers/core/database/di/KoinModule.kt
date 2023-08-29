@@ -14,7 +14,7 @@ val databaseKoinModule = module {
                 androidApplication(),
                 BoaDatabase::class.java, "book-of-adventurers-database"
             )
-            .fallbackToDestructiveMigrationFrom(6)
+            .fallbackToDestructiveMigration()
             .addCallback(PreloadDb(androidContext()))
             .build()
     }

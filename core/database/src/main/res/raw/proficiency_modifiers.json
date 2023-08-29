@@ -35,9 +35,6 @@
     "type": "Proficiency",
     "modifiableScoreType": "SavingThrow_Wisdom"
   },
-
-
-
   {
     "name": "Acrobatics Prof",
     "description": "Adds proficiency to Acrobatics skill checks.",

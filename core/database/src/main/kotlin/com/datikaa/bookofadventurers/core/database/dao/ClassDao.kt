@@ -5,7 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.datikaa.bookofadventurers.core.database.crossref.ClassModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -25,5 +26,8 @@ interface ClassDao {
     fun flowClasses(): Flow<List<ClassEntity>>
 
     @Insert
-    suspend fun insertClassModifierCrossRef(classModifierCrossRef: ClassModifierCrossRef): Long
+    suspend fun insertClassSavingThrowCrossRef(classSavingThrowCrossRef: ClassSavingThrowCrossRef): Long
+
+    @Insert
+    suspend fun insertClassSkillProficiencyCrossRef(classSkillProficiencyCrossRef: ClassSkillProficiencyCrossRef): Long
 }
