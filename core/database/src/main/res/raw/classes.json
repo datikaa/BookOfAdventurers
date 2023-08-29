@@ -2,92 +2,92 @@
   {
     "name": "Artificer",
     "modifiers": [
-      1,
-      3
+      2,
+      4
     ]
   },
   {
     "name": "Barbarian",
     "modifiers": [
-      1,
-      4
+      2,
+      5
     ]
   },
   {
     "name": "Bard",
     "modifiers": [
-      0,
-      2
+      1,
+      3
     ]
   },
   {
     "name": "Cleric",
     "modifiers": [
-      0,
-      5
+      1,
+      6
     ]
   },
   {
     "name": "Druid",
     "modifiers": [
-      3,
-      5
+      4,
+      6
     ]
   },
   {
     "name": "Fighter",
     "modifiers": [
-      1,
-      4
-    ]
-  },
-  {
-    "name": "Monk",
-    "modifiers": [
-      1,
-      2
-    ]
-  },
-  {
-    "name": "Paladin",
-    "modifiers": [
-      0,
+      2,
       5
     ]
   },
   {
-    "name": "Ranger",
-    "modifiers": [
-      2,
-      4
-    ]
-  },
-  {
-    "name": "Rogue",
+    "name": "Monk",
     "modifiers": [
       2,
       3
     ]
   },
   {
+    "name": "Paladin",
+    "modifiers": [
+      1,
+      6
+    ]
+  },
+  {
+    "name": "Ranger",
+    "modifiers": [
+      3,
+      5
+    ]
+  },
+  {
+    "name": "Rogue",
+    "modifiers": [
+      3,
+      4
+    ]
+  },
+  {
     "name": "Sorcerer",
     "modifiers": [
-      0,
-      1
+      1,
+      2
     ]
   },
   {
     "name": "Warlock",
     "modifiers": [
-      0,
-      5
+      1,
+      6
     ]
   },
   {
     "name": "Wizard",
     "modifiers": [
-      3,
-      5
+      4,
+      6
     ]
   }
 ]

@@ -9,7 +9,6 @@ sealed interface Modifier {
     val description: String
     val nestedModifiers: List<Modifier>
 
-    @Deprecated("Will be removed")
     data class Holder(
         override val id: Int,
         override val name: String,

@@ -5,9 +5,11 @@ plugins {
 
 android {
     namespace = "com.datikaa.bookofadventurers.core.domain"
+
 }
 
 dependencies {
-    testImplementation(libs.junit4)
+    implementation(libs.junit4)
+
     testImplementation(libs.kotest.assertions.core)
 }
