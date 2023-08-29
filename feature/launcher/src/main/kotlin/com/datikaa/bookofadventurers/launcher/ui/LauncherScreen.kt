@@ -36,6 +36,7 @@ fun LauncherRoute(
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
+    openWizard: () -> Unit,
     modifier: Modifier = Modifier,
     launcherViewModel: LauncherViewModel = koinViewModel(),
 ) {
@@ -48,6 +49,7 @@ fun LauncherRoute(
         openCharacter = openCharacter,
         openEditor = openEditor,
         openModifiers = openModifiers,
+        openWizard = openWizard,
         modifier = modifier,
     )
 }
@@ -61,6 +63,7 @@ fun LauncherScreen(
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
+    openWizard: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val analytics = LocalAnalyticsHelper.current
@@ -98,7 +101,12 @@ fun LauncherScreen(
                             }
                         }
                     }
-                    Row {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing)
+                    ) {
+                        ElevatedButton(onClick = { openWizard() }) {
+                            Text(text = "Create character")
+                        }
                         ElevatedButton(onClick = { openEditor() }) {
                             Text(text = "Manage characters")
                         }
@@ -206,5 +214,6 @@ fun LauncherScreenPreview() {
         openCharacter = { },
         openEditor = { },
         openModifiers = { },
+        openWizard = { },
     )
 }

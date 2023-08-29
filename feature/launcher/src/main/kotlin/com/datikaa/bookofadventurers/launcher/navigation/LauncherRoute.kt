@@ -17,6 +17,7 @@ fun NavGraphBuilder.launcherScreen(
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
+    openWizard: () -> Unit,
 ) {
     composable(route = launcherRoute) {
         LauncherRoute(
@@ -24,6 +25,7 @@ fun NavGraphBuilder.launcherScreen(
             openCharacter = openCharacter,
             openEditor = openEditor,
             openModifiers = openModifiers,
+            openWizard = openWizard,
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.datikaa.bookofadventurers.di
 
+import com.bookofadventurers.feature.wizard.di.wizardKoinModule
 import com.datikaa.bookofadventurers.core.analytics.di.analyticsModule
 import com.datikaa.bookofadventurers.core.database.di.databaseKoinModule
 import com.datikaa.bookofadventurers.feature.editor.di.editorKoinModule
@@ -24,7 +25,8 @@ private fun Module.includeCoreModules() = includes(
 
 private fun Module.includeFeatureModules() = includes(
     editorKoinModule,
-    overviewKoinModule,
-    modifierKoinModule,
     launcherKoinModule,
+    modifierKoinModule,
+    overviewKoinModule,
+    wizardKoinModule,
 )

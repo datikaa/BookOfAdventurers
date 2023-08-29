@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":feature:launcher"))
     implementation(project(":feature:modifier"))
     implementation(project(":feature:overview"))
+    implementation(project(":feature:wizard"))
 
     implementation(libs.activity.compose)
 
