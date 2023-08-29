@@ -1,19 +1,16 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.data.adapter.toDomain
-import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
+import com.datikaa.bookofadventurers.core.data.adapter.classes.mapToDomain
+import com.datikaa.bookofadventurers.core.database.dao.ClassDao
 import com.datikaa.bookofadventurers.core.domain.BoaClass
-import io.realm.kotlin.Realm
-import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ClassesRepositoryImpl(
-    private val realm: Realm,
+    private val classDao: ClassDao,
 ) : ClassesRepository {
 
-    override fun flowAllClasses(): Flow<List<BoaClass>> = realm
-        .query<RealmPlayerClass>()
-        .asFlow()
-        .map { it.list.map { realmClass -> realmClass.toDomain() } }
+    override fun flowAllClasses(): Flow<List<BoaClass>> = classDao.flowClasses().map {
+        it.mapToDomain()
+    }
 }

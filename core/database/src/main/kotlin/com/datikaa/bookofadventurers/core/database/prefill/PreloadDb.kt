@@ -2,56 +2,48 @@ package com.datikaa.bookofadventurers.core.database.prefill
 
 import android.content.Context
 import android.util.Log
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.datikaa.bookofadventurers.core.database.BoaDatabase
 import com.datikaa.bookofadventurers.core.database.R
-import com.datikaa.bookofadventurers.core.database.realm.ModifiableScoreType
-import com.datikaa.bookofadventurers.core.database.realm.ModifierType
-import com.datikaa.bookofadventurers.core.database.realm.RealmPlayerClass
-import com.datikaa.bookofadventurers.core.database.realm.RealmProficiencyModifier
-import com.datikaa.bookofadventurers.core.database.realm.RealmScoreModifier
-import io.realm.kotlin.InitialDataCallback
-import io.realm.kotlin.MutableRealm
-import io.realm.kotlin.ext.query
-import io.realm.kotlin.ext.toRealmList
-import io.realm.kotlin.types.RealmObject
+import com.datikaa.bookofadventurers.core.database.crossref.ClassModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
+import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.concurrent.atomic.AtomicInteger
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class PreloadDb(private val context: Context) : InitialDataCallback {
+class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinComponent {
 
-    override fun MutableRealm.write() {
-        fillWithStartingModifiers()
-        fillWithClasses()
+    private val db by inject<BoaDatabase>()
+
+    override fun onCreate(db: SupportSQLiteDatabase) {
+        super.onCreate(db)
+        CoroutineScope(Dispatchers.IO).launch {
+            fillWithStartingModifiers(context)
+            fillWithClasses(context)
+        }
     }
 
-    private fun MutableRealm.fillWithStartingModifiers() {
-        val modifierId = AtomicInteger(0)
+    private suspend fun fillWithStartingModifiers(context: Context) {
         try {
             val modifiers = loadJsonArray(context, R.raw.proficiency_modifiers)
             for (i in 0 until modifiers.length()) {
                 val item = modifiers.getJSONObject(i)
-                val realmObj: RealmObject = when (item.toType()) {
-                    ModifierType.Holder -> {
-                        throw IllegalArgumentException("Deprecated type")
-                    }
-
-                    ModifierType.Score -> RealmScoreModifier().apply {
-                        _id = modifierId.getAndIncrement()
-                        name = item.getString("name")
-                        description = item.getString("description")
-                        modifiableScoreType = item.toModifiableScoreType().ordinal
-                        modifierValue = item.getModifierValue()
-                            ?: throw IllegalArgumentException("Score modifier must have value")
-                    }
-
-                    ModifierType.Proficiency -> RealmProficiencyModifier().apply {
-                        _id = modifierId.getAndIncrement()
-                        name = item.getString("name")
-                        description = item.getString("description")
-                        proficiencyType = item.toModifiableScoreType().ordinal
-                    }
-                }
-                copyToRealm(realmObj)
+                val modifierEntity = ModifierEntity(
+                    id = 0,
+                    parentModifierId = null,
+                    name = item.getString("name"),
+                    description = item.getString("description"),
+                    type = item.toType(),
+                    modifiableScoreType = item.toModifiableScoreType(),
+                    modifierValue = item.getModifierValue(),
+                )
+                db.modifierDao().insertModifier(modifierEntity)
             }
         } catch (e: JSONException) {
             Log.e("PrefillBasicModifiers", "Prefill error", e)
@@ -60,26 +52,25 @@ class PreloadDb(private val context: Context) : InitialDataCallback {
         }
     }
 
-    private fun MutableRealm.fillWithClasses() {
-        val classId = AtomicInteger(0)
+    private suspend fun fillWithClasses(context: Context) {
         try {
+            val classDao = db.classDao()
             val classes = loadJsonArray(context, R.raw.classes)
             for (i in 0 until classes.length()) {
                 val item = classes.getJSONObject(i)
-                val modifierIds = mutableListOf<Int>()
+                val classEntity = ClassEntity(
+                    id = 0,
+                    name = item.getString("name"),
+                )
+                val classId = classDao.insertClass(classEntity)
                 val classModifiers = item.getJSONArray("modifiers")
                 for (j in 0 until classModifiers.length()) {
-                    modifierIds.add(classModifiers.getInt(j))
+                    val classModifierCrossRef = ClassModifierCrossRef(
+                        classId = classId,
+                        modifierId = classModifiers.getInt(j).toLong(),
+                    )
+                    classDao.insertClassModifierCrossRef(classModifierCrossRef)
                 }
-                val realmProficiencyModifiers = query<RealmProficiencyModifier>().find()
-                val realmObj = RealmPlayerClass().apply {
-                    _id = classId.getAndIncrement()
-                    name = item.getString("name")
-                    proficiencyModifiers = realmProficiencyModifiers.filter {
-                        modifierIds.contains(it._id)
-                    }.toRealmList()
-                }
-                copyToRealm(realmObj)
             }
         } catch (e: JSONException) {
             Log.e("PrefillBasicModifiers", "Prefill error", e)
@@ -88,13 +79,13 @@ class PreloadDb(private val context: Context) : InitialDataCallback {
         }
     }
 
-    private fun JSONObject.toType(): ModifierType =
-        ModifierType.entries.firstOrNull {
+    private fun JSONObject.toType(): ModifierEntity.Type =
+        ModifierEntity.Type.values().firstOrNull {
             it.name == getString("type")
         } ?: throw IllegalStateException("Type $this is unknown.")
 
-    private fun JSONObject.toModifiableScoreType(): ModifiableScoreType =
-        ModifiableScoreType.entries.firstOrNull {
+    private fun JSONObject.toModifiableScoreType(): ModifierEntity.ModifiableScoreType =
+        ModifierEntity.ModifiableScoreType.values().firstOrNull {
             it.name == getString("modifiableScoreType")
         } ?: throw IllegalStateException("Type $this is unknown.")
 
