@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
+import com.datikaa.bookofadventurers.core.database.entity.ClassWithModifiers
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,6 +25,12 @@ interface ClassDao {
 
     @Query("SELECT * FROM ClassEntity")
     fun flowClasses(): Flow<List<ClassEntity>>
+
+    @Query("SELECT * FROM ClassEntity")
+    fun getClasses(): List<ClassEntity>
+
+    @Query("SELECT * FROM ClassEntity")
+    fun getClassesWithModifiers(): List<ClassWithModifiers>
 
     @Insert
     suspend fun insertClassSavingThrowCrossRef(classSavingThrowCrossRef: ClassSavingThrowCrossRef): Long

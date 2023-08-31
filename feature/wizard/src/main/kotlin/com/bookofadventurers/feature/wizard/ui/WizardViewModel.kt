@@ -1,5 +1,81 @@
 package com.bookofadventurers.feature.wizard.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.bookofadventurers.feature.wizard.domain.GetListOfClassesUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class WizardViewModel : ViewModel()
+class WizardViewModel(
+    private val getListOfClassesUseCase: GetListOfClassesUseCase,
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(initialUiState)
+    val uiState = _uiState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            val classes = getListOfClassesUseCase()
+            _uiState.update { uiState ->
+                uiState.copy(
+                    selectableClasses = classes.map { domainClass ->
+                        WizardUiState.ClassItem(
+                            id = domainClass.id,
+                            name = domainClass.name,
+                            savingThrowProficiencyModifiers = domainClass.savingThrowProficiencies.map { domainSavingThrows ->
+                                WizardUiState.Modifier(
+                                    id = domainSavingThrows.id,
+                                    name = domainSavingThrows.name,
+                                    selected = true,
+                                    selectable = false,
+                                )
+                            },
+                            selectableSkillProficiencyModifiers = domainClass.selectableSkillProficiencies.map { domainSkills ->
+                                WizardUiState.Modifier(
+                                    id = domainSkills.id,
+                                    name = domainSkills.name,
+                                    selected = false,
+                                    selectable = true,
+                                )
+                            },
+                            selected = false,
+                        )
+                    }
+                )
+            }
+        }
+    }
+
+    fun selectClass(selectedClassId: Long) = _uiState.update { uiState ->
+        uiState.copy(
+            selectableClasses = uiState.selectableClasses.map { classItem ->
+                classItem.copy(selected = classItem.id == selectedClassId)
+            }
+        )
+    }
+
+    fun toggleSkillForClass(classId: Long, modifierId: Int) = _uiState.update { uiState ->
+        uiState.copy(
+            selectableClasses = uiState.selectableClasses.map { classItem ->
+                if (classItem.id == classId) {
+                    classItem.copy(
+                        selectableSkillProficiencyModifiers = classItem.selectableSkillProficiencyModifiers.map { skill ->
+                            if (skill.id == modifierId) {
+                                skill.copy(
+                                    selected = !skill.selected
+                                )
+                            } else skill
+                        }
+                    )
+                } else classItem
+            }
+        )
+    }
+}
+
+private val initialUiState: WizardUiState
+    get() = WizardUiState(
+        selectableClasses = emptyList(),
+    )

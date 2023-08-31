@@ -15,7 +15,6 @@ data class ClassEntity(
     val selectableSkillCount: Int,
 )
 
-@Entity
 data class ClassWithModifiers(
     @Embedded
     val classEntity: ClassEntity,
