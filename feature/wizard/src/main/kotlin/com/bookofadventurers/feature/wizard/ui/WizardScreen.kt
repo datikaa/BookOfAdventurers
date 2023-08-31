@@ -115,9 +115,6 @@ private fun WizardScreen(
                     Card(
                         border = if (classItem.selected) BorderStroke(2.dp, Color.Green) else null,
                         modifier = Modifier
-                            .clickable {
-                                selectClass(classItem.id)
-                            }
                             .alpha(
                                 lerp(
                                     start = 0.5f,
@@ -129,6 +126,9 @@ private fun WizardScreen(
                         Column(
                             verticalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing),
                             modifier = Modifier
+                                .clickable {
+                                    selectClass(classItem.id)
+                                }
                                 .fillMaxWidth()
                                 .padding(all = 10.dp),
                         ) {
