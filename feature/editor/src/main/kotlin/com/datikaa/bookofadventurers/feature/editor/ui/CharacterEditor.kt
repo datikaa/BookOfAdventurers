@@ -132,7 +132,7 @@ private fun CharacterEditorUnselectedPreview() {
                     id = 3524,
                     name = "Jessic",
                     level = 6111,
-                    boaClass = BoaClass(1, "Wizard", emptyList()),
+                    boaClass = BoaClass(1, "Wizard", emptyList(), emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )
@@ -157,7 +157,7 @@ private fun CharacterEditorSelectedPreview() {
         uiState = CharactersUiState(
             selectedCharacter = BoaCharacter(
                 id = 6497, name = "Justin",
-                boaClass = BoaClass(1, "Wizard", emptyList()),
+                boaClass = BoaClass(1, "Wizard", emptyList(), emptyList()),
                 level = 797,
                 abilityList = listOf(
                     Ability.Strength(value = 10),
@@ -173,7 +173,7 @@ private fun CharacterEditorSelectedPreview() {
                     id = 6497,
                     name = "Justin",
                     level = 797,
-                    boaClass = BoaClass(1, "Wizard", emptyList()),
+                    boaClass = BoaClass(1, "Wizard", emptyList(), emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )

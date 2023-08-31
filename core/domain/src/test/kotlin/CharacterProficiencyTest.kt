@@ -49,7 +49,10 @@ class CharacterProficiencyTest {
     }
 
     private val emptyClass = BoaClass(
-        id = 0L, name = "", modifiers = listOf()
+        id = 0L,
+        name = "",
+        savingThrowProficiencies = listOf(),
+        selectableSkillProficiencies = emptyList(),
     )
 
     private fun createScoreTestingCharacter(level: Int) = BoaCharacter(

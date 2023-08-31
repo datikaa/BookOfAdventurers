@@ -130,9 +130,10 @@ private val testCharacter = BoaCharacter(
     boaClass = BoaClass(
         id = 0L,
         name = "Test",
-        modifiers = listOf(
+        savingThrowProficiencies = listOf(
             strengthSavingThrowProficiencyModifier,
-        )
+        ),
+        selectableSkillProficiencies = emptyList(), // skills are selectable and not stored here per character
     ),
     modifiers = listOf(
         plus1DexAndPlus1ConModifierCollection,

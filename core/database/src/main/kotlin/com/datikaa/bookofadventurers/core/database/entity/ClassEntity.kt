@@ -6,6 +6,7 @@ import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
 
 @Entity
 data class ClassEntity(
@@ -28,5 +29,16 @@ data class ClassWithModifiers(
             entityColumn = "modifierId",
         )
     )
-    val modifierEntities: List<ModifierEntity>,
+    val savingThrowProficiencyModifierEntities: List<ModifierEntity>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        entity = ModifierEntity::class,
+        associateBy = Junction(
+            value = ClassSkillProficiencyCrossRef::class,
+            parentColumn = "classId",
+            entityColumn = "modifierId",
+        )
+    )
+    val skillProficiencyModifierEntities: List<ModifierEntity>,
 )
