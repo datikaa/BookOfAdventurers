@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -96,7 +94,7 @@ private fun WizardScreen(
                         .fillMaxWidth()
                         .padding(BookOfAdventurersTheme.dimensions.screenPadding),
                     value = charNameText,
-                    onValueChange = { charNameText = it },
+                    onValueChange = { charNameText = it.trim() },
                     label = { Text("Name") },
                     singleLine = true,
                 )
@@ -124,23 +122,14 @@ private fun WizardScreen(
                     )
                 }
                 Box(Modifier.weight(1f))
-                Card(
-                    shape = RoundedCornerShape(
-                        topStart = 20.dp,
-                        topEnd = 20.dp,
-                        bottomStart = 0.dp,
-                        bottomEnd = 0.dp
-                    ),
-                    modifier = Modifier.fillMaxWidth(),
+                ElevatedButton(
+                    enabled = charNameText.isNotBlank() && uiState.selectableClasses.any { it.selected },
+                    onClick = { createCharacter(charNameText) },
+                    modifier = Modifier
+                        .padding(BookOfAdventurersTheme.dimensions.cardSpacing)
+                        .fillMaxWidth()
                 ) {
-                    ElevatedButton(
-                        onClick = { createCharacter(charNameText) },
-                        modifier = Modifier
-                            .padding(BookOfAdventurersTheme.dimensions.cardSpacing)
-                            .fillMaxWidth()
-                    ) {
-                        Text("Create character")
-                    }
+                    Text("Create character")
                 }
             }
         }
