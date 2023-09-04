@@ -4,8 +4,9 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class WizardUiState(
-    val dialog: Dialog? = null,
+    val dialog: Dialog?,
     val selectableClasses: List<ClassItem>,
+    val navigateBack: Boolean,
 ) {
 
     @Immutable

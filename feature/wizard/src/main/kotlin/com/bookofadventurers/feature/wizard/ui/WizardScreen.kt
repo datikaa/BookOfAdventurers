@@ -45,6 +45,10 @@ fun WizardRoute(
 ) {
     val uiState by wizardViewModel.uiState.collectAsStateWithLifecycle()
 
+    if (uiState.navigateBack) {
+        navigateBack()
+    }
+
     WizardScreen(
         uiState = uiState,
         navigateBack = navigateBack,
@@ -93,7 +97,9 @@ private fun WizardScreen(
                         .padding(BookOfAdventurersTheme.dimensions.screenPadding),
                     value = charNameText,
                     onValueChange = { charNameText = it },
-                    label = { Text("Name") })
+                    label = { Text("Name") },
+                    singleLine = true,
+                )
                 val pagerState = rememberPagerState(pageCount = { uiState.selectableClasses.size })
                 HorizontalPager(
                     state = pagerState,
@@ -232,6 +238,7 @@ private fun Preview() {
                     selected = false,
                 )
             ),
+            navigateBack = false,
         ),
         navigateBack = {},
         selectClass = {},

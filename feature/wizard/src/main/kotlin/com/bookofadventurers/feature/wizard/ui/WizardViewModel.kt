@@ -106,11 +106,18 @@ class WizardViewModel(
                 selectedClass.id,
                 selectedClass.selectableSkillProficiencyModifiers.filter { it.selected }
                     .map { it.id })
+            _uiState.update { uiState ->
+                uiState.copy(
+                    navigateBack = true
+                )
+            }
         }
     }
 }
 
 private val initialUiState: WizardUiState
     get() = WizardUiState(
+        dialog = null,
         selectableClasses = emptyList(),
+        navigateBack = false
     )
