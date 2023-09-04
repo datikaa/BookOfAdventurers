@@ -123,7 +123,7 @@ private fun WizardScreen(
                 }
                 Box(Modifier.weight(1f))
                 ElevatedButton(
-                    enabled = charNameText.isNotBlank() && uiState.selectableClasses.any { it.selected },
+                    enabled = charNameText.isNotBlank() && uiState.selectedClassCompleted,
                     onClick = { createCharacter(charNameText.trim()) },
                     modifier = Modifier
                         .padding(BookOfAdventurersTheme.dimensions.cardSpacing)
@@ -143,6 +143,11 @@ private fun WizardScreen(
         )
     }
 }
+
+private val WizardUiState.selectedClassCompleted: Boolean
+    get() = selectableClasses.firstOrNull { it.selected }?.run {
+        selectableSkillProficiencyModifiers.count { it.selected } == selectableCount
+    } ?: false
 
 @Preview
 @Composable
