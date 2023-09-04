@@ -13,7 +13,7 @@ internal fun CharacterWithAbilitiesAndModifiers.toDomain(): BoaCharacter = BoaCh
     level = characterEntity.level,
     characterClass = mapToCharacterClass(),
     abilityList = abilityEntities.mapToDomain(),
-    modifiers = selectedClassSkillModifierEntities.mapToDomain() + modifierEntities.mapToDomain(),
+    modifiers = modifierEntities.mapToDomain(),
 )
 
 private fun CharacterWithAbilitiesAndModifiers.mapToCharacterClass(): CharacterClass {
