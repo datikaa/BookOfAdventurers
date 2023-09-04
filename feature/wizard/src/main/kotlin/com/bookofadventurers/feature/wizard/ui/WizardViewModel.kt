@@ -24,6 +24,7 @@ class WizardViewModel(
                         WizardUiState.ClassItem(
                             id = domainClass.id,
                             name = domainClass.name,
+                            selectableCount = domainClass.selectableSkillCount,
                             savingThrowProficiencyModifiers = domainClass.savingThrowProficiencies.map { domainSavingThrows ->
                                 WizardUiState.Modifier(
                                     id = domainSavingThrows.id,
@@ -60,18 +61,38 @@ class WizardViewModel(
         uiState.copy(
             selectableClasses = uiState.selectableClasses.map { classItem ->
                 if (classItem.id == classId) {
+                    var updatedSelectedSkills = classItem.selectableSkillProficiencyModifiers.map { skill ->
+                        if (skill.id == modifierId) {
+                            skill.copy(
+                                selected = !skill.selected
+                            )
+                        } else skill
+                    }
+                    updatedSelectedSkills = updatedSelectedSkills.map { skill ->
+                        skill.copy(
+                            selectable = skill.selected || updatedSelectedSkills.count { it.selected } < classItem.selectableCount
+                        )
+                    }
                     classItem.copy(
-                        selectableSkillProficiencyModifiers = classItem.selectableSkillProficiencyModifiers.map { skill ->
-                            if (skill.id == modifierId) {
-                                skill.copy(
-                                    selected = !skill.selected
-                                )
-                            } else skill
-                        }
+                        selectableSkillProficiencyModifiers = updatedSelectedSkills,
                     )
                 } else classItem
             }
         )
+    }
+
+    fun openDialog(classId: Long) = _uiState.update { uiState ->
+        val classToOpenFor = uiState.selectableClasses.first { it.id == classId }
+        uiState.copy(
+            dialog = WizardUiState.Dialog(
+                classId = classId,
+                selectableCount = classToOpenFor.selectableCount,
+            )
+        )
+    }
+
+    fun dismissDialog() = _uiState.update { uiState ->
+        uiState.copy(dialog = null)
     }
 }
 

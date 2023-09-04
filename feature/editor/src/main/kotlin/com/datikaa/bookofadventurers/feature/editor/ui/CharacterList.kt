@@ -123,7 +123,7 @@ private fun Preview() {
                     id = 5614,
                     name = "Jesi",
                     level = 6108,
-                    boaClass = BoaClass(1, "Wizard", emptyList(), emptyList()),
+                    boaClass = BoaClass(1, "Wizard", 0, emptyList(), emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()
                 )

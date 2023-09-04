@@ -24,7 +24,7 @@ internal fun CharacterEntity.toDomain(): BoaCharacter = BoaCharacter(
     id = id,
     name = name,
     level = level,
-    boaClass = BoaClass(0, "Wizard", emptyList(), emptyList()),
+    boaClass = BoaClass(0, "Wizard", 2, emptyList(), emptyList()),
     abilityList = emptyList(),
     modifiers = emptyList(),
 )

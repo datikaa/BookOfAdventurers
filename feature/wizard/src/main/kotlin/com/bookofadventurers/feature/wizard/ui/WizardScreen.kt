@@ -1,39 +1,27 @@
 package com.bookofadventurers.feature.wizard.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,11 +29,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.absoluteValue
@@ -62,21 +49,24 @@ fun WizardRoute(
         uiState = uiState,
         navigateBack = navigateBack,
         selectClass = wizardViewModel::selectClass,
-        selectProficiency = wizardViewModel::toggleSkillForClass,
+        toggleProficiency = wizardViewModel::toggleSkillForClass,
+        openDialog = wizardViewModel::openDialog,
+        dismissDialog = wizardViewModel::dismissDialog,
         modifier = modifier,
     )
 }
 
 @OptIn(
     ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
-    ExperimentalLayoutApi::class
 )
 @Composable
 private fun WizardScreen(
     uiState: WizardUiState,
     navigateBack: () -> Unit,
     selectClass: (Long) -> Unit,
-    selectProficiency: (Long, Int) -> Unit,
+    toggleProficiency: (Long, Int) -> Unit,
+    openDialog: (Long) -> Unit,
+    dismissDialog: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -112,84 +102,18 @@ private fun WizardScreen(
                     val classItem = uiState.selectableClasses[page]
                     val pageOffset =
                         ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
-                    Card(
-                        border = if (classItem.selected) BorderStroke(2.dp, Color.Green) else null,
-                        modifier = Modifier
-                            .alpha(
-                                lerp(
-                                    start = 0.5f,
-                                    stop = 1f,
-                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                                )
+                    WizardClassComponent(
+                        classItem = classItem,
+                        selectClass = selectClass,
+                        openProficiencyDialog = openDialog,
+                        modifier = Modifier.alpha(
+                            lerp(
+                                start = 0.5f,
+                                stop = 1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
                             )
-                    ) {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing),
-                            modifier = Modifier
-                                .clickable {
-                                    selectClass(classItem.id)
-                                }
-                                .fillMaxWidth()
-                                .padding(all = 10.dp),
-                        ) {
-                            Text(
-                                text = classItem.name,
-                                style = MaterialTheme.typography.headlineLarge,
-                                modifier = Modifier.align(Alignment.CenterHorizontally),
-                            )
-                            Divider(modifier = Modifier.fillMaxWidth())
-                            Text(
-                                text = "Proficiencies",
-                                style = MaterialTheme.typography.headlineSmall,
-                            )
-                            Divider(modifier = Modifier.fillMaxWidth())
-                            CompositionLocalProvider(
-                                LocalMinimumInteractiveComponentEnforcement provides false
-                            ) {
-                                FlowRow(
-                                    verticalArrangement = Arrangement.spacedBy(
-                                        BookOfAdventurersTheme.dimensions.cardSpacing
-                                    ),
-                                    horizontalArrangement = Arrangement.spacedBy(
-                                        BookOfAdventurersTheme.dimensions.cardSpacing
-                                    ),
-                                ) {
-                                    classItem.savingThrowProficiencyModifiers.forEach {
-                                        FilterChip(
-                                            selected = it.selected,
-                                            onClick = { },
-                                            label = { Text(text = it.name) },
-                                            shape = CircleShape,
-                                            trailingIcon = {
-                                                Icon(
-                                                    imageVector = if (it.selected) Icons.Rounded.Check else Icons.Rounded.Close,
-                                                    contentDescription = "check"
-                                                )
-                                            },
-                                        )
-                                    }
-                                }
-                                Divider(modifier = Modifier.fillMaxWidth())
-                                FlowRow(
-                                    verticalArrangement = Arrangement.spacedBy(
-                                        BookOfAdventurersTheme.dimensions.cardSpacing
-                                    ),
-                                    horizontalArrangement = Arrangement.spacedBy(
-                                        BookOfAdventurersTheme.dimensions.cardSpacing
-                                    ),
-                                ) {
-                                    classItem.selectableSkillProficiencyModifiers.forEach {
-                                        FilterChip(
-                                            selected = it.selected,
-                                            onClick = { selectProficiency(classItem.id, it.id) },
-                                            label = { Text(text = it.name.split(" ")[0]) },
-                                            shape = CircleShape,
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                        )
+                    )
                 }
                 Box(Modifier.weight(1f))
                 Card(
@@ -213,17 +137,27 @@ private fun WizardScreen(
             }
         }
     }
+    if (uiState.dialog != null) {
+        WizardSkillSelectorDialog(
+            dialogState = uiState.dialog,
+            selectClass = uiState.selectableClasses.first { it.id == uiState.dialog.classId },
+            onDismissRequest = dismissDialog,
+            toggleProficiency = toggleProficiency,
+        )
+    }
 }
 
-@DevicePreviews
+@Preview
 @Composable
 private fun Preview() {
     WizardScreen(
         uiState = WizardUiState(
+            dialog = null,
             selectableClasses = listOf(
                 WizardUiState.ClassItem(
                     id = 0,
                     name = "Barbarian",
+                    selectableCount = 2,
                     savingThrowProficiencyModifiers = listOf(
                         WizardUiState.Modifier(
                             id = 0,
@@ -269,6 +203,7 @@ private fun Preview() {
                 WizardUiState.ClassItem(
                     id = 0,
                     name = "Barbarian",
+                    selectableCount = 2,
                     savingThrowProficiencyModifiers = listOf(
                         WizardUiState.Modifier(
                             id = 0,
@@ -289,6 +224,7 @@ private fun Preview() {
                 WizardUiState.ClassItem(
                     id = 0,
                     name = "Barbarian",
+                    selectableCount = 2,
                     savingThrowProficiencyModifiers = listOf(),
                     selectableSkillProficiencyModifiers = listOf(),
                     selected = false,
@@ -297,6 +233,8 @@ private fun Preview() {
         ),
         navigateBack = {},
         selectClass = {},
-        selectProficiency = { _, _ -> /* no-op */ },
+        openDialog = {},
+        dismissDialog = {},
+        toggleProficiency = { _, _ -> /* no-op */ },
     )
 }

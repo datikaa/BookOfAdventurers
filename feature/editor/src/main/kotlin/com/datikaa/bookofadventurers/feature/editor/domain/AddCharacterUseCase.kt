@@ -20,7 +20,13 @@ private fun createNew5eCharacter(name: String, classId: Int) = BoaCharacter(
     id = 0,
     name = name,
     level = 1,
-    boaClass = BoaClass(classId.toLong(), "", emptyList(), emptyList()),
+    boaClass = BoaClass(
+        id = classId.toLong(),
+        name = "",
+        selectableSkillCount = 0,
+        savingThrowProficiencies = emptyList(),
+        selectableSkillProficiencies = emptyList(),
+    ),
     abilityList = listOf(
         Ability.Strength(10),
         Ability.Dexterity(10),

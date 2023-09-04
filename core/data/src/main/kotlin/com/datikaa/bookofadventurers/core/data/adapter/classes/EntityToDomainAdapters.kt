@@ -10,6 +10,7 @@ internal fun List<ClassWithModifiers>.mapToDomain() = map { it.toDomain() }
 internal fun ClassWithModifiers.toDomain() = BoaClass(
     id = classEntity.id,
     name = classEntity.name,
+    selectableSkillCount = classEntity.selectableSkillCount,
     savingThrowProficiencies = savingThrowProficiencyModifierEntities.mapToDomain(),
     selectableSkillProficiencies = skillProficiencyModifierEntities.mapToDomain(),
 )
@@ -20,6 +21,7 @@ internal fun List<ClassEntity>.mapToDomain() = map { it.toDomain() }
 internal fun ClassEntity.toDomain() = BoaClass(
     id = id,
     name = name,
+    selectableSkillCount = selectableSkillCount,
     savingThrowProficiencies = emptyList(),
     selectableSkillProficiencies = emptyList(),
 )
