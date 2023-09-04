@@ -19,7 +19,7 @@ class FlowSelectedModifiersForCharacterUseCase(
             skillProficiencies + savingThrowProficiencies
         }
         modifiers
-            .filter { modifier -> classModifiers.map { it.id }.contains(modifier.id) }
+            .filterNot { modifier -> classModifiers.map { it.id }.contains(modifier.id) }
             .associateWith { modifier -> character.modifiers.any { it.id == modifier.id } }
     }
 }
