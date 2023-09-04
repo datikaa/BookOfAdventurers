@@ -10,7 +10,7 @@ import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedCla
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
-import com.datikaa.bookofadventurers.core.database.entity.ClassWithModifiers
+import com.datikaa.bookofadventurers.core.database.relation.ClassWithModifiers
 import kotlinx.coroutines.flow.Flow
 
 @Dao

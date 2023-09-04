@@ -2,7 +2,7 @@ package com.datikaa.bookofadventurers.core.data.adapter.classes
 
 import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
-import com.datikaa.bookofadventurers.core.database.entity.ClassWithModifiers
+import com.datikaa.bookofadventurers.core.database.relation.ClassWithModifiers
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 
 @JvmName("mapClassWithModifiersToDomain")

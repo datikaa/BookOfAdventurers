@@ -3,7 +3,7 @@ package com.datikaa.bookofadventurers.core.data.adapter.character
 import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
-import com.datikaa.bookofadventurers.core.database.entity.CharacterWithAbilitiesAndModifiers
+import com.datikaa.bookofadventurers.core.database.relation.CharacterWithAbilitiesAndModifiers
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.CharacterClass
 
