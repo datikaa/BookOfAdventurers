@@ -17,7 +17,7 @@ class ComplexCharacterModifiersTest {
     @Test
     fun testModifierFlattening() {
         val flattenModifiers = testCharacter.modifiers.flatten()
-        flattenModifiers.size shouldBeExactly 6
+        flattenModifiers.size shouldBeExactly 5
         plus1DexModifier shouldBeIn flattenModifiers
         plus1ConModifier shouldBeIn flattenModifiers
         plus1DexAndPlus1ConModifierCollection shouldBeIn flattenModifiers
