@@ -2,6 +2,7 @@ package com.bookofadventurers.feature.wizard.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookofadventurers.feature.wizard.domain.AddCharacterUseCase
 import com.bookofadventurers.feature.wizard.domain.GetListOfClassesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class WizardViewModel(
+    private val addCharacterUseCase: AddCharacterUseCase,
     private val getListOfClassesUseCase: GetListOfClassesUseCase,
 ) : ViewModel() {
 
@@ -61,13 +63,14 @@ class WizardViewModel(
         uiState.copy(
             selectableClasses = uiState.selectableClasses.map { classItem ->
                 if (classItem.id == classId) {
-                    var updatedSelectedSkills = classItem.selectableSkillProficiencyModifiers.map { skill ->
-                        if (skill.id == modifierId) {
-                            skill.copy(
-                                selected = !skill.selected
-                            )
-                        } else skill
-                    }
+                    var updatedSelectedSkills =
+                        classItem.selectableSkillProficiencyModifiers.map { skill ->
+                            if (skill.id == modifierId) {
+                                skill.copy(
+                                    selected = !skill.selected
+                                )
+                            } else skill
+                        }
                     updatedSelectedSkills = updatedSelectedSkills.map { skill ->
                         skill.copy(
                             editable = skill.selected || updatedSelectedSkills.count { it.selected } < classItem.selectableCount
@@ -93,6 +96,17 @@ class WizardViewModel(
 
     fun dismissDialog() = _uiState.update { uiState ->
         uiState.copy(dialog = null)
+    }
+
+    fun createCharacter(name: String) {
+        viewModelScope.launch {
+            val selectedClass = uiState.value.selectableClasses.first { it.selected }
+            addCharacterUseCase(
+                name,
+                selectedClass.id,
+                selectedClass.selectableSkillProficiencyModifiers.filter { it.selected }
+                    .map { it.id })
+        }
     }
 }
 

@@ -14,7 +14,7 @@ internal fun CharacterWithAbilitiesAndModifiers.toDomain(): BoaCharacter = BoaCh
     level = characterEntity.level,
     boaClass = classWithModifiersEntities.mapToDomain().first(),
     abilityList = abilityEntities.mapToDomain(),
-    modifiers = modifierEntities.mapToDomain(),
+    modifiers = selectedClassSkillModifierEntities.mapToDomain() + modifierEntities.mapToDomain(),
 )
 
 @JvmName("mapCharacterEntityToDomain")

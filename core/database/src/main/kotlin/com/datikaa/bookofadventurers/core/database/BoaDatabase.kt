@@ -9,6 +9,7 @@ import com.datikaa.bookofadventurers.core.database.dao.CharacterDao
 import com.datikaa.bookofadventurers.core.database.dao.ModifierDao
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.dao.ClassDao
@@ -25,6 +26,7 @@ import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
         ClassSkillProficiencyCrossRef::class,
         CharacterClassCrossRef::class,
         CharacterModifierCrossRef::class,
+        CharacterSelectedClassModifierCrossRef::class,
     ], version = 8
 )
 abstract class BoaDatabase : RoomDatabase() {

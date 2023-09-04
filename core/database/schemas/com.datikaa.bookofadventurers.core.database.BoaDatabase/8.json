@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 8,
-    "identityHash": "9bc982eb3b264aea41bdbb549387bb23",
+    "identityHash": "b319864f72fe85608df67c9650aa0ea3",
     "entities": [
       {
         "tableName": "CharacterEntity",
@@ -389,12 +389,58 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "CharacterSelectedClassModifierCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`characterId` INTEGER NOT NULL, `modifierId` INTEGER NOT NULL, PRIMARY KEY(`characterId`, `modifierId`))",
+        "fields": [
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifierId",
+            "columnName": "modifierId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "characterId",
+            "modifierId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_CharacterSelectedClassModifierCrossRef_characterId",
+            "unique": false,
+            "columnNames": [
+              "characterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CharacterSelectedClassModifierCrossRef_characterId` ON `${TABLE_NAME}` (`characterId`)"
+          },
+          {
+            "name": "index_CharacterSelectedClassModifierCrossRef_modifierId",
+            "unique": false,
+            "columnNames": [
+              "modifierId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CharacterSelectedClassModifierCrossRef_modifierId` ON `${TABLE_NAME}` (`modifierId`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9bc982eb3b264aea41bdbb549387bb23')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b319864f72fe85608df67c9650aa0ea3')"
     ]
   }
 }

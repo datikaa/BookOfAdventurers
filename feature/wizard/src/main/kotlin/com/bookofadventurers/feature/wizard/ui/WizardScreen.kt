@@ -52,6 +52,7 @@ fun WizardRoute(
         toggleProficiency = wizardViewModel::toggleSkillForClass,
         openDialog = wizardViewModel::openDialog,
         dismissDialog = wizardViewModel::dismissDialog,
+        createCharacter = wizardViewModel::createCharacter,
         modifier = modifier,
     )
 }
@@ -67,6 +68,7 @@ private fun WizardScreen(
     toggleProficiency: (Long, Int) -> Unit,
     openDialog: (Long) -> Unit,
     dismissDialog: () -> Unit,
+    createCharacter: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -126,7 +128,7 @@ private fun WizardScreen(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     ElevatedButton(
-                        onClick = { },
+                        onClick = { createCharacter(charNameText) },
                         modifier = Modifier
                             .padding(BookOfAdventurersTheme.dimensions.cardSpacing)
                             .fillMaxWidth()
@@ -235,6 +237,7 @@ private fun Preview() {
         selectClass = {},
         openDialog = {},
         dismissDialog = {},
+        createCharacter = {},
         toggleProficiency = { _, _ -> /* no-op */ },
     )
 }

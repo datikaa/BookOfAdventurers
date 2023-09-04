@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
 import com.datikaa.bookofadventurers.core.database.entity.CharacterWithAbilitiesAndModifiers
 import kotlinx.coroutines.flow.Flow
@@ -32,4 +33,14 @@ interface CharacterDao {
 
     @Insert
     suspend fun insertCharacterClassCrossRef(characterClassCrossRef: CharacterClassCrossRef): Long
+
+    @Insert
+    suspend fun insertCharacterSelectedClassModifierCrossRef(characterSelectedClassModifierCrossRef: CharacterSelectedClassModifierCrossRef): Long
+
+    @Transaction
+    suspend fun insertCharacterSelectedClassModifierCrossRefs(characterSelectedClassModifierCrossRefs: List<CharacterSelectedClassModifierCrossRef>) {
+        characterSelectedClassModifierCrossRefs.forEach {
+            insertCharacterSelectedClassModifierCrossRef(it)
+        }
+    }
 }
