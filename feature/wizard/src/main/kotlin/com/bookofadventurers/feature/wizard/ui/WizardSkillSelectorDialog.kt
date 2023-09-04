@@ -75,7 +75,7 @@ fun WizardSkillSelectorDialog(
                                 .fillMaxWidth()
                                 .clip(CircleShape)
                                 .clickable(
-                                    enabled = it.selectable,
+                                    enabled = it.editable,
                                     onClick = { toggleProficiency(dialogState.classId, it.id) },
                                     indication = LocalIndication.current,
                                     interactionSource = remember { MutableInteractionSource() }
@@ -84,11 +84,11 @@ fun WizardSkillSelectorDialog(
                         ) {
                             Text(
                                 text = it.name,
-                                modifier = Modifier.alpha(if (it.selectable) 1f else 0.38f),
+                                modifier = Modifier.alpha(if (it.editable) 1f else 0.38f),
                             )
                             Checkbox(
                                 checked = it.selected,
-                                enabled = it.selectable,
+                                enabled = it.editable,
                                 interactionSource = interactionSource,
                                 onCheckedChange = null,
                             )
@@ -124,85 +124,85 @@ fun PreviewWizardSkillSelectorDialog() {
                     id = 0,
                     name = "dexterity",
                     selected = true,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "strength",
                     selected = false,
-                    selectable = false,
+                    editable = false,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "constitution",
                     selected = false,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "dexterity",
                     selected = true,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "strength",
                     selected = false,
-                    selectable = false,
+                    editable = false,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "constitution",
                     selected = false,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "dexterity",
                     selected = true,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "strength",
                     selected = false,
-                    selectable = false,
+                    editable = false,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "constitution",
                     selected = false,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "dexterity",
                     selected = true,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "strength",
                     selected = false,
-                    selectable = false,
+                    editable = false,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "constitution",
                     selected = false,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "dexterity",
                     selected = true,
-                    selectable = true,
+                    editable = true,
                 ),
                 WizardUiState.Modifier(
                     id = 0,
                     name = "strength",
                     selected = false,
-                    selectable = false,
+                    editable = false,
                 ),
 
                 ),

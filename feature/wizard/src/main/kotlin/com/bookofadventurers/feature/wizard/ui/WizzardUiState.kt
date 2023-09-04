@@ -19,7 +19,7 @@ data class WizardUiState(
         val id: Int,
         val name: String,
         val selected: Boolean,
-        val selectable: Boolean,
+        val editable: Boolean,
     )
 
     @Immutable

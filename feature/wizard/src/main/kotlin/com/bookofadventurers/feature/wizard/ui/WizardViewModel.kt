@@ -30,7 +30,7 @@ class WizardViewModel(
                                     id = domainSavingThrows.id,
                                     name = domainSavingThrows.name,
                                     selected = true,
-                                    selectable = false,
+                                    editable = false,
                                 )
                             },
                             selectableSkillProficiencyModifiers = domainClass.selectableSkillProficiencies.map { domainSkills ->
@@ -38,7 +38,7 @@ class WizardViewModel(
                                     id = domainSkills.id,
                                     name = domainSkills.name,
                                     selected = false,
-                                    selectable = true,
+                                    editable = true,
                                 )
                             },
                             selected = false,
@@ -70,7 +70,7 @@ class WizardViewModel(
                     }
                     updatedSelectedSkills = updatedSelectedSkills.map { skill ->
                         skill.copy(
-                            selectable = skill.selected || updatedSelectedSkills.count { it.selected } < classItem.selectableCount
+                            editable = skill.selected || updatedSelectedSkills.count { it.selected } < classItem.selectableCount
                         )
                     }
                     classItem.copy(
