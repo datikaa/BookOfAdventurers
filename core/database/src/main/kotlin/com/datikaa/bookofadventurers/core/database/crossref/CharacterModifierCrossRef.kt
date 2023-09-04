@@ -8,10 +8,3 @@ data class CharacterModifierCrossRef(
     @ColumnInfo(index = true) val characterId: Long,
     @ColumnInfo(index = true) val modifierId: Long
 )
-
-@Entity(primaryKeys = ["characterId", "modifierId"])
-data class CharacterSelectedClassModifierCrossRef(
-    @ColumnInfo(index = true) val characterId: Long,
-    @ColumnInfo(index = true) val modifierId: Long
-)
-

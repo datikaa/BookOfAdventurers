@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(primaryKeys = ["classId", "modifierId"])
-data class ClassSavingThrowCrossRef(
+data class ClassSkillProficiencyCrossRef(
     @ColumnInfo(index = true) val classId: Long,
     @ColumnInfo(index = true) val modifierId: Long
 )
