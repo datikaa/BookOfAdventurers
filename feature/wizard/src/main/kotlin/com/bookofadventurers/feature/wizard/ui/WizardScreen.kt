@@ -94,7 +94,7 @@ private fun WizardScreen(
                         .fillMaxWidth()
                         .padding(BookOfAdventurersTheme.dimensions.screenPadding),
                     value = charNameText,
-                    onValueChange = { charNameText = it.trim() },
+                    onValueChange = { charNameText = it.trimStart() },
                     label = { Text("Name") },
                     singleLine = true,
                 )
@@ -124,7 +124,7 @@ private fun WizardScreen(
                 Box(Modifier.weight(1f))
                 ElevatedButton(
                     enabled = charNameText.isNotBlank() && uiState.selectableClasses.any { it.selected },
-                    onClick = { createCharacter(charNameText) },
+                    onClick = { createCharacter(charNameText.trim()) },
                     modifier = Modifier
                         .padding(BookOfAdventurersTheme.dimensions.cardSpacing)
                         .fillMaxWidth()
