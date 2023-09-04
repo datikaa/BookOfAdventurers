@@ -67,6 +67,18 @@ fun WizardClassComponent(
             ) {
                 val selectedSkillProficiencyModifiers =
                     classItem.selectableSkillProficiencyModifiers.filter { it.selected }
+                val remainingSelectionCount =
+                    classItem.selectableCount - selectedSkillProficiencyModifiers.size
+                repeat(remainingSelectionCount) {
+                    ProficiencyItem(
+                        WizardUiState.Modifier(
+                            id = 0,
+                            name = "Not selected",
+                            selected = false,
+                            editable = true
+                        )
+                    )
+                }
                 selectedSkillProficiencyModifiers.forEach {
                     ProficiencyItem(it)
                 }
@@ -74,8 +86,7 @@ fun WizardClassComponent(
                     onClick = { openProficiencyDialog(classItem.id) },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-                    val remainingSelectionCount =
-                        classItem.selectableCount - selectedSkillProficiencyModifiers.size
+
                     Text(text = if (remainingSelectionCount != 0) "Select $remainingSelectionCount skill proficiency" else "Edit selection")
                 }
             }
