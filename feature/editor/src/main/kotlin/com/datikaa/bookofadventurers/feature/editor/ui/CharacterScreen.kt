@@ -34,7 +34,6 @@ fun EditorRoute(
     CharactersScreen(
         uiState = uiState,
         navigateBack = navigateBack,
-        addCharacter = overviewViewModel::addCharacter,
         selectCharacter = overviewViewModel::selectCharacter,
         openCharacter = { openCharacter(it.id) },
         decreaseAbility = overviewViewModel::decreaseAbility,
@@ -51,7 +50,6 @@ fun EditorRoute(
 private fun CharactersScreen(
     uiState: CharactersUiState,
     navigateBack: () -> Unit,
-    addCharacter: (String, Int) -> Unit,
     selectCharacter: (BoaCharacter?) -> Unit,
     openCharacter: (BoaCharacter) -> Unit,
     decreaseAbility: (BoaCharacter, Ability) -> Unit,
@@ -78,7 +76,6 @@ private fun CharactersScreen(
         if (uiState.selectedCharacter == null) {
             CharacterList(
                 uiState = uiState,
-                addCharacter = addCharacter,
                 selectCharacter = selectCharacter,
                 modifier = Modifier
                     .padding(paddingValues)
@@ -124,7 +121,6 @@ private fun Preview() {
             modifiers = listOf(),
         ),
         navigateBack = {},
-        addCharacter = { _, _ -> },
         selectCharacter = {},
         openCharacter = {},
         decreaseAbility = { _, _ -> },

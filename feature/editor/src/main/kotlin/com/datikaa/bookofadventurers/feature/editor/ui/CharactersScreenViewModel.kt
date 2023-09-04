@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
-import com.datikaa.bookofadventurers.feature.editor.domain.AddCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.AddOrRemoveModifierToCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowCharacterUseCase
@@ -23,7 +22,6 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CharactersScreenViewModel(
-    private val addCharacterUseCase: AddCharacterUseCase,
     private val addOrRemoveModifierToCharacterUseCase: AddOrRemoveModifierToCharacterUseCase,
     private val flowAllClassesUseCase: FlowAllClassesUseCase,
     private val flowListAllCharactersUseCase: FlowListAllCharactersUseCase,
@@ -85,12 +83,6 @@ class CharactersScreenViewModel(
                     )
                 }
             }
-        }
-    }
-
-    fun addCharacter(name: String, classId: Int) {
-        viewModelScope.launch {
-            addCharacterUseCase(name, classId)
         }
     }
 

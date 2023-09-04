@@ -86,7 +86,6 @@ fun WizardClassComponent(
                     onClick = { openProficiencyDialog(classItem.id) },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-
                     Text(text = if (remainingSelectionCount != 0) "Select $remainingSelectionCount skill proficiency" else "Edit selection")
                 }
             }
