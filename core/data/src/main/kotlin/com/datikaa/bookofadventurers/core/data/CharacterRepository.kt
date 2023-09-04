@@ -9,4 +9,5 @@ interface CharacterRepository {
     suspend fun updateCharacter(character: BoaCharacter)
     suspend fun insertCharacter(character: BoaCharacter): Long
     suspend fun clearAll()
+    suspend fun linkCharacterWithSelectedModifiers(charId: Long, modifierIds: List<Long>)
 }

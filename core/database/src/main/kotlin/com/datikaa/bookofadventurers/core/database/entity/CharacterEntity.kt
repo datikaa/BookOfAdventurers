@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 
 @Entity
 data class CharacterEntity(
@@ -37,6 +38,18 @@ data class CharacterWithAbilitiesAndModifiers(
         )
     )
     val classWithModifiersEntities: List<ClassWithModifiers>,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        entity = ModifierEntity::class,
+        associateBy = Junction(
+            value = CharacterSelectedClassModifierCrossRef::class,
+            parentColumn = "characterId",
+            entityColumn = "modifierId",
+        )
+    )
+    val selectedClassSkillModifierEntities: List<ModifierEntity>,
 
     @Relation(
         parentColumn = "id",

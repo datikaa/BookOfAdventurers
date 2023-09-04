@@ -1,6 +1,5 @@
 package com.datikaa.bookofadventurers.feature.editor.di
 
-import com.datikaa.bookofadventurers.feature.editor.domain.AddCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.AddOrRemoveModifierToCharacterUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.feature.editor.domain.FlowAllModifiersUseCase
@@ -17,7 +16,6 @@ import org.koin.dsl.module
 val editorKoinModule = module {
     viewModelOf(::CharactersScreenViewModel)
 
-    factoryOf(::AddCharacterUseCase)
     factoryOf(::FlowAllModifiersUseCase)
     factoryOf(::FlowAllClassesUseCase)
     factoryOf(::FlowCharacterUseCase)

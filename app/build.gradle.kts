@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.datikaa.bookofadventurers"
         versionCode = 2
-        versionName = "v0.2.2"
+        versionName = "v0.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":feature:launcher"))
     implementation(project(":feature:modifier"))
     implementation(project(":feature:overview"))
+    implementation(project(":feature:wizard"))
 
     implementation(libs.activity.compose)
 

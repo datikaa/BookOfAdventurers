@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.bookofadventurers.feature.wizard.navigation.navigateToWizard
+import com.bookofadventurers.feature.wizard.navigation.wizardScreen
 import com.datikaa.bookofadventurers.core.analytics.AnalyticsHelper
 import com.datikaa.bookofadventurers.core.analytics.LocalAnalyticsHelper
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
@@ -48,6 +50,7 @@ class MainActivity : ComponentActivity() {
                                 openEditor = { navController.navigateToEditor() },
                                 openCharacter = { id -> navController.navigateToOverview(id) },
                                 openModifiers = { navController.navigateToModifier() },
+                                openWizard = { navController.navigateToWizard() },
                             )
                             overviewScreen(
                                 navigateBack = { navController.popBackStack() },
@@ -64,6 +67,9 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                             modifierScreen(
+                                navigateBack = { navController.popBackStack() },
+                            )
+                            wizardScreen(
                                 navigateBack = { navController.popBackStack() },
                             )
                         }

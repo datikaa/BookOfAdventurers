@@ -1,8 +1,8 @@
 package com.datikaa.bookofadventurers.feature.editor.domain
 
-import com.datikaa.bookofadventurers.core.domain.Modifier
 import com.datikaa.bookofadventurers.core.data.CharacterRepository
 import com.datikaa.bookofadventurers.core.data.ModifierRepository
+import com.datikaa.bookofadventurers.core.domain.Modifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
@@ -15,6 +15,11 @@ class FlowSelectedModifiersForCharacterUseCase(
         characterRepository.flowCharacter(characterId),
         modifierRepository.flowAllModifiers(),
     ) { character, modifiers ->
-        modifiers.associateWith { modifier -> character.modifiers.any { it.id == modifier.id } }
+        val classModifiers = with(character.characterClass) {
+            skillProficiencies + savingThrowProficiencies
+        }
+        modifiers
+            .filterNot { modifier -> classModifiers.map { it.id }.contains(modifier.id) }
+            .associateWith { modifier -> character.modifiers.any { it.id == modifier.id } }
     }
 }

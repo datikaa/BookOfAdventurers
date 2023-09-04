@@ -1,12 +1,13 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.database.dao.AbilityDao
-import com.datikaa.bookofadventurers.core.database.dao.CharacterDao
 import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToEntity
 import com.datikaa.bookofadventurers.core.data.adapter.character.mapToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toEntity
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
+import com.datikaa.bookofadventurers.core.database.dao.AbilityDao
+import com.datikaa.bookofadventurers.core.database.dao.CharacterDao
 import com.datikaa.bookofadventurers.core.database.dao.ClassDao
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +39,20 @@ internal class CharacterRepositoryImpl(
 
     override suspend fun insertCharacter(character: BoaCharacter): Long {
         val id = characterDao.insertCharacter(character.toEntity())
-        characterDao.insertCharacterClassCrossRef(CharacterClassCrossRef(id, character.boaClass.id))
+        characterDao.insertCharacterClassCrossRef(
+            CharacterClassCrossRef(
+                id,
+                character.characterClass.id
+            )
+        )
         abilityDao.insertOrUpdateAbility(character.abilityList.mapToEntity(id.toInt()))
         return id
+    }
+
+    override suspend fun linkCharacterWithSelectedModifiers(charId: Long, modifierIds: List<Long>) {
+        characterDao.insertCharacterSelectedClassModifierCrossRefs(modifierIds.map {
+            CharacterSelectedClassModifierCrossRef(charId, it)
+        })
     }
 
     override suspend fun clearAll() {
