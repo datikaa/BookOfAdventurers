@@ -3,7 +3,7 @@ package com.bookofadventurers.feature.wizard.domain
 import com.datikaa.bookofadventurers.core.data.CharacterRepository
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
-import com.datikaa.bookofadventurers.core.domain.BoaClass
+import com.datikaa.bookofadventurers.core.domain.CharacterClass
 
 class AddCharacterUseCase(
     private val characterRepository: CharacterRepository,
@@ -31,7 +31,7 @@ private fun createNew5eCharacter(name: String, classId: Long) = BoaCharacter(
     id = 0,
     name = name,
     level = 1,
-    boaClass = BoaClass(classId, "", 0, emptyList(), emptyList()),
+    characterClass = CharacterClass(classId, "", emptyList(), emptyList()),
     abilityList = defaultAbilityList,
     modifiers = listOf()
 )

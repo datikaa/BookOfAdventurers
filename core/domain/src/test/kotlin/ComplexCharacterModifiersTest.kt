@@ -1,6 +1,6 @@
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
-import com.datikaa.bookofadventurers.core.domain.BoaClass
+import com.datikaa.bookofadventurers.core.domain.CharacterClass
 import com.datikaa.bookofadventurers.core.domain.Modifier
 import com.datikaa.bookofadventurers.core.domain.SavingThrow
 import com.datikaa.bookofadventurers.core.domain.Skill
@@ -127,13 +127,13 @@ private val testCharacter = BoaCharacter(
         Ability.Wisdom(value = 14), // 2
         Ability.Charisma(value = 15), // 2
     ),
-    boaClass = BoaClass(
+    characterClass = CharacterClass(
         id = 0L,
         name = "Test",
         savingThrowProficiencies = listOf(
             strengthSavingThrowProficiencyModifier,
         ),
-        selectableSkillProficiencies = emptyList(), // skills are selectable and not stored here per character
+        skillProficiencies = emptyList(), // skills are selectable and not stored here per character
     ),
     modifiers = listOf(
         plus1DexAndPlus1ConModifierCollection,

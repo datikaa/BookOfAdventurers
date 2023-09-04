@@ -31,7 +31,7 @@ class OverviewViewModel(
                     uiState.copy(
                         level = char.level,
                         name = char.name,
-                        className = char.boaClass.name,
+                        className = char.characterClass.name,
                         proficiency = char.proficiencyScore,
                         abilities = char.abilityList.map {
                             OverviewUiState.UiAbility(

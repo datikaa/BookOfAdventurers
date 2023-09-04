@@ -3,7 +3,7 @@ package com.datikaa.bookofadventurers.core.domain
 import kotlin.reflect.KClass
 
 val BoaCharacter.combinedModifiers: List<Modifier>
-    get() = modifiers + boaClass.savingThrowProficiencies
+    get() = modifiers + characterClass.savingThrowProficiencies
 
 fun BoaCharacter.sumOfModifiersFor(modifiableScoreType: KClass<out ModifiableScore>): Int =
     combinedModifiers
