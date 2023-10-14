@@ -31,6 +31,7 @@ class OverviewViewModel(
                     uiState.copy(
                         level = char.level,
                         name = char.name,
+                        backgroundName = char.characterBackground.name,
                         className = char.characterClass.name,
                         proficiency = char.proficiencyScore,
                         abilities = char.abilityList.map {
@@ -67,9 +68,11 @@ class OverviewViewModel(
 private val initUiState = OverviewUiState(
     level = 1,
     name = "",
+    backgroundName = "",
     className = "",
     proficiency = 0,
     abilities = emptyList(),
+    backgrounds = emptyList(),
     skills = emptyList(),
     savingThrows = emptyList(),
 )

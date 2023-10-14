@@ -2,8 +2,52 @@
   "formatVersion": 1,
   "database": {
     "version": 10,
-    "identityHash": "b319864f72fe85608df67c9650aa0ea3",
+    "identityHash": "ab3981ce0472cb98586f3f833fa3cb6a",
     "entities": [
+      {
+        "tableName": "BackgroundEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `featureTitle` TEXT NOT NULL, `featureDescription` TEXT NOT NULL, `suggestedCharacteristics` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "featureTitle",
+            "columnName": "featureTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "featureDescription",
+            "columnName": "featureDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "suggestedCharacteristics",
+            "columnName": "suggestedCharacteristics",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "CharacterEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `level` INTEGER NOT NULL)",
@@ -205,6 +249,52 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "BackgroundSkillProficiencyCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`backgroundId` INTEGER NOT NULL, `modifierId` INTEGER NOT NULL, PRIMARY KEY(`backgroundId`, `modifierId`))",
+        "fields": [
+          {
+            "fieldPath": "backgroundId",
+            "columnName": "backgroundId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifierId",
+            "columnName": "modifierId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "backgroundId",
+            "modifierId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_BackgroundSkillProficiencyCrossRef_backgroundId",
+            "unique": false,
+            "columnNames": [
+              "backgroundId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_BackgroundSkillProficiencyCrossRef_backgroundId` ON `${TABLE_NAME}` (`backgroundId`)"
+          },
+          {
+            "name": "index_BackgroundSkillProficiencyCrossRef_modifierId",
+            "unique": false,
+            "columnNames": [
+              "modifierId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_BackgroundSkillProficiencyCrossRef_modifierId` ON `${TABLE_NAME}` (`modifierId`)"
+          }
+        ],
+        "foreignKeys": []
       },
       {
         "tableName": "ClassSavingThrowCrossRef",
@@ -440,7 +530,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b319864f72fe85608df67c9650aa0ea3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ab3981ce0472cb98586f3f833fa3cb6a')"
     ]
   }
 }

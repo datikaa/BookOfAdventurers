@@ -3,10 +3,12 @@ package com.datikaa.bookofadventurers.core.database.relation
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterBackgroundCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.AbilityEntity
+import com.datikaa.bookofadventurers.core.database.entity.BackgroundEntity
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
 import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
@@ -20,6 +22,18 @@ data class CharacterWithAbilitiesAndModifiers(
         entityColumn = "characterId"
     )
     val abilityEntities: List<AbilityEntity>,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        entity = BackgroundEntity::class,
+        associateBy = Junction(
+            value = CharacterBackgroundCrossRef::class,
+            parentColumn = "characterId",
+            entityColumn = "backgroundId",
+        )
+    )
+    val backgroundWithModifiersEntities: List<BackgroundWithModifiers>,
 
     @Relation(
         parentColumn = "id",

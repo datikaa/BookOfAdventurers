@@ -22,5 +22,6 @@ val databaseKoinModule = module {
     factory { get<BoaDatabase>().abilityDao() }
     factory { get<BoaDatabase>().classDao() }
     factory { get<BoaDatabase>().characterDao() }
+    factory { get<BoaDatabase>().backgroundDao() }
     factory { get<BoaDatabase>().modifierDao() }
 }

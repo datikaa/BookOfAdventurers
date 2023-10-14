@@ -1,4 +1,5 @@
 import com.datikaa.bookofadventurers.core.domain.Ability
+import com.datikaa.bookofadventurers.core.domain.Background
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.CharacterClass
 import com.datikaa.bookofadventurers.core.domain.Modifier
@@ -48,6 +49,15 @@ class CharacterProficiencyTest {
         modifierTestingCharacter.calculateSavingThrowScore(SavingThrow.Strength) shouldBeExactly 0
     }
 
+    private val emptyBackground = Background(
+        id = 0,
+        name = "",
+        featureTitle = "",
+        featureDescription = "",
+        suggestedCharacteristics = "",
+        skillProficiencies = listOf(),
+    )
+
     private val emptyClass = CharacterClass(
         id = 0L,
         name = "",
@@ -58,6 +68,7 @@ class CharacterProficiencyTest {
     private fun createScoreTestingCharacter(level: Int) = BoaCharacter(
         id = 0,
         level = level,
+        characterBackground = emptyBackground,
         characterClass = emptyClass,
         name = "Rondell",
         abilityList = listOf(),
@@ -75,6 +86,7 @@ class CharacterProficiencyTest {
     private val modifierTestingCharacter = BoaCharacter(
         id = 0,
         level = 10,
+        characterBackground = emptyBackground,
         characterClass = emptyClass,
         name = "Rondell",
         abilityList = listOf(

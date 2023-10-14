@@ -10,3 +10,7 @@ fun List<Modifier>.flatten(): List<Modifier> {
     }
     return result
 }
+
+fun <T> concatenate(vararg lists: List<T>): List<T> {
+    return listOf(*lists).flatten()
+}

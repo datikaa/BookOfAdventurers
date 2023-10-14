@@ -6,8 +6,10 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.datikaa.bookofadventurers.core.database.BoaDatabase
 import com.datikaa.bookofadventurers.core.database.R
+import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSavingThrowCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.ClassSkillProficiencyCrossRef
+import com.datikaa.bookofadventurers.core.database.entity.BackgroundEntity
 import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
 import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +29,7 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
         CoroutineScope(Dispatchers.IO).launch {
             fillWithStartingModifiers(context)
             fillWithClasses(context)
+            fillWithBackgrounds(context)
         }
     }
 
@@ -35,6 +38,7 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
         CoroutineScope(Dispatchers.IO).launch {
             fillWithStartingModifiers(context)
             fillWithClasses(context)
+            fillWithBackgrounds(context)
         }
     }
 
@@ -89,6 +93,36 @@ class PreloadDb(private val context: Context) : RoomDatabase.Callback(), KoinCom
                         modifierId = skills.getInt(j).toLong(),
                     )
                     classDao.insertClassSkillProficiencyCrossRef(classSkillProficiencyCrossRef)
+                }
+            }
+        } catch (e: JSONException) {
+            Log.e("PrefillBasicModifiers", "Prefill error", e)
+        } catch (e: IllegalStateException) {
+            Log.e("PrefillBasicModifiers", "Prefill error", e)
+        }
+    }
+
+    private suspend fun fillWithBackgrounds(context: Context) {
+        try {
+            val backgroundDao = db.backgroundDao()
+            val backgrounds = loadJsonArray(context, R.raw.backgrounds)
+            for (i in 0 until backgrounds.length()) {
+                val item = backgrounds.getJSONObject(i)
+                val backgroundEntity = BackgroundEntity(
+                    id = 0,
+                    name = item.getString("name"),
+                    featureTitle = item.getString("featureTitle"),
+                    featureDescription = item.getString("featureDescription"),
+                    suggestedCharacteristics = item.getString("suggestedCharacteristics"),
+                )
+                val backgroundId = backgroundDao.insertBackground(backgroundEntity)
+                val skillProficiencies = item.getJSONArray("skillProficiencies")
+                for (j in 0 until skillProficiencies.length()) {
+                    val classSavingThrowsCrossRef = BackgroundSkillProficiencyCrossRef(
+                        backgroundId = backgroundId,
+                        modifierId = skillProficiencies.getInt(j).toLong(),
+                    )
+                    backgroundDao.insertBackgroundSkillProficiencyCrossRef(classSavingThrowsCrossRef)
                 }
             }
         } catch (e: JSONException) {

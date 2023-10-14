@@ -3,6 +3,7 @@ package com.datikaa.bookofadventurers.launcher.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.bookofadventurers.launcher.domain.ClearEverythingUseCase
+import com.datikaa.bookofadventurers.launcher.domain.FlowAllBackgroundsUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowAllClassesUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowAllModifiersUseCase
 import com.datikaa.bookofadventurers.launcher.domain.FlowCharacterNamesUseCase
@@ -15,8 +16,9 @@ import kotlinx.coroutines.launch
 
 class LauncherViewModel(
     flowCharacterNamesUseCase: FlowCharacterNamesUseCase,
-    flowAllModifiersUseCase: FlowAllModifiersUseCase,
     flowAllClassesUseCase: FlowAllClassesUseCase,
+    flowAllBackgroundsUseCase: FlowAllBackgroundsUseCase,
+    flowAllModifiersUseCase: FlowAllModifiersUseCase,
     private val clearEverythingUseCase: ClearEverythingUseCase,
 ) : ViewModel(
 
@@ -60,6 +62,18 @@ class LauncherViewModel(
                 )
             }
         }.launchIn(viewModelScope)
+        flowAllBackgroundsUseCase().onEach { backgrounds ->
+            _uiState.update { oldState ->
+                oldState.copy(
+                    backgrounds = backgrounds.map { backgroundItem ->
+                        LauncherUiState.BackgroundListItem(
+                            id = backgroundItem.id.toInt(),
+                            name = backgroundItem.name
+                        )
+                    }
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun clearDb() {
@@ -70,6 +84,7 @@ class LauncherViewModel(
 }
 
 private fun initialState() = LauncherUiState(
+    backgrounds = listOf(),
     characters = listOf(),
     classes = listOf(),
     modifiers = listOf(),

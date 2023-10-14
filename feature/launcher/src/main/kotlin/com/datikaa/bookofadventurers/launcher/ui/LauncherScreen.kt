@@ -33,6 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LauncherRoute(
     versionName: String,
+    openBackgrounds: () -> Unit,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
@@ -46,6 +47,7 @@ fun LauncherRoute(
         versionName = versionName,
         launcherUiState = launcherUiState,
         clearDb = launcherViewModel::clearDb,
+        openBackgrounds = openBackgrounds,
         openCharacter = openCharacter,
         openEditor = openEditor,
         openModifiers = openModifiers,
@@ -60,6 +62,7 @@ fun LauncherScreen(
     versionName: String,
     launcherUiState: LauncherUiState,
     clearDb: () -> Unit,
+    openBackgrounds: () -> Unit,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
@@ -134,6 +137,31 @@ fun LauncherScreen(
                     }
                 }
             }
+
+            CmmTitledCard(
+                title = "Backgrounds",
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    launcherUiState.backgrounds.forEach {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                        ) {
+                            Text(text = it.name)
+                        }
+                    }
+                    ElevatedButton(onClick = { openBackgrounds() }) {
+                        Text(text = "Manage backgrounds")
+                    }
+                }
+            }
             CmmTitledCard(
                 title = "Modifiers",
                 modifier = Modifier.fillMaxWidth(),
@@ -201,6 +229,9 @@ fun LauncherScreenPreview() {
     LauncherScreen(
         versionName = "v0.0.1",
         launcherUiState = LauncherUiState(
+            backgrounds = listOf(
+                LauncherUiState.BackgroundListItem(id = 0, name = "Acolyte")
+            ),
             characters = listOf(
                 LauncherUiState.CharacterListItem(id = 0, name = "Azmoday"),
                 LauncherUiState.CharacterListItem(id = 1, name = "Barbarianna"),
@@ -211,6 +242,7 @@ fun LauncherScreenPreview() {
             modifiers = listOf(),
         ),
         clearDb = { },
+        openBackgrounds = { },
         openCharacter = { },
         openEditor = { },
         openModifiers = { },

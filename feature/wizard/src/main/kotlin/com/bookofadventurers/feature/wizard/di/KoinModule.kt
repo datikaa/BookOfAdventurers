@@ -1,6 +1,7 @@
 package com.bookofadventurers.feature.wizard.di
 
 import com.bookofadventurers.feature.wizard.domain.AddCharacterUseCase
+import com.bookofadventurers.feature.wizard.domain.GetListOfBackgroundsUseCase
 import com.bookofadventurers.feature.wizard.domain.GetListOfClassesUseCase
 import com.bookofadventurers.feature.wizard.ui.WizardViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -12,4 +13,5 @@ val wizardKoinModule = module {
 
     factoryOf(::AddCharacterUseCase)
     factoryOf(::GetListOfClassesUseCase)
+    factoryOf(::GetListOfBackgroundsUseCase)
 }

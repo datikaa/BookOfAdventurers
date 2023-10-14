@@ -1,9 +1,11 @@
 package com.datikaa.bookofadventurers.core.data.adapter.character
 
 import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToDomain
+import com.datikaa.bookofadventurers.core.data.adapter.background.toDomain
 import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
 import com.datikaa.bookofadventurers.core.database.relation.CharacterWithAbilitiesAndModifiers
+import com.datikaa.bookofadventurers.core.domain.Background
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.CharacterClass
 
@@ -11,6 +13,7 @@ internal fun CharacterWithAbilitiesAndModifiers.toDomain(): BoaCharacter = BoaCh
     id = characterEntity.id,
     name = characterEntity.name,
     level = characterEntity.level,
+    characterBackground = mapToBackground(),
     characterClass = mapToCharacterClass(),
     abilityList = abilityEntities.mapToDomain(),
     modifiers = modifierEntities.mapToDomain(),
@@ -26,6 +29,10 @@ private fun CharacterWithAbilitiesAndModifiers.mapToCharacterClass(): CharacterC
     )
 }
 
+private fun CharacterWithAbilitiesAndModifiers.mapToBackground(): Background {
+    return backgroundWithModifiersEntities.first().toDomain()
+}
+
 @JvmName("mapCharacterEntityToDomain")
 internal fun List<CharacterEntity>.mapToDomain() = map { it.toDomain() }
 
@@ -33,7 +40,20 @@ internal fun CharacterEntity.toDomain(): BoaCharacter = BoaCharacter(
     id = id,
     name = name,
     level = level,
-    characterClass = CharacterClass(-1, "", emptyList(), emptyList()),
+    characterBackground = Background(
+        id = -1,
+        name = "",
+        featureTitle = "",
+        featureDescription = "",
+        suggestedCharacteristics = "",
+        skillProficiencies = listOf(),
+    ),
+    characterClass = CharacterClass(
+        id = -1,
+        name = "",
+        savingThrowProficiencies = emptyList(),
+        skillProficiencies = emptyList(),
+    ),
     abilityList = emptyList(),
     modifiers = emptyList(),
 )

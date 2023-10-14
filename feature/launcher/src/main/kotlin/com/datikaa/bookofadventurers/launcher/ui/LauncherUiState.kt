@@ -6,11 +6,18 @@ import androidx.compose.runtime.Immutable
 data class LauncherUiState(
     val characters: List<CharacterListItem>,
     val classes: List<ClassListItem>,
+    val backgrounds: List<BackgroundListItem>,
     val modifiers: List<ModifiersListItem>,
 ) {
 
     @Immutable
     data class CharacterListItem(
+        val id: Int,
+        val name: String,
+    )
+
+    @Immutable
+    data class BackgroundListItem(
         val id: Int,
         val name: String,
     )
