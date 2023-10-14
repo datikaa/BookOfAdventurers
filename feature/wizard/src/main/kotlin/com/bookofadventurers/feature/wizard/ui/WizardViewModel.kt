@@ -3,6 +3,7 @@ package com.bookofadventurers.feature.wizard.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bookofadventurers.feature.wizard.domain.AddCharacterUseCase
+import com.bookofadventurers.feature.wizard.domain.GetListOfBackgroundsUseCase
 import com.bookofadventurers.feature.wizard.domain.GetListOfClassesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 class WizardViewModel(
     private val addCharacterUseCase: AddCharacterUseCase,
     private val getListOfClassesUseCase: GetListOfClassesUseCase,
+    private val getListOfBackgroundsUseCase: GetListOfBackgroundsUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(initialUiState)
@@ -20,6 +22,7 @@ class WizardViewModel(
     init {
         viewModelScope.launch {
             val classes = getListOfClassesUseCase()
+            val backgrounds = getListOfBackgroundsUseCase()
             _uiState.update { uiState ->
                 uiState.copy(
                     selectableClasses = classes.map { domainClass ->
@@ -45,6 +48,24 @@ class WizardViewModel(
                             },
                             selected = false,
                         )
+                    },
+                    selectableBackgrounds = backgrounds.map { background ->
+                        WizardUiState.BackgroundItem(
+                            id = background.id,
+                            name = background.name,
+                            featureTitle = background.featureTitle,
+                            featureDescription = background.featureDescription,
+                            suggestedCharacteristics = background.suggestedCharacteristics,
+                            skillProficiencies = background.skillProficiencies.map { domainSkills ->
+                                WizardUiState.Modifier(
+                                    id = domainSkills.id,
+                                    name = domainSkills.name,
+                                    selected = true,
+                                    editable = false,
+                                )
+                            },
+                            selected = false
+                        )
                     }
                 )
             }
@@ -55,6 +76,14 @@ class WizardViewModel(
         uiState.copy(
             selectableClasses = uiState.selectableClasses.map { classItem ->
                 classItem.copy(selected = classItem.id == selectedClassId)
+            }
+        )
+    }
+
+    fun selectBackground(selectedBackgroundId: Long) = _uiState.update { uiState ->
+        uiState.copy(
+            selectableBackgrounds = uiState.selectableBackgrounds.map { backgroundItem ->
+                backgroundItem.copy(selected = backgroundItem.id == selectedBackgroundId)
             }
         )
     }
@@ -119,5 +148,6 @@ private val initialUiState: WizardUiState
     get() = WizardUiState(
         dialog = null,
         selectableClasses = emptyList(),
+        selectableBackgrounds = emptyList(),
         navigateBack = false
     )

@@ -4,15 +4,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -93,23 +88,6 @@ fun WizardClassComponent(
     }
 }
 
-@Composable
-fun ProficiencyItem(
-    proficiencyModifier: WizardUiState.Modifier,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier,
-    ) {
-        Icon(
-            imageVector = if (proficiencyModifier.selected) Icons.Rounded.Check else Icons.Rounded.Close,
-            contentDescription = "check"
-        )
-        Text(text = proficiencyModifier.name)
-    }
-}
-
 @Preview
 @Composable
 fun PreviewWizardClassComponent() {
@@ -178,7 +156,7 @@ fun PreviewWizardClassComponent2() {
                     editable = false,
                 ),
             ),
-            selected = true,
+            selected = false,
         ),
         selectClass = {},
         openProficiencyDialog = {},

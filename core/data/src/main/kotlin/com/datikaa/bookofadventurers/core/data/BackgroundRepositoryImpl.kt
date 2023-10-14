@@ -28,4 +28,8 @@ class BackgroundRepositoryImpl(
     override fun flowAllBackgrounds(): Flow<List<Background>> {
         return backgroundDao.flowBackgrounds().map { it.mapToDomain() }
     }
+
+    override suspend fun getAllBackgroundsWithModifiers(): List<Background> {
+        return backgroundDao.getBackgroundsWithModifiers().mapToDomain()
+    }
 }

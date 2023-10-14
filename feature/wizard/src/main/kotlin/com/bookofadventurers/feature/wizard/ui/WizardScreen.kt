@@ -2,13 +2,14 @@ package com.bookofadventurers.feature.wizard.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -51,6 +52,7 @@ fun WizardRoute(
         uiState = uiState,
         navigateBack = navigateBack,
         selectClass = wizardViewModel::selectClass,
+        selectBackground = wizardViewModel::selectBackground,
         toggleProficiency = wizardViewModel::toggleSkillForClass,
         openDialog = wizardViewModel::openDialog,
         dismissDialog = wizardViewModel::dismissDialog,
@@ -59,14 +61,13 @@ fun WizardRoute(
     )
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun WizardScreen(
     uiState: WizardUiState,
     navigateBack: () -> Unit,
     selectClass: (Long) -> Unit,
+    selectBackground: (Long) -> Unit,
     toggleProficiency: (Long, Int) -> Unit,
     openDialog: (Long) -> Unit,
     dismissDialog: () -> Unit,
@@ -98,32 +99,25 @@ private fun WizardScreen(
                     label = { Text("Name") },
                     singleLine = true,
                 )
-                val pagerState = rememberPagerState(pageCount = { uiState.selectableClasses.size })
-                HorizontalPager(
-                    state = pagerState,
-                    pageSpacing = 10.dp,
-                    contentPadding = PaddingValues(horizontal = 40.dp),
-                    verticalAlignment = Alignment.Top
-                ) { page ->
-                    val classItem = uiState.selectableClasses[page]
-                    val pageOffset =
-                        ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
-                    WizardClassComponent(
-                        classItem = classItem,
+                val scrollState = rememberScrollState()
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing),
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(scrollState)
+                ) {
+                    ClassPager(
+                        uiState = uiState,
                         selectClass = selectClass,
-                        openProficiencyDialog = openDialog,
-                        modifier = Modifier.alpha(
-                            lerp(
-                                start = 0.5f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            )
-                        )
+                        openDialog = openDialog,
+                    )
+                    BackgroundPager(
+                        uiState = uiState,
+                        selectBackground = selectBackground,
                     )
                 }
-                Box(Modifier.weight(1f))
                 ElevatedButton(
-                    enabled = charNameText.isNotBlank() && uiState.selectedClassCompleted,
+                    enabled = charNameText.isNotBlank() && uiState.selectedClassCompleted && uiState.selectedBackgroundCompleted,
                     onClick = { createCharacter(charNameText.trim()) },
                     modifier = Modifier
                         .padding(BookOfAdventurersTheme.dimensions.cardSpacing)
@@ -144,10 +138,75 @@ private fun WizardScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ClassPager(
+    uiState: WizardUiState,
+    selectClass: (Long) -> Unit,
+    openDialog: (Long) -> Unit,
+) {
+    val pagerState = rememberPagerState(pageCount = { uiState.selectableClasses.size })
+    HorizontalPager(
+        state = pagerState,
+        pageSpacing = 10.dp,
+        contentPadding = PaddingValues(horizontal = 40.dp),
+        verticalAlignment = Alignment.Top,
+    ) { page ->
+        val classItem = uiState.selectableClasses[page]
+        val pageOffset =
+            ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
+        WizardClassComponent(
+            classItem = classItem,
+            selectClass = selectClass,
+            openProficiencyDialog = openDialog,
+            modifier = Modifier.alpha(
+                lerp(
+                    start = 0.5f,
+                    stop = 1f,
+                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                )
+            )
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun BackgroundPager(
+    uiState: WizardUiState,
+    selectBackground: (Long) -> Unit,
+) {
+    val pagerState = rememberPagerState(pageCount = { uiState.selectableBackgrounds.size })
+    HorizontalPager(
+        state = pagerState,
+        pageSpacing = 10.dp,
+        contentPadding = PaddingValues(horizontal = 40.dp),
+        verticalAlignment = Alignment.Top,
+    ) { page ->
+        val backgroundItem = uiState.selectableBackgrounds[page]
+        val pageOffset =
+            ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
+        WizardBackgroundComponent(
+            backgroundItem = backgroundItem,
+            selectBackground = selectBackground,
+            modifier = Modifier.alpha(
+                lerp(
+                    start = 0.5f,
+                    stop = 1f,
+                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                )
+            )
+        )
+    }
+}
+
 private val WizardUiState.selectedClassCompleted: Boolean
     get() = selectableClasses.firstOrNull { it.selected }?.run {
         selectableSkillProficiencyModifiers.count { it.selected } == selectableCount
     } ?: false
+
+private val WizardUiState.selectedBackgroundCompleted: Boolean
+    get() = selectableBackgrounds.any { it.selected }
 
 @Preview
 @Composable
@@ -232,9 +291,36 @@ private fun Preview() {
                     selected = false,
                 )
             ),
+            selectableBackgrounds = listOf(
+                WizardUiState.BackgroundItem(
+                    id = 4946,
+                    name = "Acolyte",
+                    featureTitle = "Shelter of the Faithful",
+                    featureDescription = "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle.\n" +
+                            "\n" +
+                            "You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to serve, if you remain on good terms with it, or a temple where you have found a new home. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple.",
+                    suggestedCharacteristics = "Acolytes are shaped by their experience in temples or other religious communities. Their study of the history and tenets of their faith and their relationships to temples, shrines, or hierarchies affect their mannerisms and ideals. Their flaws might be some hidden hypocrisy or heretical idea, or an ideal or bond taken to an extreme.",
+                    skillProficiencies = listOf(
+                        WizardUiState.Modifier(
+                            id = 0,
+                            name = "Insight",
+                            selected = true,
+                            editable = false,
+                        ),
+                        WizardUiState.Modifier(
+                            id = 0,
+                            name = "Religion",
+                            selected = true,
+                            editable = false,
+                        ),
+                    ),
+                    selected = true,
+                ),
+            ),
             navigateBack = false,
         ),
         navigateBack = {},
+        selectBackground = {},
         selectClass = {},
         openDialog = {},
         dismissDialog = {},
