@@ -8,9 +8,3 @@ data class ClassSavingThrowCrossRef(
     @ColumnInfo(index = true) val classId: Long,
     @ColumnInfo(index = true) val modifierId: Long
 )
-
-@Entity(primaryKeys = ["classId", "modifierId"])
-data class ClassSkillProficiencyCrossRef(
-    @ColumnInfo(index = true) val classId: Long,
-    @ColumnInfo(index = true) val modifierId: Long
-)

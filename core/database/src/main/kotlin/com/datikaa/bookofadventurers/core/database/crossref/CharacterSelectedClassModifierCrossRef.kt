@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(primaryKeys = ["characterId", "modifierId"])
-data class CharacterModifierCrossRef(
+data class CharacterSelectedClassModifierCrossRef(
     @ColumnInfo(index = true) val characterId: Long,
     @ColumnInfo(index = true) val modifierId: Long
 )

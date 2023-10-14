@@ -9,7 +9,7 @@ import androidx.room.Update
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
-import com.datikaa.bookofadventurers.core.database.entity.CharacterWithAbilitiesAndModifiers
+import com.datikaa.bookofadventurers.core.database.relation.CharacterWithAbilitiesAndModifiers
 import kotlinx.coroutines.flow.Flow
 
 @Dao
