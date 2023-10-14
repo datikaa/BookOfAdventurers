@@ -2,7 +2,6 @@ package com.datikaa.bookofadventurers.core.data
 
 import com.datikaa.bookofadventurers.core.data.adapter.background.mapToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.background.toEntity
-import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.dao.BackgroundDao
 import com.datikaa.bookofadventurers.core.domain.Background
 import kotlinx.coroutines.flow.Flow
@@ -14,15 +13,6 @@ class BackgroundRepositoryImpl(
 
     override suspend fun insertBackground(background: Background): Long {
         return backgroundDao.insertBackground(background.toEntity())
-    }
-
-    override suspend fun associateBackgroundWithCharacter(backgroundId: Long, characterId: Long) {
-        backgroundDao.insertBackgroundSkillProficiencyCrossRef(
-            BackgroundSkillProficiencyCrossRef(
-                backgroundId = backgroundId,
-                modifierId = characterId
-            )
-        )
     }
 
     override fun flowAllBackgrounds(): Flow<List<Background>> {

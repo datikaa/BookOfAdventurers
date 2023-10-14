@@ -129,9 +129,11 @@ class WizardViewModel(
 
     fun createCharacter(name: String) {
         viewModelScope.launch {
+            val selectedBackground = uiState.value.selectableBackgrounds.first { it.selected }
             val selectedClass = uiState.value.selectableClasses.first { it.selected }
             addCharacterUseCase(
                 name,
+                selectedBackground.id,
                 selectedClass.id,
                 selectedClass.selectableSkillProficiencyModifiers.filter { it.selected }
                     .map { it.id })

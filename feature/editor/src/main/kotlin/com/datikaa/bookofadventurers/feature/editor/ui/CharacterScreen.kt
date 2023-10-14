@@ -18,6 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.core.domain.Ability
+import com.datikaa.bookofadventurers.core.domain.Background
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.CharacterClass
 import org.koin.androidx.compose.koinViewModel
@@ -112,6 +113,7 @@ private fun Preview() {
                     id = 3144,
                     name = "Dax",
                     level = 8884,
+                    characterBackground = Background(1, "Acolyte", "", "", "", emptyList()),
                     characterClass = CharacterClass(1, "Wizard", emptyList(), emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()

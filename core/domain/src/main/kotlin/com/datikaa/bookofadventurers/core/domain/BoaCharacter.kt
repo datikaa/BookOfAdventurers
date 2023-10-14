@@ -4,6 +4,7 @@ data class BoaCharacter(
     val id: Int,
     val name: String,
     val level: Int,
+    val characterBackground: Background,
     val characterClass: CharacterClass,
     val abilityList: List<Ability>,
     val skills: List<Skill> = dnd5eSkillSet(),

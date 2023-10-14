@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.datikaa.bookofadventurers.core.design.component.CmmTitledCard
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
+import com.datikaa.bookofadventurers.core.domain.Background
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.CharacterClass
 
@@ -52,6 +53,7 @@ private fun Preview() {
                     id = 5614,
                     name = "Jesi",
                     level = 6108,
+                    characterBackground = Background(1, "Acolyte", "", "", "", emptyList()),
                     characterClass = CharacterClass(1, "Wizard", emptyList(), emptyList()),
                     abilityList = listOf(),
                     modifiers = listOf()

@@ -3,6 +3,7 @@ package com.datikaa.bookofadventurers.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterBackgroundCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
@@ -29,6 +30,7 @@ import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
         BackgroundSkillProficiencyCrossRef::class,
         ClassSavingThrowCrossRef::class,
         ClassSkillProficiencyCrossRef::class,
+        CharacterBackgroundCrossRef::class,
         CharacterClassCrossRef::class,
         CharacterModifierCrossRef::class,
         CharacterSelectedClassModifierCrossRef::class,

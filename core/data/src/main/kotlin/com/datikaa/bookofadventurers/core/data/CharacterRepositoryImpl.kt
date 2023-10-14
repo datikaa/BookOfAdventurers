@@ -4,6 +4,7 @@ import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToEntity
 import com.datikaa.bookofadventurers.core.data.adapter.character.mapToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toEntity
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterBackgroundCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.dao.AbilityDao
@@ -41,8 +42,14 @@ internal class CharacterRepositoryImpl(
         val id = characterDao.insertCharacter(character.toEntity())
         characterDao.insertCharacterClassCrossRef(
             CharacterClassCrossRef(
-                id,
-                character.characterClass.id
+                characterId = id,
+                classId = character.characterClass.id
+            )
+        )
+        characterDao.insertCharacterBackgroundCrossRef(
+            CharacterBackgroundCrossRef(
+                characterId = id,
+                backgroundId = character.characterBackground.id
             )
         )
         abilityDao.insertOrUpdateAbility(character.abilityList.mapToEntity(id.toInt()))

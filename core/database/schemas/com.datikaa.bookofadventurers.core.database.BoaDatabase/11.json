@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "ab3981ce0472cb98586f3f833fa3cb6a",
+    "identityHash": "b21e46be5407a26e82190b583f91c139",
     "entities": [
       {
         "tableName": "BackgroundEntity",
@@ -389,6 +389,52 @@
         "foreignKeys": []
       },
       {
+        "tableName": "CharacterBackgroundCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`characterId` INTEGER NOT NULL, `backgroundId` INTEGER NOT NULL, PRIMARY KEY(`characterId`, `backgroundId`))",
+        "fields": [
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backgroundId",
+            "columnName": "backgroundId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "characterId",
+            "backgroundId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_CharacterBackgroundCrossRef_characterId",
+            "unique": false,
+            "columnNames": [
+              "characterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CharacterBackgroundCrossRef_characterId` ON `${TABLE_NAME}` (`characterId`)"
+          },
+          {
+            "name": "index_CharacterBackgroundCrossRef_backgroundId",
+            "unique": false,
+            "columnNames": [
+              "backgroundId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CharacterBackgroundCrossRef_backgroundId` ON `${TABLE_NAME}` (`backgroundId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
         "tableName": "CharacterClassCrossRef",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`characterId` INTEGER NOT NULL, `classId` INTEGER NOT NULL, PRIMARY KEY(`characterId`, `classId`))",
         "fields": [
@@ -530,7 +576,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ab3981ce0472cb98586f3f833fa3cb6a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b21e46be5407a26e82190b583f91c139')"
     ]
   }
 }

@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import com.datikaa.bookofadventurers.core.database.crossref.CharacterBackgroundCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterSelectedClassModifierCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
@@ -30,6 +31,9 @@ interface CharacterDao {
     @Transaction
     @Query("SELECT * FROM CharacterEntity WHERE id = :id")
     fun flowCharacterWithAbilitiesAndModifiers(id: Int): Flow<CharacterWithAbilitiesAndModifiers>
+
+    @Insert
+    suspend fun insertCharacterBackgroundCrossRef(characterBackgroundCrossRef: CharacterBackgroundCrossRef): Long
 
     @Insert
     suspend fun insertCharacterClassCrossRef(characterClassCrossRef: CharacterClassCrossRef): Long
