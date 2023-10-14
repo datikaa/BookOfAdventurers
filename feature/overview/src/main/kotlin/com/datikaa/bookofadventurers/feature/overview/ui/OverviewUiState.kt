@@ -6,6 +6,7 @@ import androidx.compose.runtime.Immutable
 data class OverviewUiState(
     val level: Int,
     val name: String,
+    val backgroundName: String,
     val className: String,
     val proficiency: Int,
     val abilities: List<UiAbility>,

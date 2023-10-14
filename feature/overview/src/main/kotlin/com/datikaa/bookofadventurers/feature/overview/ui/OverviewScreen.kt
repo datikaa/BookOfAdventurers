@@ -59,7 +59,7 @@ fun OverviewScreen(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(text = overviewUiState.name)
                         Text(
-                            text = "Level ${overviewUiState.level} - ${overviewUiState.className}",
+                            text = "Level ${overviewUiState.level} - ${overviewUiState.className} - ${overviewUiState.backgroundName}",
                             style = MaterialTheme.typography.titleSmall,
                         )
                     }
@@ -105,6 +105,7 @@ private fun PreviewOverviewScreen() {
         overviewUiState = OverviewUiState(
             level = 7,
             name = "Azmoday",
+            backgroundName = "Acolyte",
             className = "Wizard",
             proficiency = 3,
             abilities = listOf(
