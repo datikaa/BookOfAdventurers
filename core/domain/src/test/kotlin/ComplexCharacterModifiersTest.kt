@@ -1,4 +1,5 @@
 import com.datikaa.bookofadventurers.core.domain.Ability
+import com.datikaa.bookofadventurers.core.domain.Background
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import com.datikaa.bookofadventurers.core.domain.CharacterClass
 import com.datikaa.bookofadventurers.core.domain.Modifier
@@ -46,10 +47,25 @@ class ComplexCharacterModifiersTest {
 
     @Test
     fun testSkillCalculation() {
+        testCharacter.calculateSkillCheckScore(Skill.Acrobatics) shouldBeExactly 1
+        testCharacter.calculateSkillCheckScore(Skill.AnimalHandling) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Arcana) shouldBeExactly 5
         testCharacter.calculateSkillCheckScore(Skill.Athletics) shouldBeExactly -1
-        testCharacter.calculateSkillCheckScore(Skill.Arcana) shouldBeExactly 1
-        testCharacter.calculateSkillCheckScore(Skill.Stealth) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Deception) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.History) shouldBeExactly 1
+        testCharacter.calculateSkillCheckScore(Skill.Insight) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Intimidation) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Investigation) shouldBeExactly 1
+        testCharacter.calculateSkillCheckScore(Skill.Medicine) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Nature) shouldBeExactly 1
+        testCharacter.calculateSkillCheckScore(Skill.Perception) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Performance) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Persuasion) shouldBeExactly 2
         testCharacter.calculateSkillCheckScore(Skill.Religion) shouldBeExactly 5
+        testCharacter.calculateSkillCheckScore(Skill.SleightOfHand) shouldBeExactly 1
+        testCharacter.calculateSkillCheckScore(Skill.Stealth) shouldBeExactly 2
+        testCharacter.calculateSkillCheckScore(Skill.Survival) shouldBeExactly 2
+
     }
 }
 
@@ -99,6 +115,14 @@ private val plus1StealthSkillModifier = Modifier.Score(
     nestedModifiers = emptyList()
 )
 
+private val arcanaSkillCheckProficiencyModifier = Modifier.Proficiency(
+    id = 0,
+    name = "Adds proficiency to Arcana skill",
+    description = "",
+    proficiencyType = Skill.Arcana::class,
+    nestedModifiers = emptyList()
+)
+
 private val religionSkillCheckProficiencyModifier = Modifier.Proficiency(
     id = 0,
     name = "Adds proficiency to Religion skill",
@@ -117,18 +141,29 @@ private val strengthSavingThrowProficiencyModifier = Modifier.Proficiency(
 
 private val testCharacter = BoaCharacter(
     id = 0,
-    level = 10,
+    level = 10, // +4 proficiency
     name = "Rondell",
     abilityList = listOf(
         Ability.Strength(value = 9), // -1
         Ability.Dexterity(value = 11), // 0
-        Ability.Constitution(value = 12), // 1
-        Ability.Intelligence(value = 13), // 1
-        Ability.Wisdom(value = 14), // 2
-        Ability.Charisma(value = 15), // 2
+        Ability.Constitution(value = 12), // +1
+        Ability.Intelligence(value = 13), // +1
+        Ability.Wisdom(value = 14), // +2
+        Ability.Charisma(value = 15), // +2
+    ),
+    characterBackground = Background(
+        id = 0,
+        name = "Test",
+        featureTitle = "",
+        featureDescription = "",
+        suggestedCharacteristics = "",
+        skillProficiencies = listOf(
+            arcanaSkillCheckProficiencyModifier
+        ),
+
     ),
     characterClass = CharacterClass(
-        id = 0L,
+        id = 0,
         name = "Test",
         savingThrowProficiencies = listOf(
             strengthSavingThrowProficiencyModifier,
