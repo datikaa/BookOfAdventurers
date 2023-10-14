@@ -11,4 +11,6 @@ interface BackgroundRepository {
     fun flowAllBackgroundsWithModifiers(): Flow<List<Background>>
 
     suspend fun getAllBackgroundsWithModifiers(): List<Background>
+
+    suspend fun associateBackgroundWithModifier(backgroundId: Long, modifierIds: List<Long>)
 }

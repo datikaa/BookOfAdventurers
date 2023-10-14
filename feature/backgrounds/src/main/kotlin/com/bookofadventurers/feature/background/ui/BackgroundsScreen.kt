@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ExpandMore
@@ -22,6 +23,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -56,6 +58,7 @@ fun BackgroundsRoute(
 
     BackgroundsScreen(
         backgroundsUiState = backgroundsUiState,
+        addNewBackground = backgroundsViewModel::addNewBackground,
         navigateBack = navigateBack,
         modifier = modifier,
     )
@@ -65,9 +68,13 @@ fun BackgroundsRoute(
 @Composable
 fun BackgroundsScreen(
     backgroundsUiState: BackgroundsUiState,
+    addNewBackground: (String, String, String, String, List<Long>) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var addNewDialogVisible by remember {
+        mutableStateOf(false)
+    }
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -78,6 +85,11 @@ fun BackgroundsScreen(
                     }
                 },
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { addNewDialogVisible = true }) {
+                Icon(Icons.Rounded.Add, "add new background")
+            }
         },
         modifier = modifier,
     ) { paddingValues ->
@@ -117,6 +129,13 @@ fun BackgroundsScreen(
                 }
             }
         }
+    }
+    if (addNewDialogVisible) {
+        AddNewBackgroundDialog(
+            modifiers = backgroundsUiState.modifiers,
+            addNewBackground = addNewBackground,
+            onDismissRequest = { addNewDialogVisible = false }
+        )
     }
 }
 
@@ -236,7 +255,9 @@ private fun BackgroundsScreenPreview() {
                     )
                 ),
             ),
+            modifiers = emptyList(),
         ),
+        addNewBackground = { _, _, _, _, _ -> },
         navigateBack = {},
     )
 }

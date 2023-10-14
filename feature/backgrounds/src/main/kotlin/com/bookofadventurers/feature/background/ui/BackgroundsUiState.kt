@@ -4,7 +4,8 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class BackgroundsUiState(
-    val backgrounds: List<Background>
+    val backgrounds: List<Background>,
+    val modifiers: List<Modifier>,
 ) {
 
     @Immutable

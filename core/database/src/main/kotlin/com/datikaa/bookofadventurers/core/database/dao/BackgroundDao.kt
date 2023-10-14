@@ -31,6 +31,13 @@ interface BackgroundDao {
     @Query("SELECT * FROM BackgroundEntity")
     fun flowBackgroundsWithModifiers(): Flow<List<BackgroundWithModifiers>>
 
+    @Transaction
+    suspend fun insertBackgroundSkillProficiencyCrossRefs(backgroundSkillProficiencyCrossRefs: List<BackgroundSkillProficiencyCrossRef>) {
+        backgroundSkillProficiencyCrossRefs.forEach {
+            insertBackgroundSkillProficiencyCrossRef(it)
+        }
+    }
+
     @Insert
     suspend fun insertBackgroundSkillProficiencyCrossRef(backgroundSkillProficiencyCrossRef: BackgroundSkillProficiencyCrossRef): Long
 }
