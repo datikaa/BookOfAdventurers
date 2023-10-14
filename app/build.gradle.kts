@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:database"))
     implementation(project(":core:design"))
+    implementation(project(":feature:backgrounds"))
     implementation(project(":feature:editor"))
     implementation(project(":feature:launcher"))
     implementation(project(":feature:modifier"))

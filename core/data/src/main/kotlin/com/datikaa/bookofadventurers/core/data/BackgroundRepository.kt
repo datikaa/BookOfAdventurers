@@ -8,5 +8,7 @@ interface BackgroundRepository {
 
     fun flowAllBackgrounds(): Flow<List<Background>>
 
+    fun flowAllBackgroundsWithModifiers(): Flow<List<Background>>
+
     suspend fun getAllBackgroundsWithModifiers(): List<Background>
 }

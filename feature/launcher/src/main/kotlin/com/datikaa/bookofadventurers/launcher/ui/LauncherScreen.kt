@@ -33,6 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LauncherRoute(
     versionName: String,
+    openBackgrounds: () -> Unit,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
@@ -46,6 +47,7 @@ fun LauncherRoute(
         versionName = versionName,
         launcherUiState = launcherUiState,
         clearDb = launcherViewModel::clearDb,
+        openBackgrounds = openBackgrounds,
         openCharacter = openCharacter,
         openEditor = openEditor,
         openModifiers = openModifiers,
@@ -60,6 +62,7 @@ fun LauncherScreen(
     versionName: String,
     launcherUiState: LauncherUiState,
     clearDb: () -> Unit,
+    openBackgrounds: () -> Unit,
     openCharacter: (Int) -> Unit,
     openEditor: () -> Unit,
     openModifiers: () -> Unit,
@@ -154,6 +157,9 @@ fun LauncherScreen(
                             Text(text = it.name)
                         }
                     }
+                    ElevatedButton(onClick = { openBackgrounds() }) {
+                        Text(text = "Manage backgrounds")
+                    }
                 }
             }
             CmmTitledCard(
@@ -236,6 +242,7 @@ fun LauncherScreenPreview() {
             modifiers = listOf(),
         ),
         clearDb = { },
+        openBackgrounds = { },
         openCharacter = { },
         openEditor = { },
         openModifiers = { },

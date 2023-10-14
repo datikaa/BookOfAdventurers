@@ -23,12 +23,13 @@ interface BackgroundDao {
     @Query("SELECT * FROM BackgroundEntity")
     fun flowBackgrounds(): Flow<List<BackgroundEntity>>
 
-    @Query("SELECT * FROM BackgroundEntity")
-    suspend fun getBackgrounds(): List<BackgroundEntity>
-
     @Transaction
     @Query("SELECT * FROM BackgroundEntity")
     suspend fun getBackgroundsWithModifiers(): List<BackgroundWithModifiers>
+
+    @Transaction
+    @Query("SELECT * FROM BackgroundEntity")
+    fun flowBackgroundsWithModifiers(): Flow<List<BackgroundWithModifiers>>
 
     @Insert
     suspend fun insertBackgroundSkillProficiencyCrossRef(backgroundSkillProficiencyCrossRef: BackgroundSkillProficiencyCrossRef): Long

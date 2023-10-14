@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.bookofadventurers.feature.background.navigation.backgroundsScreen
+import com.bookofadventurers.feature.background.navigation.navigateToBackgrounds
 import com.bookofadventurers.feature.wizard.navigation.navigateToWizard
 import com.bookofadventurers.feature.wizard.navigation.wizardScreen
 import com.datikaa.bookofadventurers.core.analytics.AnalyticsHelper
@@ -45,8 +47,12 @@ class MainActivity : ComponentActivity() {
                     ) {
                         val navController = rememberNavController()
                         NavHost(navController = navController, startDestination = launcherRoute) {
+                            backgroundsScreen(
+                                navigateBack = { navController.popBackStack() },
+                            )
                             launcherScreen(
                                 versionName = BuildConfig.VERSION_NAME,
+                                openBackgrounds = { navController.navigateToBackgrounds() },
                                 openEditor = { navController.navigateToEditor() },
                                 openCharacter = { id -> navController.navigateToOverview(id) },
                                 openModifiers = { navController.navigateToModifier() },
