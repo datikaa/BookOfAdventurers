@@ -134,6 +134,28 @@ fun LauncherScreen(
                     }
                 }
             }
+
+            CmmTitledCard(
+                title = "Backgrounds",
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    launcherUiState.backgrounds.forEach {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                        ) {
+                            Text(text = it.name)
+                        }
+                    }
+                }
+            }
             CmmTitledCard(
                 title = "Modifiers",
                 modifier = Modifier.fillMaxWidth(),
@@ -201,6 +223,9 @@ fun LauncherScreenPreview() {
     LauncherScreen(
         versionName = "v0.0.1",
         launcherUiState = LauncherUiState(
+            backgrounds = listOf(
+                LauncherUiState.BackgroundListItem(id = 0, name = "Acolyte")
+            ),
             characters = listOf(
                 LauncherUiState.CharacterListItem(id = 0, name = "Azmoday"),
                 LauncherUiState.CharacterListItem(id = 1, name = "Barbarianna"),

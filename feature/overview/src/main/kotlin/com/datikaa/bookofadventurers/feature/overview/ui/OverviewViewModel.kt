@@ -70,6 +70,7 @@ private val initUiState = OverviewUiState(
     className = "",
     proficiency = 0,
     abilities = emptyList(),
+    backgrounds = emptyList(),
     skills = emptyList(),
     savingThrows = emptyList(),
 )

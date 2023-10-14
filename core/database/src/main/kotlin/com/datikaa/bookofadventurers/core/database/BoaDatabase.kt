@@ -32,7 +32,7 @@ import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
         CharacterClassCrossRef::class,
         CharacterModifierCrossRef::class,
         CharacterSelectedClassModifierCrossRef::class,
-    ], version = 10
+    ], version = 11
 )
 abstract class BoaDatabase : RoomDatabase() {
     abstract fun abilityDao(): AbilityDao

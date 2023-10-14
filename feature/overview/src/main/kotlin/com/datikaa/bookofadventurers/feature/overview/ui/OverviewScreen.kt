@@ -118,6 +118,11 @@ private fun PreviewOverviewScreen() {
                     name = "Dexterity", shortName = "Dex", baseScore = 8, calculatedScore = -1,
                 ),
             ),
+            backgrounds = listOf(
+                OverviewUiState.UiBackground(
+                    name = "Acolyte"
+                )
+            ),
             skills = listOf(
                 OverviewUiState.UiSkill(
                     name = "Strength", baseName = "Str", score = 12, proficiency = false,

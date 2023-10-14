@@ -8,7 +8,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.entity.BackgroundEntity
-import com.datikaa.bookofadventurers.core.database.relation.ClassWithModifiers
+import com.datikaa.bookofadventurers.core.database.relation.BackgroundWithModifiers
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,7 +28,7 @@ interface BackgroundDao {
 
     @Transaction
     @Query("SELECT * FROM BackgroundEntity")
-    fun getClassesWithModifiers(): List<ClassWithModifiers>
+    fun getClassesWithModifiers(): List<BackgroundWithModifiers>
 
     @Insert
     suspend fun insertBackgroundSkillProficiencyCrossRef(backgroundSkillProficiencyCrossRef: BackgroundSkillProficiencyCrossRef): Long
