@@ -10,6 +10,6 @@ fun MainViewController() = ComposeUIViewController {
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize(),
     ) {
-        Text("asd")
+        Text("Text from shared app modul")
     }
 }
