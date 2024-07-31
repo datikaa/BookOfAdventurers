@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.1"
+agp = "8.5.0"
 kotlin = "2.0.0"
 androidx-core-ktx = "1.10.1"
 junit4 = "4.13.2"
@@ -8,7 +8,6 @@ espresso-core = "3.5.1"
 androidxLifecycle = "2.6.1"
 activity-compose = "1.7.2"
 androidxComposeBom = "2023.08.00"
-androidxComposeCompiler = "1.5.0"
 androidxComposeMaterial3 = "1.1.1"
 androidxComposeRuntimeTracing = "1.0.0-alpha04"
 androidxNavigationCompose = "2.7.1"
@@ -82,12 +81,12 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [bundles]
