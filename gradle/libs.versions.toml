@@ -24,7 +24,7 @@ koinAndroid = "3.4.0"
 koinAndroidxCompose = "3.4.4"
 koinCore = "3.4.0"
 kotest = "5.6.2"
-room = "2.5.2"
+room = "2.7.0-alpha05"
 
 [libraries]
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
