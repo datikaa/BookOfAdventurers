@@ -1,7 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
+    alias(libs.plugins.compose.compiler)
     id("bookofadventurers.android.application")
-    id("bookofadventurers.android.application.compose")
     id("bookofadventurers.android.application.firebase")
 }
 

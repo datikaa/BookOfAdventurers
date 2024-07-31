@@ -18,17 +18,9 @@ gradlePlugin {
             id = "bookofadventurers.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-        register("androidLibraryCompose") {
-            id = "bookofadventurers.android.library.compose"
-            implementationClass = "AndroidLibraryComposeConventionPlugin"
-        }
         register("androidApplication") {
             id = "bookofadventurers.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
-        }
-        register("androidApplicationCompose") {
-            id = "bookofadventurers.android.application.compose"
-            implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
         register("androidApplicationFirebase") {
             id = "bookofadventurers.android.application.firebase"
