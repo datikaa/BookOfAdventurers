@@ -2,6 +2,7 @@
 .fleet
 .gradle
 .idea
+.kotlin
 /local.properties
 /.idea/caches
 /.idea/deploymentTargetDropDown.xml
