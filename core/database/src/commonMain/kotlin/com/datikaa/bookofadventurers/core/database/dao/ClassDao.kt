@@ -29,11 +29,11 @@ interface ClassDao {
     fun flowClasses(): Flow<List<ClassEntity>>
 
     @Query("SELECT * FROM ClassEntity")
-    fun getClasses(): List<ClassEntity>
+    suspend fun getClasses(): List<ClassEntity>
 
     @Transaction
     @Query("SELECT * FROM ClassEntity")
-    fun getClassesWithModifiers(): List<ClassWithModifiers>
+    suspend fun getClassesWithModifiers(): List<ClassWithModifiers>
 
     @Insert
     suspend fun insertClassSavingThrowCrossRef(classSavingThrowCrossRef: ClassSavingThrowCrossRef): Long

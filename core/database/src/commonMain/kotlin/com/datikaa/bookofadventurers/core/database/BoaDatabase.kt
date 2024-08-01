@@ -36,10 +36,20 @@ import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
         CharacterSelectedClassModifierCrossRef::class,
     ], version = 11
 )
-abstract class BoaDatabase : RoomDatabase() {
+abstract class BoaDatabase : RoomDatabase(), DB {
     abstract fun abilityDao(): AbilityDao
     abstract fun backgroundDao(): BackgroundDao
     abstract fun characterDao(): CharacterDao
     abstract fun classDao(): ClassDao
     abstract fun modifierDao(): ModifierDao
+
+    override fun clearAllTables() {
+        super.clearAllTables()
+    }
+}
+
+// FIXME: Added a hack to resolve below issue:
+// Class 'AppDatabase_Impl' is not abstract and does not implement abstract base class member 'clearAllTables'.
+interface DB {
+    fun clearAllTables() {}
 }

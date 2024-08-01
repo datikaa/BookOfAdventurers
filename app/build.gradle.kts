@@ -48,14 +48,7 @@ kotlin {
             implementation(libs.kotest.assertions.core)
         }
         iosMain.dependencies {
-        }
-
-        val androidTest by registering {
-            dependencies {
-                implementation(libs.junit4)
-                implementation(libs.koin.test)
-                implementation(libs.kotest.assertions.core)
-            }
+            // ios deps
         }
     }
 }
