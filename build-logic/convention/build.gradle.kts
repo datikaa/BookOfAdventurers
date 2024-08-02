@@ -6,8 +6,6 @@ group = "com.datikaa.bookofadventurers.buildlogic"
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
-    compileOnly(libs.firebase.crashlytics.gradlePlugin)
-    compileOnly(libs.firebase.performance.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
 }
@@ -22,9 +20,10 @@ gradlePlugin {
             id = "bookofadventurers.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
-        register("androidApplicationFirebase") {
-            id = "bookofadventurers.android.application.firebase"
-            implementationClass = "AndroidApplicationFirebaseConventionPlugin"
+
+        register("kmmLibrary") {
+            id = "bookofadventurers.kmm.library"
+            implementationClass = "KmmLibraryConventionPlugin"
         }
     }
 }

@@ -1,34 +1,17 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.datikaa.bookofadventurers.configureAppleFrameworks
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
+    id("bookofadventurers.kmm.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.room)
 }
 
 kotlin {
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
-    }
-//    sourceSets.all {
-//        languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
-//    }
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "database"
-            isStatic = true
-        }
+    configureAppleFrameworks {
+        baseName = "database"
+        isStatic = true
     }
 
     sourceSets {
@@ -51,15 +34,6 @@ kotlin {
 }
 
 android {
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
     namespace = "com.datikaa.bookofadventurers.core.database"
 }
 
