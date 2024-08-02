@@ -16,11 +16,11 @@ gradlePlugin {
             id = "bookofadventurers.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-        register("androidApplication") {
-            id = "bookofadventurers.android.application"
-            implementationClass = "AndroidApplicationConventionPlugin"
-        }
 
+        register("kmmApplication") {
+            id = "bookofadventurers.kmm.application"
+            implementationClass = "KmmApplicationConventionPlugin"
+        }
         register("kmmLibrary") {
             id = "bookofadventurers.kmm.library"
             implementationClass = "KmmLibraryConventionPlugin"

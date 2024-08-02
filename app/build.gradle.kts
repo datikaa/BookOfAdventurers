@@ -1,30 +1,15 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import com.datikaa.bookofadventurers.configureAppleFrameworks
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    id("bookofadventurers.kmm.application")
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
-    }
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
+    configureAppleFrameworks {
+        baseName = "ComposeApp"
+        isStatic = true
     }
 
     sourceSets {
@@ -54,23 +39,19 @@ kotlin {
 
 android {
     namespace = "com.datikaa.bookofadventurers"
-    compileSdk = 34
 
-    sourceSets {
-        getByName("main") {
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            res.srcDirs("src/androidMain/res")
-            resources.srcDirs("src/commonMain/resources")
-        }
-    }
+//    sourceSets {
+//        getByName("main") {
+//            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+//            res.srcDirs("src/androidMain/res")
+//            resources.srcDirs("src/commonMain/resources")
+//        }
+//    }
 
     defaultConfig {
         applicationId = "com.datikaa.bookofadventurers"
         versionCode = 2
         versionName = "v0.5.0"
-
-        minSdk = 24
-        targetSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -94,17 +75,12 @@ android {
 
     buildFeatures {
         buildConfig = true
-        compose = true
     }
 
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 
     dependencies {

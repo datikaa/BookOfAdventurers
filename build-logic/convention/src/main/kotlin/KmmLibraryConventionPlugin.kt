@@ -13,6 +13,7 @@ class KmmLibraryConventionPlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.multiplatform")
             }
+
             configureKmm()
 
             extensions.configure<LibraryExtension> {
