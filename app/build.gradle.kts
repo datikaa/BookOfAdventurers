@@ -17,6 +17,8 @@ kotlin {
             implementation(libs.activity.compose)
         }
         commonMain.dependencies {
+            implementation(projects.core.analytics)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -77,7 +79,6 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
 
-        implementation(project(":core:analytics"))
         implementation(project(":core:data"))
         implementation(project(":core:database"))
         implementation(project(":core:design"))

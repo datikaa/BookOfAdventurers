@@ -1,14 +1,34 @@
+import com.datikaa.bookofadventurers.configureAppleFrameworks
+
 plugins {
     id("bookofadventurers.kmm.compose")
     id("bookofadventurers.kmm.library")
 }
 
-android {
-    namespace = "com.datikaa.bookofadventurers.core.analytics"
+kotlin {
+    configureAppleFrameworks {
+        baseName = "analytics"
+        isStatic = true
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.koin.android)
+        }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(libs.koin.core)
+        }
+        iosMain.dependencies {
+            implementation(libs.koin.core)
+        }
+    }
 }
 
-dependencies {
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.koin.androidx.compose)
+android {
+    namespace = "com.datikaa.bookofadventurers.core.analytics"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
