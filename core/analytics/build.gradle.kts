@@ -1,6 +1,6 @@
 plugins {
-    id("bookofadventurers.android.library")
-alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.compiler)
+    id("bookofadventurers.kmm.library")
 }
 
 android {

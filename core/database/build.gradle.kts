@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("bookofadventurers.kmm.library")
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    id("bookofadventurers.kmm.library")
 }
 
 kotlin {

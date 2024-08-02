@@ -1,7 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.compose.compiler)
-    id("bookofadventurers.android.library")
+    id("bookofadventurers.kmm.library")
 }
 
 android {
