@@ -1,24 +1,31 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+import com.datikaa.bookofadventurers.configureAppleFrameworks
+
 plugins {
     id("bookofadventurers.kmm.compose")
     id("bookofadventurers.kmm.library")
 }
 
-android {
-    namespace = "com.datikaa.bookofadventurers.core.design"
+kotlin {
+    configureAppleFrameworks {
+        baseName = "design"
+        isStatic = true
+    }
+
+    sourceSets {
+        androidMain.dependencies {
+            // TODO migrate to kmm previews
+            implementation(libs.androidx.compose.ui.tooling.preview)
+        }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.material3)
+            implementation(compose.components.uiToolingPreview)
+        }
+    }
 }
 
-dependencies {
-
-    implementation(libs.androidx.core.ktx)
-
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.ui.util)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
+android {
+    namespace = "com.datikaa.bookofadventurers.core.design"
 }
