@@ -2,8 +2,7 @@ import com.datikaa.bookofadventurers.configureAppleFrameworks
 
 plugins {
     id("bookofadventurers.kmm.application")
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
+    id("bookofadventurers.kmm.compose")
 }
 
 kotlin {
@@ -39,14 +38,6 @@ kotlin {
 
 android {
     namespace = "com.datikaa.bookofadventurers"
-
-//    sourceSets {
-//        getByName("main") {
-//            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-//            res.srcDirs("src/androidMain/res")
-//            resources.srcDirs("src/commonMain/resources")
-//        }
-//    }
 
     defaultConfig {
         applicationId = "com.datikaa.bookofadventurers"

@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.compose.compiler)
+    id("bookofadventurers.kmm.compose")
     id("bookofadventurers.kmm.library")
 }
 

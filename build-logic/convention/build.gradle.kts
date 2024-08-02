@@ -20,5 +20,9 @@ gradlePlugin {
             id = "bookofadventurers.kmm.library"
             implementationClass = "KmmLibraryConventionPlugin"
         }
+        register("kmmCompose") {
+            id = "bookofadventurers.kmm.compose"
+            implementationClass = "KmmComposeConventionPlugin"
+        }
     }
 }
