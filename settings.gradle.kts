@@ -17,7 +17,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BookOfAdventurers"
-
 include(":app")
 include(":core:analytics")
 include(":core:data")
