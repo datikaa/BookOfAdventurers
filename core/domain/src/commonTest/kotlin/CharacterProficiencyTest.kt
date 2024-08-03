@@ -9,7 +9,7 @@ import com.datikaa.bookofadventurers.core.domain.proficiencyScore
 import com.datikaa.bookofadventurers.core.domain.proficientIn
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 class CharacterProficiencyTest {
 

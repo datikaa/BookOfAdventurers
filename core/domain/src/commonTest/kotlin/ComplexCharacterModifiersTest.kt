@@ -11,7 +11,7 @@ import com.datikaa.bookofadventurers.core.domain.calculateSkillCheckScore
 import com.datikaa.bookofadventurers.core.domain.flatten
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.ints.shouldBeExactly
-import org.junit.Test
+import kotlin.test.Test
 
 class ComplexCharacterModifiersTest {
 

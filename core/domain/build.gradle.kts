@@ -12,6 +12,7 @@ kotlin {
 
     sourceSets {
         commonTest.dependencies {
+            implementation(libs.kotlin.test)
             implementation(libs.kotest.assertions.core)
         }
     }
