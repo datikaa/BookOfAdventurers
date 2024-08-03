@@ -1,44 +1,25 @@
 package com.datikaa.bookofadventurers.modifier.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.component.CmmModifierEditor
 import com.datikaa.bookofadventurers.core.design.component.CmmTitledCard
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.core.domain.Ability
 import com.datikaa.bookofadventurers.core.domain.SavingThrow
 import com.datikaa.bookofadventurers.core.domain.Skill
-import org.koin.androidx.compose.koinViewModel
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 import kotlin.reflect.KClass
 import com.datikaa.bookofadventurers.core.domain.Modifier as DomainModifier
 
@@ -73,7 +54,7 @@ fun ModifierScreen(
                 title = { Text(text = "Modifiers") },
                 navigationIcon = {
                     IconButton(onClick = navigateBack) {
-                        Icon(Icons.Rounded.ArrowBack, "backIcon")
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, "backIcon")
                     }
                 },
             )
@@ -335,7 +316,7 @@ private fun KClass<*>.toReadable(type: String) = when (this) {
     else -> error("Unknown type: $this")
 }
 
-@DevicePreviews
+@Preview
 @Composable
 private fun PreviewModifierScreen() {
     ModifierScreen(

@@ -1,39 +1,35 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+import com.datikaa.bookofadventurers.configureAppleFrameworks
+
 plugins {
     id("bookofadventurers.kmm.compose")
     id("bookofadventurers.kmm.library")
     id("kotlin-parcelize")
 }
 
-android {
-    namespace = "com.datikaa.bookofadventurers.feature.overview"
+kotlin {
+    configureAppleFrameworks {
+        baseName = "overview"
+        isStatic = true
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core.data)
+            implementation(projects.core.design)
+            implementation(projects.core.domain)
+
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.material3)
+            implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
+        }
+    }
 }
 
-dependencies {
-
-    implementation(project(":core:data"))
-    implementation(project(":core:design"))
-    implementation(project(":core:domain"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.appcompat)
-    testImplementation(libs.junit4)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.ui.util)
-
-    implementation(libs.androidx.lifecycle.runtime.compose)
-
-    implementation(libs.androidx.navigation.navigationCompose)
-
-    implementation(libs.koin.androidx.compose)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
+android {
+    namespace = "com.datikaa.bookofadventurers.feature.overview"
 }
