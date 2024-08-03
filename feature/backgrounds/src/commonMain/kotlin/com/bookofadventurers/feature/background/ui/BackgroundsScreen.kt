@@ -3,34 +3,16 @@ package com.bookofadventurers.feature.background.ui
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ExpandMore
-import androidx.compose.material3.Card
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,9 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.datikaa.bookofadventurers.core.design.DevicePreviews
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
-import org.koin.androidx.compose.koinViewModel
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BackgroundsRoute(
@@ -83,7 +65,7 @@ fun BackgroundsScreen(
                 title = { Text(text = "Backgrounds") },
                 navigationIcon = {
                     IconButton(onClick = navigateBack) {
-                        Icon(Icons.Rounded.ArrowBack, "backIcon")
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, "backIcon")
                     }
                 },
             )
@@ -182,7 +164,7 @@ fun BackgroundCard(
                     style = MaterialTheme.typography.headlineLarge,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
                 Text(
                     text = "Feature: ${background.featureTitle}",
                     style = MaterialTheme.typography.headlineSmall,
@@ -203,7 +185,7 @@ fun BackgroundCard(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = if (expanded) Int.MAX_VALUE else 2,
                 )
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(BookOfAdventurersTheme.dimensions.cardSpacing)) {
                     background.skillProficiencies.forEach {
                         ProficiencyItem(it)
@@ -238,7 +220,7 @@ fun ProficiencyItem(
     }
 }
 
-@DevicePreviews
+@Preview
 @Composable
 private fun BackgroundsScreenPreview() {
     BackgroundsScreen(
