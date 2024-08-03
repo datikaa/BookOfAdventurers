@@ -1,6 +1,6 @@
 package com.datikaa.bookofadventurers.core.data
 
-import com.datikaa.bookofadventurers.core.data.adapter.background.mapToDomain
+import com.datikaa.bookofadventurers.core.data.adapter.background.toDomain
 import com.datikaa.bookofadventurers.core.data.adapter.background.toEntity
 import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.dao.BackgroundDao
@@ -17,15 +17,15 @@ class BackgroundRepositoryImpl(
     }
 
     override fun flowAllBackgrounds(): Flow<List<Background>> {
-        return backgroundDao.flowBackgrounds().map { it.mapToDomain() }
+        return backgroundDao.flowBackgrounds().map { flow -> flow.map { it.toDomain() } }
     }
 
     override fun flowAllBackgroundsWithModifiers(): Flow<List<Background>> {
-        return backgroundDao.flowBackgroundsWithModifiers().map { it.mapToDomain() }
+        return backgroundDao.flowBackgroundsWithModifiers().map { flow -> flow.map { it.toDomain() } }
     }
 
     override suspend fun getAllBackgroundsWithModifiers(): List<Background> {
-        return backgroundDao.getBackgroundsWithModifiers().mapToDomain()
+        return backgroundDao.getBackgroundsWithModifiers().map { it.toDomain() }
     }
 
     override suspend fun associateBackgroundWithModifier(

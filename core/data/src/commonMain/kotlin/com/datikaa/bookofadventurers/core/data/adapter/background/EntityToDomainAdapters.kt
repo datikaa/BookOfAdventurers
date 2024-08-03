@@ -5,8 +5,6 @@ import com.datikaa.bookofadventurers.core.database.entity.BackgroundEntity
 import com.datikaa.bookofadventurers.core.database.relation.BackgroundWithModifiers
 import com.datikaa.bookofadventurers.core.domain.Background
 
-@JvmName("mapBackgroundWithModifiersToDomain")
-internal fun List<BackgroundWithModifiers>.mapToDomain() = map { it.toDomain() }
 internal fun BackgroundWithModifiers.toDomain() = Background(
     id = backgroundEntity.id,
     name = backgroundEntity.name,
@@ -15,9 +13,6 @@ internal fun BackgroundWithModifiers.toDomain() = Background(
     suggestedCharacteristics = backgroundEntity.suggestedCharacteristics,
     skillProficiencies = skillProficiencyModifierEntities.mapToDomain(),
 )
-
-@JvmName("mapBackgroundEntitiesToDomain")
-internal fun List<BackgroundEntity>.mapToDomain() = map { it.toDomain() }
 
 internal fun BackgroundEntity.toDomain() = Background(
     id = id,

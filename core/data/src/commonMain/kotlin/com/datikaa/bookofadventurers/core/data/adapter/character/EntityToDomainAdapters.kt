@@ -1,6 +1,6 @@
 package com.datikaa.bookofadventurers.core.data.adapter.character
 
-import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToDomain
+import com.datikaa.bookofadventurers.core.data.adapter.ability.mapListToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.background.toDomain
 import com.datikaa.bookofadventurers.core.data.adapter.modifier.mapToDomain
 import com.datikaa.bookofadventurers.core.database.entity.CharacterEntity
@@ -15,7 +15,7 @@ internal fun CharacterWithAbilitiesAndModifiers.toDomain(): BoaCharacter = BoaCh
     level = characterEntity.level,
     characterBackground = mapToBackground(),
     characterClass = mapToCharacterClass(),
-    abilityList = abilityEntities.mapToDomain(),
+    abilityList = abilityEntities.mapListToDomain(),
     modifiers = modifierEntities.mapToDomain(),
 )
 
@@ -32,9 +32,6 @@ private fun CharacterWithAbilitiesAndModifiers.mapToCharacterClass(): CharacterC
 private fun CharacterWithAbilitiesAndModifiers.mapToBackground(): Background {
     return backgroundWithModifiersEntities.first().toDomain()
 }
-
-@JvmName("mapCharacterEntityToDomain")
-internal fun List<CharacterEntity>.mapToDomain() = map { it.toDomain() }
 
 internal fun CharacterEntity.toDomain(): BoaCharacter = BoaCharacter(
     id = id,
@@ -57,5 +54,3 @@ internal fun CharacterEntity.toDomain(): BoaCharacter = BoaCharacter(
     abilityList = emptyList(),
     modifiers = emptyList(),
 )
-
-

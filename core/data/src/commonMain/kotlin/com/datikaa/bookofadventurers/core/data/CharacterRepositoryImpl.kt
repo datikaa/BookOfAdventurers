@@ -1,7 +1,6 @@
 package com.datikaa.bookofadventurers.core.data
 
 import com.datikaa.bookofadventurers.core.data.adapter.ability.mapToEntity
-import com.datikaa.bookofadventurers.core.data.adapter.character.mapToDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toDomain
 import com.datikaa.bookofadventurers.core.data.adapter.character.toEntity
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterBackgroundCrossRef
@@ -12,6 +11,7 @@ import com.datikaa.bookofadventurers.core.database.dao.CharacterDao
 import com.datikaa.bookofadventurers.core.database.dao.ClassDao
 import com.datikaa.bookofadventurers.core.domain.BoaCharacter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -25,7 +25,7 @@ internal class CharacterRepositoryImpl(
 
     override fun flowListOfCharacters(): Flow<List<BoaCharacter>> = characterDao
         .flowCharacters()
-        .map { it.mapToDomain() }
+        .map { flow ->  flow.map { it.toDomain() } }
         .flowOn(Dispatchers.IO)
 
     override fun flowCharacter(id: Int): Flow<BoaCharacter> = characterDao

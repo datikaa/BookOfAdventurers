@@ -25,6 +25,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(libs.koin.core)
+            implementation(libs.sqlite.bundled)
             api(libs.room.runtime)
         }
         iosMain.dependencies {

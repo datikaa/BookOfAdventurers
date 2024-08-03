@@ -5,8 +5,6 @@ import com.datikaa.bookofadventurers.core.database.entity.ClassEntity
 import com.datikaa.bookofadventurers.core.database.relation.ClassWithModifiers
 import com.datikaa.bookofadventurers.core.domain.BoaClass
 
-@JvmName("mapClassWithModifiersToDomain")
-internal fun List<ClassWithModifiers>.mapToDomain() = map { it.toDomain() }
 internal fun ClassWithModifiers.toDomain() = BoaClass(
     id = classEntity.id,
     name = classEntity.name,
@@ -15,8 +13,6 @@ internal fun ClassWithModifiers.toDomain() = BoaClass(
     selectableSkillProficiencies = skillProficiencyModifierEntities.mapToDomain(),
 )
 
-@JvmName("mapClassEntitiesToDomain")
-internal fun List<ClassEntity>.mapToDomain() = map { it.toDomain() }
 
 internal fun ClassEntity.toDomain() = BoaClass(
     id = id,

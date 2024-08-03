@@ -12,5 +12,4 @@ internal fun AbilityEntity.toDomain(): Ability = when (type) {
     AbilityEntity.Type.Charisma -> Ability.Charisma(value)
 }
 
-@JvmName("mapAbilityEntityToDomain")
-internal fun List<AbilityEntity>.mapToDomain() = map { it.toDomain() }
+internal fun List<AbilityEntity>.mapListToDomain() = map { it.toDomain() }

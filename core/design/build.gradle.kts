@@ -12,10 +12,6 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            // TODO migrate to kmm previews
-            implementation(libs.androidx.compose.ui.tooling.preview)
-        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
