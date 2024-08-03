@@ -1,12 +1,10 @@
 package com.datikaa.bookofadventurers.core.analytics.di
 
-import com.datikaa.bookofadventurers.core.analytics.NoOpAnalyticsHelper
-import org.koin.core.module.Module
-import org.koin.core.module.dsl.singleOf
+import com.datikaa.bookofadventurers.core.analytics.AnalyticsHelper
 import org.koin.dsl.module
 
-expect fun Module.analyticsHelper(): Unit
+expect fun analyticsHelper(): AnalyticsHelper
 
 val analyticsModule = module {
-    analyticsHelper()
+    single<AnalyticsHelper> { analyticsHelper() }
 }
