@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.datikaa.bookofadventurers.Res
 import com.datikaa.bookofadventurers.core.database.BoaDatabase
 import com.datikaa.bookofadventurers.core.database.R
 import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef

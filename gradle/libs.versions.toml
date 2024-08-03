@@ -11,8 +11,11 @@ ksp = "2.0.0-1.0.24"
 koinAndroid = "4.0.0-RC1"
 koinCore = "4.0.0-RC1"
 kotest = "5.6.2"
+kotlinx-serialization-json = "1.7.1"
 room = "2.7.0-alpha05"
 sq-lite = "2.5.0-alpha05"
+okio = "3.9.0"
+moko = "0.24.1"
 
 [libraries]
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
@@ -30,12 +33,16 @@ koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koinC
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sq-lite" }
+
+moko-resource = { group = "dev.icerock.moko", name = "resources", version.ref = "moko" }
+moko-resource-test = { group = "dev.icerock.moko", name = "resources-test", version.ref = "moko" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -51,5 +58,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+moko-resource = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko" }
 
 [bundles]

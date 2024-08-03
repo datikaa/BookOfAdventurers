@@ -5,6 +5,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.moko.resource)
     id("bookofadventurers.kmm.library")
 }
 
@@ -26,7 +28,12 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.sqlite.bundled)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.moko.resource)
             api(libs.room.runtime)
+        }
+        commonTest.dependencies {
+            implementation(libs.moko.resource.test)
         }
         iosMain.dependencies {
             implementation(libs.koin.core)
@@ -44,6 +51,11 @@ room {
 
 dependencies {
     add("kspCommonMainMetadata", libs.room.compiler)
+}
+
+multiplatformResources {
+    resourcesPackage.set("com.datikaa.bookofadventurers")
+    resourcesClassName.set("Res")
 }
 
 tasks.withType<KotlinCompilationTask<*>>().configureEach {

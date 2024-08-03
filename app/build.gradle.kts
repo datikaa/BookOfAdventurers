@@ -1,6 +1,7 @@
 import com.datikaa.bookofadventurers.configureAppleFrameworks
 
 plugins {
+    alias(libs.plugins.moko.resource)
     id("bookofadventurers.kmm.application")
     id("bookofadventurers.kmm.compose")
 }
