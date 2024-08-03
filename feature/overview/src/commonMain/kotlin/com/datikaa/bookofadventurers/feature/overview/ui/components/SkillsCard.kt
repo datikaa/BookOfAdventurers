@@ -1,17 +1,13 @@
 package com.datikaa.bookofadventurers.feature.overview.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.datikaa.bookofadventurers.core.design.component.CmmSkill
 import com.datikaa.bookofadventurers.core.design.component.CmmTitledCard
 import com.datikaa.bookofadventurers.core.design.theme.BookOfAdventurersTheme
 import com.datikaa.bookofadventurers.feature.overview.ui.OverviewUiState
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun SkillsCard(
