@@ -23,7 +23,7 @@ jobs:
       - name: Bump version
         uses: chkfung/android-version-actions@v1.2.1
         with:
-          gradlePath: app/build.gradle.kts
+          gradlePath: androidApp/build.gradle.kts
           versionCode: ${{github.run_number}}
 
       ## cache Gradle dependencies and wrapper to reduce build time
