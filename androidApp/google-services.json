@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "962683358533",
+    "project_id": "book-of-adventurers",
+    "storage_bucket": "book-of-adventurers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962683358533:android:3fae017746216ce6a1822c",
+        "android_client_info": {
+          "package_name": "com.datikaa.bookofadventurers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962683358533-kug532kq653i6e3muahgk2r4bkr6j9h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzBhMu6UhqVmjasDEoIcG6wD4S6iwuedM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962683358533-kug532kq653i6e3muahgk2r4bkr6j9h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962683358533:android:8c549cbd5e5d96d0a1822c",
+        "android_client_info": {
+          "package_name": "com.datikaa.bookofadventurers.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962683358533-kug532kq653i6e3muahgk2r4bkr6j9h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzBhMu6UhqVmjasDEoIcG6wD4S6iwuedM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962683358533-kug532kq653i6e3muahgk2r4bkr6j9h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,9 @@
 import com.datikaa.bookofadventurers.configureAppleFrameworks
 
 plugins {
-    alias(libs.plugins.moko.resource)
-    id("bookofadventurers.kmm.application")
     id("bookofadventurers.kmm.compose")
+    id("bookofadventurers.kmm.library")
+    
 }
 
 kotlin {
@@ -59,39 +59,4 @@ kotlin {
 
 android {
     namespace = "com.datikaa.bookofadventurers"
-
-    defaultConfig {
-        applicationId = "com.datikaa.bookofadventurers"
-        versionCode = 2
-        versionName = "v0.6.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-        debug {
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = " (Debug)"
-        }
-    }
-
-    buildFeatures {
-        buildConfig = true
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }

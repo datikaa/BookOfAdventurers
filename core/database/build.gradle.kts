@@ -1,5 +1,4 @@
 import com.datikaa.bookofadventurers.configureAppleFrameworks
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.ksp)
