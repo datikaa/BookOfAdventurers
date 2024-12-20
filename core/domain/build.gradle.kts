@@ -1,15 +1,23 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+import com.datikaa.bookofadventurers.configureAppleFrameworks
+
 plugins {
-    id("bookofadventurers.android.library")
+    id("bookofadventurers.kmm.library")
+}
+
+kotlin {
+    configureAppleFrameworks {
+        baseName = "domain"
+        isStatic = true
+    }
+
+    sourceSets {
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotest.assertions.core)
+        }
+    }
 }
 
 android {
     namespace = "com.datikaa.bookofadventurers.core.domain"
-
-}
-
-dependencies {
-    implementation(libs.junit4)
-
-    testImplementation(libs.kotest.assertions.core)
 }

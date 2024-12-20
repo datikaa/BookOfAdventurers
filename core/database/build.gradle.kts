@@ -1,23 +1,57 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+import com.datikaa.bookofadventurers.configureAppleFrameworks
+
 plugins {
     alias(libs.plugins.ksp)
-    id("bookofadventurers.android.library")
+    alias(libs.plugins.room)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.moko.resource)
+    id("bookofadventurers.kmm.library")
 }
 
-android {
-    namespace = "com.datikaa.bookofadventurers.core.database"
+kotlin {
+    configureAppleFrameworks {
+        baseName = "database"
+        isStatic = true
+    }
 
-    defaultConfig {
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
+    sourceSets {
+        androidMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.android)
+            implementation(libs.room.runtime)
+        }
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.sqlite.bundled)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.moko.resource)
+            api(libs.room.runtime)
+        }
+        commonTest.dependencies {
+            implementation(libs.moko.resource.test)
+        }
+        iosMain.dependencies {
+            implementation(libs.koin.core)
         }
     }
 }
 
-dependencies {
-    implementation(libs.koin.android)
+android {
+    namespace = "com.datikaa.bookofadventurers.core.database"
+}
 
-    ksp(libs.room.compiler)
-    api(libs.room.ktx)
-    api(libs.room.runtime)
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+}
+
+multiplatformResources {
+    resourcesPackage.set("com.datikaa.bookofadventurers")
+    resourcesClassName.set("Res")
 }
