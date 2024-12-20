@@ -35,4 +35,5 @@ local.properties
 /.idea/compiler.xml
 /.idea/kotlinc.xml
 
+/iosApp/iosApp.xcodeproj/xcuserdata/danieldattler.xcuserdatad
 /iosApp/iosApp.xcodeproj/project.xcworkspace/xcuserdata/danieldattler.xcuserdata
