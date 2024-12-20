@@ -1,7 +1,9 @@
 package com.datikaa.bookofadventurers.core.database
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.RoomDatabaseConstructor
 import com.datikaa.bookofadventurers.core.database.crossref.BackgroundSkillProficiencyCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterBackgroundCrossRef
 import com.datikaa.bookofadventurers.core.database.crossref.CharacterClassCrossRef
@@ -36,20 +38,17 @@ import com.datikaa.bookofadventurers.core.database.entity.ModifierEntity
         CharacterSelectedClassModifierCrossRef::class,
     ], version = 11
 )
-abstract class BoaDatabase : RoomDatabase(), DB {
+@ConstructedBy(BoaDatabaseConstructor::class)
+abstract class BoaDatabase : RoomDatabase() {
     abstract fun abilityDao(): AbilityDao
     abstract fun backgroundDao(): BackgroundDao
     abstract fun characterDao(): CharacterDao
     abstract fun classDao(): ClassDao
     abstract fun modifierDao(): ModifierDao
-
-    override fun clearAllTables() {
-        super.clearAllTables()
-    }
 }
 
-// FIXME: Added a hack to resolve below issue:
-// Class 'AppDatabase_Impl' is not abstract and does not implement abstract base class member 'clearAllTables'.
-interface DB {
-    fun clearAllTables() {}
+// The Room compiler generates the `actual` implementations.
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object BoaDatabaseConstructor : RoomDatabaseConstructor<BoaDatabase> {
+    override fun initialize(): BoaDatabase
 }

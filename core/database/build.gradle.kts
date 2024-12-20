@@ -1,7 +1,6 @@
 import com.datikaa.bookofadventurers.configureAppleFrameworks
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
@@ -17,9 +16,6 @@ kotlin {
     }
 
     sourceSets {
-        commonMain {
-            kotlin.srcDir("build/generated/ksp/metadata")
-        }
         androidMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.koin.android)
@@ -50,16 +46,13 @@ room {
 }
 
 dependencies {
-    add("kspCommonMainMetadata", libs.room.compiler)
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
 }
 
 multiplatformResources {
     resourcesPackage.set("com.datikaa.bookofadventurers")
     resourcesClassName.set("Res")
-}
-
-tasks.withType<KotlinCompilationTask<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata" ) {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
 }
