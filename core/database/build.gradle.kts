@@ -18,14 +18,13 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.koin.android)
-            implementation(libs.room.runtime)
         }
         commonMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.sqlite.bundled)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.moko.resource)
-            api(libs.room.runtime)
+            implementation(libs.room.runtime)
         }
         commonTest.dependencies {
             implementation(libs.moko.resource.test)

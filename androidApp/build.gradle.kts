@@ -30,7 +30,7 @@ android {
     defaultConfig {
         applicationId = "com.datikaa.bookofadventurers"
         versionCode = 2
-        versionName = "v0.7.1"
+        versionName = "v0.7.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
