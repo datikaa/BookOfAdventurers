@@ -8,6 +8,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.savedstate.read
 import com.datikaa.bookofadventurers.feature.overview.ui.OverviewRoute
 
 private const val CHARACTER_ID_ARG = "characterId"
@@ -29,7 +30,7 @@ fun NavGraphBuilder.overviewScreen(
     ) { backStackEntry ->
         OverviewRoute(
             navigateBack = navigateBack,
-            backStackEntry.arguments!!.getInt(CHARACTER_ID_ARG),
+            backStackEntry.arguments!!.read {getInt(CHARACTER_ID_ARG) },
             modifier = Modifier.fillMaxSize(),
         )
     }
