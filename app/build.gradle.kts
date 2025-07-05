@@ -28,6 +28,7 @@ kotlin {
             implementation(projects.core.data)
             implementation(projects.core.database)
             implementation(projects.core.design)
+            implementation(projects.core.store)
             implementation(projects.feature.backgrounds)
             implementation(projects.feature.editor)
             implementation(projects.feature.launcher)

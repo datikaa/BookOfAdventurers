@@ -5,7 +5,7 @@ import com.datikaa.bookofadventurers.core.data.AbilityRepositoryImpl
 import com.datikaa.bookofadventurers.core.data.BackgroundRepository
 import com.datikaa.bookofadventurers.core.data.BackgroundRepositoryImpl
 import com.datikaa.bookofadventurers.core.data.CharacterRepository
-import com.datikaa.bookofadventurers.core.data.CharacterRepositoryImpl
+import com.datikaa.bookofadventurers.core.data.CharacterRepository_KStoreImpl
 import com.datikaa.bookofadventurers.core.data.ClassesRepository
 import com.datikaa.bookofadventurers.core.data.ClassesRepositoryImpl
 import com.datikaa.bookofadventurers.core.data.ModifierRepository
@@ -18,6 +18,7 @@ val dataModule = module {
     singleOf(::AbilityRepositoryImpl) bind AbilityRepository::class
     singleOf(::BackgroundRepositoryImpl) bind BackgroundRepository::class
     singleOf(::ClassesRepositoryImpl) bind ClassesRepository::class
-    singleOf(::CharacterRepositoryImpl) bind CharacterRepository::class
+//    singleOf(::CharacterRepositoryImpl) bind CharacterRepository::class
+    singleOf(::CharacterRepository_KStoreImpl) bind CharacterRepository::class
     singleOf(::ModifierRepositoryImpl) bind ModifierRepository::class
 }

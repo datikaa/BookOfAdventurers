@@ -1,29 +1,28 @@
 import com.datikaa.bookofadventurers.configureAppleFrameworks
 
 plugins {
-    id("bookofadventurers.kmm.compose")
+    alias(libs.plugins.kotlin.serialization)
     id("bookofadventurers.kmm.library")
 }
 
 kotlin {
     configureAppleFrameworks {
-        baseName = "data"
+        baseName = "database"
         isStatic = true
     }
 
     sourceSets {
         androidMain.dependencies {
+            implementation(libs.koin.core)
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(projects.core.database)
-            implementation(projects.core.store)
-            implementation(projects.core.domain)
-
-            implementation(compose.runtime)
             implementation(libs.koin.core)
             implementation(libs.kstore)
+            implementation(libs.kstore.file)
+            implementation(libs.kotlinx.serialization.core)
         }
+
         iosMain.dependencies {
             implementation(libs.koin.core)
         }
@@ -31,5 +30,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.datikaa.bookofadventurers.core.data"
+    namespace = "com.datikaa.bookofadventurers.core.store"
 }

@@ -11,11 +11,11 @@ ksp = "2.2.0-2.0.2"
 koinAndroid = "4.1.0"
 koinCore = "4.1.0"
 kotest = "5.9.1"
-kotlinx-serialization-json = "1.9.0"
+kotlinx-serialization = "1.9.0"
 room = "2.7.2"
 sq-lite = "2.5.2"
-okio = "3.9.0"
 moko = "0.25.0"
+kstore = "1.0.0"
 
 [libraries]
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
@@ -34,8 +34,12 @@ koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koinC
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
+kstore-file = { module = "io.github.xxfast:kstore-file", version.ref = "kstore" }
 
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

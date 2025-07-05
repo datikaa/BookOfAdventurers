@@ -5,6 +5,7 @@ import com.bookofadventurers.feature.wizard.di.wizardKoinModule
 import com.datikaa.bookofadventurers.core.analytics.di.analyticsModule
 import com.datikaa.bookofadventurers.core.data.di.dataModule
 import com.datikaa.bookofadventurers.core.database.di.databaseKoinModule
+import com.datikaa.bookofadventurers.core.store.di.storeModule
 import com.datikaa.bookofadventurers.feature.editor.di.editorKoinModule
 import com.datikaa.bookofadventurers.feature.overview.di.overviewKoinModule
 import com.datikaa.bookofadventurers.launcher.di.launcherKoinModule
@@ -22,6 +23,7 @@ private fun Module.includeCoreModules() = includes(
     dataModule,
     editorKoinModule,
     databaseKoinModule,
+    storeModule,
 )
 
 private fun Module.includeFeatureModules() = includes(
