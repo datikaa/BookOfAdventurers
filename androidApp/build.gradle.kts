@@ -1,27 +1,6 @@
 plugins {
-    id("bookofadventurers.kmm.application")
+    id("bookofadventurers.android.application")
     id("bookofadventurers.kmm.compose")
-}
-
-kotlin {
-    sourceSets {
-        androidMain.dependencies {
-            implementation(libs.activity.compose)
-            implementation(libs.koin.android)
-        }
-        androidUnitTest.dependencies {
-            implementation(libs.junit4)
-            implementation(libs.koin.test)
-            implementation(libs.kotest.assertions.core)
-        }
-        commonMain.dependencies {
-            implementation(projects.app)
-            implementation(libs.koin.core)
-        }
-        commonTest.dependencies {
-            implementation(libs.koin.test)
-        }
-    }
 }
 
 android {
@@ -61,4 +40,14 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+dependencies {
+    implementation(projects.app)
+
+    implementation(libs.activity.compose)
+    implementation(libs.koin.android)
+    testImplementation(libs.junit4)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.kotest.assertions.core)
 }
