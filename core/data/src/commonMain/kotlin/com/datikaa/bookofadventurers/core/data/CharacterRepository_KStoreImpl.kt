@@ -51,7 +51,7 @@ internal class CharacterRepository_KStoreImpl(
 
     override suspend fun insertCharacter(character: BoaCharacter): Long {
         val background = backgroundStore.get()!![character.characterBackground.id.toInt() - 1]
-        val clazz = classStore.get()!![character.characterClass.id.toInt()]
+        val clazz = classStore.get()!![character.characterClass.id.toInt() - 1]
         characterStore.update { list ->
             val mutableList = list.orEmpty().toMutableList()
             mutableList.apply {
