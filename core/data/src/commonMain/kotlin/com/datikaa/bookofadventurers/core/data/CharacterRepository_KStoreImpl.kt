@@ -43,18 +43,7 @@ internal class CharacterRepository_KStoreImpl(
         characterStore.map { characterEntity ->
             if (characterEntity.id == character.id) {
                 characterEntity.copy(
-                    name = character.name,
-                    level = character.level,
-//                    backgroundEntity = characterEntity.backgroundEntity.copy(
-//                        name = character.characterBackground.name,
-//                        featureTitle = character.characterBackground.featureTitle,
-//                        featureDescription = character.characterBackground.featureDescription,
-//                        suggestedCharacteristics = character.characterBackground.suggestedCharacteristics,
-//                    ),
-//                    classEntity = characterEntity.classEntity.copy(
-//                        id = character.characterClass.id,
-//                        name = character.characterClass.name,
-//                    ),
+                    level = character.level, // now only level is updated like this
                 )
             } else characterEntity
         }
