@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Cha ST Prof",
+    "description": "Adds proficiency to Charisma saving-throws.",
+    "type": "Proficiency",
+    "modifiableScoreType": "SavingThrow_Charisma"
+  },
+  {
+    "name": "Con ST Prof",
+    "description": "Adds proficiency to Constitution saving-throws.",
+    "type": "Proficiency",
+    "modifiableScoreType": "SavingThrow_Constitution"
+  },
+  {
+    "name": "Dex ST Prof",
+    "description": "Adds proficiency to Dexterity saving-throws.",
+    "type": "Proficiency",
+    "modifiableScoreType": "SavingThrow_Dexterity"
+  },
+  {
+    "name": "Int ST Prof",
+    "description": "Adds proficiency to Intelligence saving-throws.",
+    "type": "Proficiency",
+    "modifiableScoreType": "SavingThrow_Intelligence"
+  },
+  {
+    "name": "Str ST Prof",
+    "description": "Adds proficiency to Wisdom saving-throws.",
+    "type": "Proficiency",
+    "modifiableScoreType": "SavingThrow_Strength"
+  },
+  {
+    "name": "Wis ST Prof",
+    "description": "Adds proficiency to Wisdom saving-throws.",
+    "type": "Proficiency",
+    "modifiableScoreType": "SavingThrow_Wisdom"
+  },
+  {
+    "name": "Acrobatics Prof",
+    "description": "Adds proficiency to Acrobatics skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Acrobatics"
+  },
+  {
+    "name": "Animal-handling Prof",
+    "description": "Adds proficiency to Animal-handling skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_AnimalHandling"
+  },
+  {
+    "name": "Arcana Prof",
+    "description": "Adds proficiency to Arcana skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Arcana"
+  },
+  {
+    "name": "Athletics Prof",
+    "description": "Adds proficiency to Athletics skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Athletics"
+  },
+  {
+    "name": "Deception Prof",
+    "description": "Adds proficiency to Deception skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Deception"
+  },
+  {
+    "name": "History Prof",
+    "description": "Adds proficiency to History skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_History"
+  },
+  {
+    "name": "Insight Prof",
+    "description": "Adds proficiency to Insight skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Insight"
+  },
+  {
+    "name": "Intimidation Prof",
+    "description": "Adds proficiency to Intimidation skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Intimidation"
+  },
+  {
+    "name": "Investigation Prof",
+    "description": "Adds proficiency to Investigation skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Investigation"
+  },
+  {
+    "name": "Medicine Prof",
+    "description": "Adds proficiency to Medicine skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Medicine"
+  },
+  {
+    "name": "Nature Prof",
+    "description": "Adds proficiency to Nature skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Nature"
+  },
+  {
+    "name": "Perception Prof",
+    "description": "Adds proficiency to Perception skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Perception"
+  },
+  {
+    "name": "Performance Prof",
+    "description": "Adds proficiency to Performance skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Performance"
+  },
+  {
+    "name": "Persuasion Prof",
+    "description": "Adds proficiency to Persuasion skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Persuasion"
+  },
+  {
+    "name": "Religion Prof",
+    "description": "Adds proficiency to Religion skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Religion"
+  },
+  {
+    "name": "Sleight-of-Hand Prof",
+    "description": "Adds proficiency to Sleight-of-Hand skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_SleightOfHand"
+  },
+  {
+    "name": "Stealth Prof",
+    "description": "Adds proficiency to Stealth skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Stealth"
+  },
+  {
+    "name": "Survival Prof",
+    "description": "Adds proficiency to Survival skill checks.",
+    "type": "Proficiency",
+    "modifiableScoreType": "Skill_Survival"
+  }
+]

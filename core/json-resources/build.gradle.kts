@@ -8,7 +8,7 @@ plugins {
 
 kotlin {
     configureAppleFrameworks {
-        baseName = "store"
+        baseName = "jsonresources"
         isStatic = true
     }
 
@@ -18,13 +18,10 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(projects.core.jsonResources)
-
             implementation(libs.koin.core)
             implementation(libs.kstore)
             implementation(libs.kstore.file)
             implementation(libs.kotlinx.serialization.core)
-            implementation(libs.kotlinx.serialization.json)
             implementation(libs.moko.resource)
         }
 
@@ -35,10 +32,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.datikaa.bookofadventurers.core.store"
-}
-
-multiplatformResources {
-    resourcesPackage.set("com.datikaa.bookofadventurers.core.store")
-    resourcesClassName.set("Res")
+    namespace = "com.datikaa.bookofadventurers.core.jsonresources"
 }

@@ -1,9 +1,9 @@
-package com.datikaa.bookofadventurers.core.database.prefill
+package com.datikaa.bookofadventurers.core.jsonresources
 
 import android.content.Context
 import dev.icerock.moko.resources.FileResource
 
-class AndroidJsonResourceFunctions(private val context: Context) : JsonResourceFunctions {
+internal class AndroidJsonResources(private val context: Context) : JsonResources {
 
     override fun loadJsonArray(fileResource: FileResource): String = fileResource.readText(context)
 }

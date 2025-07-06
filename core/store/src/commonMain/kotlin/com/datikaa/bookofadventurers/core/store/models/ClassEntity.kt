@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ClassEntity(
-    val id: Long,
     val name: String,
+    val selectableSkillCount: Int,
 )

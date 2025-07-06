@@ -9,4 +9,6 @@ data class CharacterEntity(
     val level: Int,
     val backgroundEntity: BackgroundEntity,
     val classEntity: ClassEntity,
+    val abilities: List<AbilityEntity>,
+    val modifiers: List<ModifierEntity>,
 )

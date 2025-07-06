@@ -4,8 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AbilityEntity(
-    val id: Int,
-    val characterId: Int,
     val type: Type,
     val value: Int,
 ) {
