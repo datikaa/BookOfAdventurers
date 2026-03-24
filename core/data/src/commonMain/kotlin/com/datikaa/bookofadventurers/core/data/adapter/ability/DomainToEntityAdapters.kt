@@ -1,6 +1,7 @@
 package com.datikaa.bookofadventurers.core.data.adapter.ability
 
 import com.datikaa.bookofadventurers.core.database.entity.AbilityEntity
+import com.datikaa.bookofadventurers.core.store.models.AbilityEntity as KStoreAbilityEntity
 import com.datikaa.bookofadventurers.core.database.partial.AbilityEntityPartialUpdate
 import com.datikaa.bookofadventurers.core.domain.Ability
 
@@ -22,6 +23,15 @@ internal fun Ability.toEntityEnum(): AbilityEntity.Type = when (this) {
     is Ability.Intelligence -> AbilityEntity.Type.Intelligence
     is Ability.Strength -> AbilityEntity.Type.Strength
     is Ability.Wisdom -> AbilityEntity.Type.Wisdom
+}
+
+internal fun Ability.toEntityEnumKStore(): KStoreAbilityEntity.Type = when (this) {
+    is Ability.Charisma -> KStoreAbilityEntity.Type.Charisma
+    is Ability.Constitution -> KStoreAbilityEntity.Type.Constitution
+    is Ability.Dexterity -> KStoreAbilityEntity.Type.Dexterity
+    is Ability.Intelligence -> KStoreAbilityEntity.Type.Intelligence
+    is Ability.Strength -> KStoreAbilityEntity.Type.Strength
+    is Ability.Wisdom -> KStoreAbilityEntity.Type.Wisdom
 }
 
 internal fun Ability.toPartialUpdate(id: Int) = AbilityEntityPartialUpdate(

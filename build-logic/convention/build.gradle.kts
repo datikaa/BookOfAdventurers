@@ -13,9 +13,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("kmmApplication") {
-            id = "bookofadventurers.kmm.application"
-            implementationClass = "KmmApplicationConventionPlugin"
+        register("androidApplication") {
+            id = "bookofadventurers.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("kmmLibrary") {
             id = "bookofadventurers.kmm.library"

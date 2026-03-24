@@ -17,10 +17,12 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.core.database)
+            implementation(projects.core.store)
             implementation(projects.core.domain)
 
             implementation(compose.runtime)
             implementation(libs.koin.core)
+            implementation(libs.kstore)
         }
         iosMain.dependencies {
             implementation(libs.koin.core)
